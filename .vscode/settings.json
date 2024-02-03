@@ -14,5 +14,11 @@
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
 	"eslint.format.enable": false,
-	"eslint.validate": ["javascript", "javascriptreact", "vue", "vue-html"]
+	"eslint.validate": [
+		"javascript",
+		"javascriptreact",
+		"vue",
+		"vue-html",
+		"typescript"
+	]
 }
