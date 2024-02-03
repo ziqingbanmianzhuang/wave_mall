@@ -2,7 +2,7 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
-  "eslint.experimental.useFlatConfig": true,
+  "eslint.experimental.useFlatConfig": false,
   "eslint.probe": ["javascript"],
   "eslint.run": "onSave",
   "editor.formatOnSave": false,
@@ -12,5 +12,6 @@
   "diffEditor.codeLens": true,
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "eslint.format.enable": true
 }
