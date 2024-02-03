@@ -36,7 +36,8 @@
 		"build:quickapp-webview": "uni build -p quickapp-webview",
 		"build:quickapp-webview-huawei": "uni build -p quickapp-webview-huawei",
 		"build:quickapp-webview-union": "uni build -p quickapp-webview-union",
-		"type-check": "vue-tsc --noEmit"
+		"type-check": "vue-tsc --noEmit",
+		"prepare": "husky"
 	},
 	"dependencies": {
 		"@dcloudio/uni-app": "3.0.0-3081220230817001",
@@ -68,6 +69,7 @@
 		"eslint": "^8.56.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-vue": "^9.21.1",
+		"husky": "^9.0.10",
 		"prettier": "^3.2.4",
 		"typescript": "^4.9.4",
 		"vite": "4.1.4",
