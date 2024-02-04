@@ -4,10 +4,12 @@
     <navigator
       v-for="btn in btns"
       :key="btn.id"
-      class="box-border m-1.5 p-3 w-[175.5px] h-20 font-sans font-semibold text-4xs text-black bg-cyan-200 rounded-xl"
+      class="flex justify-start items-center box-border m-1.5 p-3 w-[175.5px] h-20 font-sans font-semibold text-4xs text-black bg-cyan-200 rounded-xl"
     >
-      <view>
-        <uni-icons type="contact" size="30"></uni-icons>
+      <view
+        class="flex justify-center items-center mx-3 w-9 h-9 bg-white rounded-xl"
+      >
+        <uni-icons type="contact" size="30" color="#000"></uni-icons>
       </view>
       <text>{{ btn.name }}</text>
     </navigator>
