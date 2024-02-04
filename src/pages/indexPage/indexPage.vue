@@ -1,17 +1,32 @@
 <template>
-  <view class="content">
-    <image class="logo" src="/static/logo.png" />
-    <view class="text-area">
-      <text class="text-3xl font-bold underline">
-        {{ title }}
-      </text>
-    </view>
+  <view></view>
+  <view class="flex flex-wrap">
+    <navigator
+      v-for="btn in btns"
+      :key="btn.id"
+      class="box-border m-1.5 p-3 w-[175.5px] h-20 font-sans font-semibold text-4xs text-black bg-cyan-200 rounded-xl"
+    >
+      <text>{{ btn.name }}</text>
+    </navigator>
   </view>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
-const title = ref("Hello");
+
+//首页分类数据
+const btns = ref([
+  { id: 1, name: "分类" },
+  { id: 1, name: "分类" },
+  { id: 1, name: "分类" },
+  { id: 1, name: "分类" },
+  { id: 1, name: "分类" },
+  { id: 1, name: "分类" },
+  { id: 1, name: "分类" },
+  { id: 1, name: "分类" },
+  { id: 1, name: "分类" },
+  { id: 1, name: "分类" },
+]);
 </script>
 
 <style>

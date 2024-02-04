@@ -5,13 +5,17 @@ import tailwindcss from "tailwindcss";
 import autoprefixer from "autoprefixer";
 import { UnifiedViteWeappTailwindcssPlugin as uvwt } from "weapp-tailwindcss/vite";
 import { UnifiedViteWeappTailwindcssPlugin } from "weapp-tailwindcss/vite";
-UnifiedViteWeappTailwindcssPlugin({
-  rem2rpx: true,
-});
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [uni(), uvwt(), VueDevTools()],
+  plugins: [
+    uni(),
+    uvwt(),
+    UnifiedViteWeappTailwindcssPlugin({
+      rem2rpx: true,
+    }),
+    VueDevTools(),
+  ],
   css: {
     postcss: {
       plugins: [tailwindcss(), autoprefixer()],
