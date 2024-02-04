@@ -6,6 +6,9 @@
       :key="btn.id"
       class="box-border m-1.5 p-3 w-[175.5px] h-20 font-sans font-semibold text-4xs text-black bg-cyan-200 rounded-xl"
     >
+      <view>
+        <uni-icons type="contact" size="30"></uni-icons>
+      </view>
       <text>{{ btn.name }}</text>
     </navigator>
   </view>
