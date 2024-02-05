@@ -1,6 +1,34 @@
 <template>
   <!-- 轮播图组件 -->
-  <view></view>
+  <uni-swiper-dot
+    mode="round"
+    :info="info"
+    color="#ccc"
+    :current="current"
+    :dots-styles="dotsStyles"
+  >
+    <swiper circular class="h-28 mb-6" @change="change">
+      <swiper-item v-for="item in info" :key="item.content">
+        <navigator
+          url="/pages/hotItem/hotItem"
+          open-type="navigate"
+          hover-class="navigator-hover"
+        >
+          <view
+            class="flex justify-between items-center box-border mx-1.5 p-6 w-[363px] h-28 bg-orange-200 font-sans text-xs text-black rounded-xl"
+          >
+            <text>click here -></text>
+            <image
+              :src="item.picture"
+              mode="scaleToFill"
+              class="w-[200px] h-16 border-8 border-white border-solid rounded-xl"
+            />
+          </view>
+        </navigator>
+      </swiper-item>
+    </swiper>
+  </uni-swiper-dot>
+
   <!-- 分类组件 -->
   <view class="flex flex-wrap">
     <navigator
@@ -49,9 +77,42 @@ import type { CategoryItem, RecommendItem } from "./indexPageType";
 import { getHomeCategoryAPI, getHomeRecommendAPI } from "./indexPageApi";
 import { onMounted } from "vue";
 
-//首页分类数据
-let list = ref<CategoryItem[]>([]);
+//轮播图数据
+let current = ref(0);
+const info = [
+  {
+    content: "内容 A",
+    picture:
+      "https://pcapi-xiaotuxian-front-devtest.itheima.net/miniapp/uploads/slider_1.jpg",
+  },
+  {
+    content: "内容 B",
+    picture:
+      "https://pcapi-xiaotuxian-front-devtest.itheima.net/miniapp/uploads/slider_1.jpg",
+  },
+  {
+    content: "内容 C",
+    picture:
+      "https://pcapi-xiaotuxian-front-devtest.itheima.net/miniapp/uploads/slider_1.jpg",
+  },
+];
 
+//
+let dotsStyles = {
+  width: 8,
+  bottom: 5,
+  backgroundColor: "",
+  border: "0px solid skyblue",
+  selectedBackgroundColor: "",
+  selectedBorder: "",
+};
+//
+const change = (e) => {
+  current.value = e.detail.current;
+};
+
+//首页分类数据
+let list = ref([] as CategoryItem[]);
 //首页分类图标数据
 let listIcon = ref<string[]>([
   "home",
