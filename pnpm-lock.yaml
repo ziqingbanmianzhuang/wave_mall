@@ -79,9 +79,12 @@ devDependencies:
   '@rushstack/eslint-patch':
     specifier: ^1.7.2
     version: 1.7.2
+  '@uni-helper/uni-app-types':
+    specifier: ^0.5.12
+    version: 0.5.12(typescript@4.9.5)
   '@uni-helper/uni-ui-types':
     specifier: ^0.5.11
-    version: 0.5.11(typescript@4.9.5)
+    version: 0.5.11(@uni-helper/uni-app-types@0.5.12)(typescript@4.9.5)
   '@vue/eslint-config-typescript':
     specifier: ^12.0.0
     version: 12.0.0(eslint-plugin-vue@9.21.1)(eslint@8.56.0)(typescript@4.9.5)
@@ -3565,7 +3568,18 @@ packages:
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
     dev: true
 
-  /@uni-helper/uni-ui-types@0.5.11(typescript@4.9.5):
+  /@uni-helper/uni-app-types@0.5.12(typescript@4.9.5):
+    resolution: {integrity: sha512-SeUEgDgGftI4XEp1AB3C6IFLnRPT83tgTCCmlLUBmQyHh+UhRY+CX4QtgQ0n/kF8txNUq8Bc9YwKlYdXQGx6Ww==}
+    engines: {node: '>=14.18'}
+    peerDependencies:
+      typescript: ^4.8.0 || ^5.0.0
+    dependencies:
+      '@dcloudio/types': 3.4.7
+      typescript: 4.9.5
+      vue3: /vue@3.4.15(typescript@4.9.5)
+    dev: true
+
+  /@uni-helper/uni-ui-types@0.5.11(@uni-helper/uni-app-types@0.5.12)(typescript@4.9.5):
     resolution: {integrity: sha512-tGX4llyJBdq9TmNjmZYKu4eueUWUU0F/YgZeTWDgVCmlgYGavhcUL7R+I0Uxe5hGoqFXkNf0ZnmG/WFZWfK/HQ==}
     engines: {node: '>=14.18'}
     peerDependencies:
@@ -3575,6 +3589,7 @@ packages:
         optional: true
     dependencies:
       '@dcloudio/types': 3.4.7
+      '@uni-helper/uni-app-types': 0.5.12(typescript@4.9.5)
       vue3: /vue@3.4.15(typescript@4.9.5)
     transitivePeerDependencies:
       - typescript

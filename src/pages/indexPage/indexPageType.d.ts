@@ -1,7 +1,7 @@
 /** 首页-前台类目数据类型 */
 export type CategoryItem = {
   /** 图标路径 */
-  icon: string;
+  icon: UniHelper.UniIcons["type"];
   /** id */
   id: string;
   /** 分类名称 */
@@ -25,7 +25,7 @@ export type RecommendItem = {
   /** 推荐类型 */
   type: string;
   /** 图标路径 */
-  icon: string;
+  icon: UniHelper.UniIcons["type"];
   //背景颜色
   bg: string;
 };

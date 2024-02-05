@@ -107,7 +107,7 @@ let dotsStyles = {
   selectedBorder: "",
 };
 //
-const change = (e) => {
+const change: UniHelper.SwiperOnChange = (e) => {
   current.value = e.detail.current;
 };
 
