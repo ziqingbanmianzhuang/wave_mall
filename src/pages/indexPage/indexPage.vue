@@ -4,12 +4,13 @@
     <navigator
       v-for="item in list"
       :key="item.id"
-      class="flex justify-start items-center box-border m-1.5 p-3 w-[175.5px] h-20 font-sans font-semibold text-4xs text-black bg-cyan-200 rounded-xl"
+      url="/pages/categoryItem/categoryItem"
+      :class="`flex justify-start items-center box-border m-1.5 p-3 w-[175.5px] h-20 font-sans font-semibold text-4xs text-black ${item.bg} rounded-xl`"
     >
       <view
         class="flex justify-center items-center mx-3 w-9 h-9 bg-white rounded-xl"
       >
-        <uni-icons type="contact" size="30" color="#000"></uni-icons>
+        <uni-icons :type="item.icon" size="30" color="#000"></uni-icons>
       </view>
       <text>{{ item.name }}</text>
     </navigator>
@@ -24,9 +25,58 @@ import { onMounted } from "vue";
 
 //首页分类数据
 let list = ref<CategoryItem[]>([]);
-onMounted(async () => {
+
+//首页分类图标数据
+let listIcon = ref<string[]>([
+  "home",
+  "star",
+  "gift",
+  "hand-up",
+  "medal",
+  "staff",
+  "headphones",
+  "spinner-cycle",
+  "loop",
+  "paperclip",
+]);
+
+//首页分类背景颜色
+//首页分类图标数据
+let listBg = ref<string[]>([
+  "bg-cyan-200",
+  "bg-sky-300",
+  "bg-pink-200",
+  "bg-orange-200",
+  "bg-blue-300",
+  "bg-indigo-200",
+  "bg-orange-200",
+  "bg-emerald-200",
+  "bg-violet-200",
+  "bg-amber-200",
+]);
+
+//将首页分类图标数据存进首页分类数据
+const assignIcons = (
+  listParam: CategoryItem[],
+  listIconParam: string[],
+  listBgParam: string[],
+) => {
+  for (let i = 0; i < listIconParam.length; i++) {
+    listParam[i].icon = listIconParam[i];
+    listParam[i].bg = listBgParam[i];
+  }
+};
+
+//获取首页分类数据
+const getHomeCategoryData = async () => {
   let res = await getHomeCategoryAPI();
   list.value = res.result;
+  assignIcons(list.value, listIcon.value, listBg.value);
+};
+
+onMounted(() => {
+  //获取首页
+  getHomeCategoryData();
 });
 </script>
 

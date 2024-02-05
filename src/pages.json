@@ -6,6 +6,12 @@
 			"style": {
 				"navigationBarTitleText": "uni-app"
 			}
+		},
+		{
+			"path": "pages/categoryItem/categoryItem",
+			"style": {
+				"navigationBarTitleText": "categoryItem"
+			}
 		}
 	],
 	// 组件自动导入

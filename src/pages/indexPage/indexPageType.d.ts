@@ -6,4 +6,6 @@ export type CategoryItem = {
   id: string;
   /** 分类名称 */
   name: string;
+  //背景颜色
+  bg: string;
 };
