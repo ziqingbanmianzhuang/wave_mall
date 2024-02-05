@@ -46,7 +46,7 @@
     </navigator>
   </view>
   <!-- 推荐组件 -->
-  <view>
+  <view class="mb-6">
     <text class="block mx-1.5 mt-6 font-sans font-semibold text-xl">推荐</text>
     <view class="flex justify-between items-center m-1.5">
       <navigator
@@ -69,6 +69,25 @@
       </navigator>
     </view>
   </view>
+  <!-- 推荐喜欢组件 -->
+  <scroll-view scroll-y class="h-[667px] w-[363px] m-1.5">
+    <view v-for="i in 10" :key="i" class="grid grid-cols-7 items-center m-1.5">
+      <text
+        class="col-span-1 h-2 w-2 bg-black rounded justify-self-start"
+      ></text>
+      <text class="col-span-5 justify-self-start font-semibold">儿童服装</text>
+      <text class="col-span-1 justify-self-end">$18</text>
+      <view
+        class="col-start-2 col-end-8 flex justify-center m-1.5 border border-inherit border-solid rounded-xl"
+      >
+        <image
+          class="w-24 h-24"
+          src="https://pcapi-xiaotuxian-front-devtest.itheima.net/miniapp/uploads/goods_big_1.jpg"
+          mode="scaleToFill"
+        />
+      </view>
+    </view>
+  </scroll-view>
 </template>
 
 <script setup lang="ts">
