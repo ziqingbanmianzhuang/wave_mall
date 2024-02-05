@@ -12,6 +12,12 @@
 			"style": {
 				"navigationBarTitleText": "categoryItem"
 			}
+		},
+		{
+			"path": "pages/hotItem/hotItem",
+			"style": {
+				"navigationBarTitleText": "hotItem"
+			}
 		}
 	],
 	// 组件自动导入

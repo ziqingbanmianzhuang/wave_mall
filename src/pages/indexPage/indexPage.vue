@@ -5,7 +5,7 @@
       v-for="item in list"
       :key="item.id"
       url="/pages/categoryItem/categoryItem"
-      :class="`flex justify-start items-center box-border m-1.5 p-3 w-[175.5px] h-20 font-sans font-semibold text-4xs text-black ${item.bg} rounded-xl`"
+      :class="`flex justify-start items-center box-border m-1.5 p-3 w-[175.5px] h-20 font-sans font-semibold text-lg text-black ${item.bg} rounded-xl`"
     >
       <view
         class="flex justify-center items-center mx-3 w-9 h-9 bg-white rounded-xl"
@@ -14,6 +14,27 @@
       </view>
       <text>{{ item.name }}</text>
     </navigator>
+  </view>
+  <view>
+    <text class="block mx-1.5 mt-6 font-sans font-semibold text-xl">推荐</text>
+    <view class="flex justify-between items-center m-1.5">
+      <navigator
+        v-for="i in 4"
+        :key="i"
+        url="/pages/hotItem/hotItem"
+        open-type="navigate"
+        hover-class="navigator-hover"
+        class="flex flex-col justify-start items-center"
+      >
+        <view
+          class="flex justify-center items-center w-9 h-9 bg-red-200 rounded-xl"
+        >
+          <uni-icons type="contact" color="" size="30" />
+        </view>
+        <view>副标题</view>
+        <view class="font-sans font-semibold text-lg text-black">主标题</view>
+      </navigator>
+    </view>
   </view>
 </template>
 
