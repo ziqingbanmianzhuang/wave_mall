@@ -9,3 +9,23 @@ export type CategoryItem = {
   //背景颜色
   bg: string;
 };
+
+/** 首页-热门推荐数据类型 */
+export type RecommendItem = {
+  /** 说明 */
+  alt: string;
+  /** id */
+  id: string;
+  /** 图片集合 */
+  pictures: string[];
+  /** 跳转地址 */
+  target: string;
+  /** 标题 */
+  title: string;
+  /** 推荐类型 */
+  type: string;
+  /** 图标路径 */
+  icon: string;
+  //背景颜色
+  bg: string;
+};
