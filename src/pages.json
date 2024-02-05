@@ -4,7 +4,7 @@
 		{
 			"path": "pages/indexPage/indexPage",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "Wave Mall"
 			}
 		},
 		{
