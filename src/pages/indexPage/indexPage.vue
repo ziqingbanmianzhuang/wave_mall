@@ -2,13 +2,13 @@
   <!-- 轮播图组件 -->
   <uni-swiper-dot
     mode="round"
-    :info="info"
+    :info="swiperList"
     color="#ccc"
     :current="current"
     :dots-styles="dotsStyles"
   >
     <swiper circular class="h-28 mb-6" @change="change">
-      <swiper-item v-for="item in info" :key="item.content">
+      <swiper-item v-for="item in swiperList" :key="item.id">
         <navigator
           url="/pages/hotItem/hotItem"
           open-type="navigate"
@@ -17,9 +17,9 @@
           <view
             class="flex justify-between items-center box-border mx-1.5 p-6 w-[363px] h-28 bg-orange-200 font-sans text-xs text-black rounded-xl"
           >
-            <text>click here -></text>
+            <text>click here ->{{ item.id }}</text>
             <image
-              :src="item.picture"
+              :src="item.hrefUrl"
               mode="scaleToFill"
               class="w-[200px] h-16 border-8 border-white border-solid rounded-xl"
             />
@@ -73,31 +73,22 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import type { CategoryItem, RecommendItem } from "./indexPageType";
-import { getHomeCategoryAPI, getHomeRecommendAPI } from "./indexPageApi";
+import type { CategoryItem, RecommendItem, SwiperItem } from "./indexPageType";
+import {
+  getHomeCategoryAPI,
+  getHomeRecommendAPI,
+  getHomeSwiperAPI,
+} from "./indexPageApi";
 import { onMounted } from "vue";
 
-//轮播图数据
+//轮播图当前序号
 let current = ref(0);
-const info = [
-  {
-    content: "内容 A",
-    picture:
-      "https://pcapi-xiaotuxian-front-devtest.itheima.net/miniapp/uploads/slider_1.jpg",
-  },
-  {
-    content: "内容 B",
-    picture:
-      "https://pcapi-xiaotuxian-front-devtest.itheima.net/miniapp/uploads/slider_1.jpg",
-  },
-  {
-    content: "内容 C",
-    picture:
-      "https://pcapi-xiaotuxian-front-devtest.itheima.net/miniapp/uploads/slider_1.jpg",
-  },
-];
 
-//
+//轮播图数据
+
+const swiperList = ref<SwiperItem[]>([]);
+
+//轮播图点样式对象
 let dotsStyles = {
   width: 8,
   bottom: 5,
@@ -106,9 +97,17 @@ let dotsStyles = {
   selectedBackgroundColor: "",
   selectedBorder: "",
 };
-//
+
+//轮播图事件切换回调
 const change: UniHelper.SwiperOnChange = (e) => {
   current.value = e.detail.current;
+};
+
+//获取轮播图数据
+const getHomeSwiperData = async () => {
+  let res = await getHomeSwiperAPI();
+  swiperList.value = res.result;
+  console.log("首页", swiperList.value);
 };
 
 //首页分类数据
@@ -188,8 +187,12 @@ const getHomeRecommendData = async () => {
 onMounted(() => {
   //获取首页分类
   getHomeCategoryData();
+
   //获取首页推荐
   getHomeRecommendData();
+
+  //获取轮播图数据
+  getHomeSwiperData();
 });
 </script>
 
