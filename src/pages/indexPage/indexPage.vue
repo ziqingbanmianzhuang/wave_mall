@@ -70,21 +70,31 @@
     </view>
   </view>
   <!-- 推荐喜欢组件 -->
-  <scroll-view scroll-y class="h-[667px] w-[363px] m-1.5">
-    <view v-for="i in 10" :key="i" class="grid grid-cols-7 items-center m-1.5">
+  <view class="text-xs text-center">---你可能喜欢---</view>
+  <scroll-view
+    scroll-y
+    class="h-[667px] w-[363px] m-1.5"
+    refresher-enabled
+    :refresher-triggered="isTriggered"
+    @refresherrefresh="onRefresherrefresh"
+    @scrolltolower="onScrolltolower"
+  >
+    <view
+      v-for="item in likeList"
+      :key="item.id"
+      class="grid grid-cols-7 items-center m-1.5"
+    >
       <text
         class="col-span-1 h-2 w-2 bg-black rounded justify-self-start"
       ></text>
-      <text class="col-span-5 justify-self-start font-semibold">儿童服装</text>
-      <text class="col-span-1 justify-self-end">$18</text>
+      <text class="col-span-5 justify-self-start font-semibold">{{
+        item.name
+      }}</text>
+      <text class="col-span-1 justify-self-end">{{ item.price }}</text>
       <view
         class="col-start-2 col-end-8 flex justify-center m-1.5 border border-inherit border-solid rounded-xl"
       >
-        <image
-          class="w-24 h-24"
-          src="https://pcapi-xiaotuxian-front-devtest.itheima.net/miniapp/uploads/goods_big_1.jpg"
-          mode="scaleToFill"
-        />
+        <image class="w-24 h-24" :src="item.picture" mode="scaleToFill" />
       </view>
     </view>
   </scroll-view>
@@ -92,11 +102,18 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import type { CategoryItem, RecommendItem, SwiperItem } from "./indexPageType";
+import type {
+  CategoryItem,
+  RecommendItem,
+  SwiperItem,
+  PageParams,
+  LikeItem,
+} from "./indexPageType";
 import {
   getHomeCategoryAPI,
   getHomeRecommendAPI,
   getHomeSwiperAPI,
+  getHomeLikeAPI,
 } from "./indexPageApi";
 import { onMounted } from "vue";
 
@@ -203,6 +220,64 @@ const getHomeRecommendData = async () => {
   );
 };
 
+//分页参数
+const pageParams: Required<PageParams> = {
+  page: 1,
+  pageSize: 10,
+};
+
+//推荐喜欢的数据
+const likeList = ref<LikeItem[]>([]);
+
+//数据分页加载结束的标志
+const finish = ref(false);
+
+//获取推荐喜欢的数据
+const getHomeLikeData = async () => {
+  if (finish.value === true) {
+    return uni.showToast({ title: "没有更多数据" });
+  }
+
+  const res = await getHomeLikeAPI(pageParams);
+
+  //追加数据
+  likeList.value.push(...res.result.items);
+
+  //分页条件
+  if (pageParams.page < res.result.pages) {
+    pageParams.page++;
+  } else {
+    finish.value = true;
+  }
+};
+
+// 滚动触底事件
+const onScrolltolower = () => {
+  getHomeLikeData();
+};
+
+//下拉刷新状态
+const isTriggered = ref(false);
+
+const onRefresherrefresh = async () => {
+  isTriggered.value = true;
+  resetData();
+  await Promise.all([
+    getHomeSwiperData(),
+    getHomeCategoryData(),
+    getHomeRecommendData(),
+    getHomeLikeData(),
+  ]);
+  isTriggered.value = false;
+};
+
+//重置数据
+const resetData = () => {
+  pageParams.page = 1;
+  likeList.value = [];
+  finish.value = false;
+};
+
 onMounted(() => {
   //获取首页分类
   getHomeCategoryData();
@@ -212,6 +287,9 @@ onMounted(() => {
 
   //获取轮播图数据
   getHomeSwiperData();
+
+  //获取推荐喜欢组件数据
+  getHomeLikeData();
 });
 </script>
 

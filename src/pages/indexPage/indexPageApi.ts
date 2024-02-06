@@ -3,7 +3,14 @@
  * 首页-前台分类-小程序
  */
 import { http } from "../../utils/http";
-import type { CategoryItem, RecommendItem, SwiperItem } from "./indexPageType";
+import type {
+  CategoryItem,
+  RecommendItem,
+  SwiperItem,
+  PageParams,
+  PageResult,
+  LikeItem,
+} from "./indexPageType";
 
 export const getHomeCategoryAPI = () => {
   return http<CategoryItem[]>({
@@ -26,5 +33,13 @@ export const getHomeSwiperAPI = (distributionSite: number = 1) => {
     data: {
       distributionSite,
     },
+  });
+};
+
+export const getHomeLikeAPI = (data?: PageParams) => {
+  return http<PageResult<LikeItem>>({
+    method: "GET",
+    url: "/home/goods/guessLike",
+    data,
   });
 };
