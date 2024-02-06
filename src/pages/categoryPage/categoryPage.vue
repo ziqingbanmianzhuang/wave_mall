@@ -17,27 +17,27 @@
         </swiper-item>
       </swiper>
       <scroll-view scroll-y class="h-[400px]">
-        <view v-for="item in 2" :key="item">
-          <text class="m-1.5 font-semibold">收纳</text>
+        <view v-for="item in subCategoryList" :key="item.id">
+          <text class="m-1.5 font-semibold">{{ item.name }}</text>
           <view class="flex flex-wrap">
             <navigator
-              v-for="goods in 5"
-              :key="goods"
-              url="/pages/"
+              v-for="goods in item.goods"
+              :key="goods.id"
+              :url="`/pages/goods/goods?id=${goods.id}`"
               open-type="navigate"
               hover-class="navigator-hover"
               class="relative block m-1.5 w-[148px] h-48 rounded-xl"
             >
               <image
-                src="https://yanxuan-item.nosdn.127.net/674ec7a88de58a026304983dd049ea69.jpg"
+                :src="goods.picture"
                 mode="scaleToFill"
                 class="rounded-xl w-[148px] h-48"
               />
               <view
                 class="absolute bottom-0 left-0 flex flex-col bg-white shadow-lg w-full"
               >
-                <text class="text-sm">男装</text>
-                <text class="text-xs">$120</text>
+                <text class="text-sm">{{ goods.name }}</text>
+                <text class="text-xs">$ {{ goods.price }} </text>
               </view>
               <view class="absolute top-0 left-0 flex">
                 <text
@@ -53,16 +53,42 @@
     </view>
     <view class="flex flex-col justify-between m-1.5">
       <text
-        v-for="item in 10"
-        :key="item"
-        class="flex items-center justify-center bg-sky-200 rounded-sm text-white"
-        >{{ item }}</text
+        v-for="(item, index) in categoryList"
+        :key="item.id"
+        class="flex items-center justify-center bg-sky-200 h-8 w-8 rounded-sm text-white"
+        @tap="activeIndex = index"
+      >
+        {{ item.name }}</text
       >
     </view>
   </view>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { onMounted, ref, computed } from "vue";
+import { getCategoryTopAPI } from "./categoryPageApi";
+import type { CategoryTopItem } from "./categoryPageType";
+
+//一级分类数据
+const categoryList = ref<CategoryTopItem[]>([]);
+
+// 提取当前二级分类数据
+const subCategoryList = computed(() => {
+  return categoryList.value[activeIndex.value]?.children || [];
+});
+
+// 高亮下标
+const activeIndex = ref(0);
+
+//获取一级分类数据
+const getCategoryTopData = async () => {
+  const res = await getCategoryTopAPI();
+  categoryList.value = res.result;
+};
+onMounted(() => {
+  getCategoryTopData();
+});
+</script>
 
 <style lang="scss" scoped>
 @import "tailwindcss/base";
