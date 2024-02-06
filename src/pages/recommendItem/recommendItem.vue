@@ -68,6 +68,22 @@ const getHomeSwiperData = async () => {
   swiperList.value = res.result;
   console.log("首页", swiperList.value);
 };
+
+const recommentMap = [
+  { type: "1", title: "最惠", url: "/hot/preference" },
+  { type: "2", title: "最潮", url: "/hot/inVogue" },
+  { type: "3", title: "最多", url: "/hot/oneStop" },
+  { type: "4", title: "最新", url: "/hot/new" },
+];
+
+const query = defineProps({
+  type: {
+    default: "1",
+    type: String,
+  },
+});
+const currentTitleObj = recommentMap.find((item) => item.type === query.type);
+uni.setNavigationBarTitle({ title: currentTitleObj.title });
 onMounted(() => {
   getHomeSwiperData();
 });
