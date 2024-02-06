@@ -1,4 +1,5 @@
 <template>
+  <!-- 轮播图 -->
   <uni-swiper-dot
     mode="round"
     :info="swiperList"
@@ -32,6 +33,44 @@
       </swiper-item>
     </swiper>
   </uni-swiper-dot>
+  <!-- tab页 -->
+  <view
+    class="flex justify-around items-center shadow-lg rounded-xl border m-5 mb-7 w-[335px] h-24 font-sans font-semibold text-sm"
+  >
+    <view class="flex flex-col justify-around items-center h-16">
+      <text>新品预告</text>
+      <text class="block h-2 w-2 bg-black rounded"></text>
+    </view>
+    <view class="flex flex-col justify-around items-center h-16">
+      <text>预告</text>
+      <text class="block h-2 w-2 bg-black rounded"></text>
+    </view>
+    <view class="flex flex-col justify-around items-center h-16">
+      <text>新告</text>
+      <text class="block h-2 w-2 bg-black rounded"></text>
+    </view>
+  </view>
+  <!-- 数据列表 -->
+  <scroll-view scroll-y class="h-[667px] w-[363px] m-1.5" refresher-enabled>
+    <view
+      v-for="item in 5"
+      :key="item"
+      class="grid grid-cols-7 items-center m-1.5"
+    >
+      <text
+        class="col-span-1 h-2 w-2 bg-black rounded justify-self-start"
+      ></text>
+      <text class="col-span-5 justify-self-start font-semibold">{{
+        item
+      }}</text>
+      <text class="col-span-1 justify-self-end">15</text>
+      <view
+        class="col-start-2 col-end-8 flex justify-center m-1.5 border border-inherit border-solid rounded-xl"
+      >
+        <image class="w-24 h-24" src="" mode="scaleToFill" />
+      </view>
+    </view>
+  </scroll-view>
 </template>
 
 <script lang="ts" setup>
