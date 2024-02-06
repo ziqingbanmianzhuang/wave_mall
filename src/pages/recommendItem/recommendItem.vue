@@ -57,7 +57,7 @@
     :key="subType.id"
     scroll-y
     class="h-[667px] w-[363px] m-1.5"
-    refresher-enabled
+    @scrolltolower="onScrolltolower"
   >
     <navigator
       v-for="goods in subType.goodsItems.items"
@@ -78,6 +78,9 @@
         <image class="w-24 h-24" :src="goods.picture" mode="scaleToFill" />
       </view>
     </navigator>
+    <text class="flex justify-center text-xs">{{
+      subType.finish ? "没有更多数据了" : "正在加载"
+    }}</text>
   </scroll-view>
 </template>
 
@@ -146,15 +149,39 @@ const activeIndex = ref(0);
 //tabs数组
 const subTypes = ref<SubTypeItem[]>([]);
 
+//获取推荐的数据
 const getRecommendData = async () => {
   const res = await getRecommendAPI(currentRecommentObj!.url, {
-    page: 1,
+    page: 28,
     pageSize: 10,
   });
 
   subTypes.value = res.result.subTypes;
+};
+
+//下拉触底
+const onScrolltolower = async () => {
+  const currentSubType = subTypes.value[activeIndex.value];
+  if (currentSubType.goodsItems.page < currentSubType.goodsItems.pages) {
+    currentSubType.goodsItems.page++;
+  } else {
+    currentSubType.finish = true;
+    return uni.showToast({
+      title: "没有更多数据了",
+    });
+  }
+
+  const res = await getRecommendAPI(currentRecommentObj!.url, {
+    subType: currentSubType.id,
+    page: currentSubType.goodsItems.page,
+    pageSize: currentSubType.goodsItems.pageSize,
+  });
+
+  const newSubType = res.result.subTypes[activeIndex.value];
+  currentSubType.goodsItems.items.push(...newSubType.goodsItems.items);
   console.log("subtypes", subTypes.value);
 };
+
 onMounted(() => {
   getRecommendData();
 });

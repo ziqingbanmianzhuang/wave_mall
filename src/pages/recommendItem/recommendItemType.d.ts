@@ -38,4 +38,6 @@ export type SubTypeItem = {
   title: string;
   /** 子类对应的商品集合 */
   goodsItems: PageResult<GoodsItem>;
+  /** 是否结束 */
+  finish: boolean;
 };
