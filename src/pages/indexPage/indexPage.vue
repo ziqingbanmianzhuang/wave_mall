@@ -52,7 +52,7 @@
       <navigator
         v-for="item in recommendList"
         :key="item.id"
-        url="/pages/hotItem/hotItem"
+        url="/pages/recommendItem/recommendItem"
         open-type="navigate"
         hover-class="navigator-hover"
         class="flex flex-col justify-start items-center"
