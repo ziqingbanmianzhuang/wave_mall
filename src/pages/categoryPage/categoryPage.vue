@@ -23,7 +23,7 @@
             <navigator
               v-for="goods in item.goods"
               :key="goods.id"
-              :url="`/pages/goods/goods?id=${goods.id}`"
+              :url="`/pages/goodsDetailPage/goodsDetailPage?id=${goods.id}`"
               open-type="navigate"
               hover-class="navigator-hover"
               class="relative block m-1.5 w-[148px] h-48 rounded-xl"

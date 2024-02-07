@@ -79,9 +79,12 @@
     @refresherrefresh="onRefresherrefresh"
     @scrolltolower="onScrolltolower"
   >
-    <view
+    <navigator
       v-for="item in likeList"
       :key="item.id"
+      url="/pages/goodsDetailPage/goodsDetailPage"
+      open-type="navigate"
+      hover-class="navigator-hover"
       class="grid grid-cols-7 items-center m-1.5"
     >
       <text
@@ -96,7 +99,7 @@
       >
         <image class="w-24 h-24" :src="item.picture" mode="scaleToFill" />
       </view>
-    </view>
+    </navigator>
   </scroll-view>
 </template>
 

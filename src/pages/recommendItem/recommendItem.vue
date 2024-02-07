@@ -62,7 +62,7 @@
     <navigator
       v-for="goods in subType.goodsItems.items"
       :key="goods.id"
-      :url="`/pages/goods/goods?id=${goods.id}}`"
+      :url="`/pages/goodsDetailPage/goodsDetailPage?id=${goods.id}}`"
       class="grid grid-cols-7 items-center m-1.5"
     >
       <text

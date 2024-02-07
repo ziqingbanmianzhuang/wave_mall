@@ -36,6 +36,12 @@
 			"style": {
 				"navigationBarTitleText": "myPage"
 			}
+		},
+		{
+			"path": "pages/goodsDetailPage/goodsDetailPage",
+			"style": {
+				"navigationBarTitleText": "goodsDetailPage"
+			}
 		}
 	],
 	// 组件自动导入
