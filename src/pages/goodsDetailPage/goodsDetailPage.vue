@@ -1,7 +1,7 @@
 <template>
   <!-- 商品轮播 -->
-  <swiper circular class="h-32">
-    <swiper-item v-for="item in 5" :key="item">
+  <swiper circular class="h-32" autoplay="false" @change="onChange">
+    <swiper-item v-for="item in goods.mainPictures" :key="item">
       <navigator
         url="/pages/hotItem/hotItem"
         open-type="navigate"
@@ -9,9 +9,10 @@
       >
         <view class="relative h-32">
           <image
-            src="https://yanxuan-item.nosdn.127.net/99c83709ca5f9fd5c5bb35d207ad7822.png"
+            :src="item"
             mode="scaleToFill"
             class="w-[375px] h-32"
+            @tap="onTapImage(item)"
           />
           <view
             class="flex justify-center items-center w-6 h-6 absolute right-2 top-2 bg-white rounded-xl"
@@ -92,7 +93,43 @@
   </view>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { getGoodsByIdAPI } from "./goodsDetailApi";
+import type { GoodsResult } from "./goodsDetailType";
+import { ref, onMounted } from "vue";
+
+// 接收页面参数
+const query = defineProps<{
+  id: string;
+}>();
+
+// 轮播图变化时
+const currentIndex = ref(0);
+const onChange: UniHelper.SwiperOnChange = (ev) => {
+  currentIndex.value = ev.detail.current;
+};
+
+// 点击图片时
+const onTapImage = (url: string) => {
+  // 大图预览
+  uni.previewImage({
+    current: url,
+    urls: goods.value!.mainPictures,
+  });
+};
+
+// 获取商品详情信息
+const goods = ref<GoodsResult>();
+const getGoodsByIdData = async () => {
+  const res = await getGoodsByIdAPI(query.id);
+  goods.value = res.result;
+};
+
+// 页面加载
+onMounted(() => {
+  getGoodsByIdData();
+});
+</script>
 
 <style lang="scss" scoped>
 @import "tailwindcss/base";
