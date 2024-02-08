@@ -7,9 +7,12 @@
         <text class="mb-3 text-base">昵称</text>
         <text class="text-xs text-gray-400">更新用户昵称</text>
       </view>
-      <view class="absolute right-1.5 top-1.5">
+      <navigator
+        class="absolute right-1.5 top-1.5"
+        url="/subPkg/settingsPage/settingsPage"
+      >
         <uni-icons type="gear-filled" color="" size="24" />
-      </view>
+      </navigator>
     </view>
     <!-- 物流 -->
     <view class="flex justify-between p-3 text-sm font-semibold">

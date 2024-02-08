@@ -96,5 +96,24 @@
 				"selectedIconPath": "static/tabs/user_selected.png"
 			}
 		]
+	},
+	"subPackages": [
+		{
+			"root": "subPkg",
+			"pages": [
+				{
+					"path": "settingsPage/settingsPage",
+					"style": {
+						"navigationBarTitleText": "设置"
+					}
+				}
+			]
+		}
+	],
+	"preloadRule": {
+		"pages/myPage/myPage": {
+			"network": "all",
+			"packages": ["subPkg"]
+		}
 	}
 }
