@@ -15,12 +15,16 @@
       <view class="flex flex-col border-b p-3 font-semibold">
         <text class="text-base">your phone</text>
         <input
+          v-model="phone"
           class="text-xs text-gray-400"
           placeholder="请填写你的手机号"
           placeholder-class="input-placeholder"
         />
       </view>
-      <view class="flex flex-col p-3 font-semibold">
+      <view
+        class="flex flex-col p-3 font-semibold"
+        @tap="onGetphonenumberSimple"
+      >
         <text class="text-base">登录</text>
       </view>
       <view class="absolute right-1 top-1 flex">
@@ -34,7 +38,30 @@
   </view>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import type { LoginResult } from "./myPageType";
+import { postLoginWxMinSimpleAPI } from "./myPageApi";
+import { ref } from "vue";
+
+// 用户登录数据
+const profile = ref<LoginResult>();
+
+// 手机号码
+const phone = ref<string>("");
+
+// 模拟手机号码快捷登录（开发练习）
+const onGetphonenumberSimple = async () => {
+  console.log("登录", profile.value, phone.value);
+  const res = await postLoginWxMinSimpleAPI(phone.value);
+  profile.value = res.result;
+
+  uni.showToast({ icon: "success", title: "登录成功" });
+  setTimeout(() => {
+    // 页面跳转
+    uni.switchTab({ url: "/pages/indexPage/indexPage" });
+  }, 500);
+};
+</script>
 
 <style lang="scss" scoped>
 @import "tailwindcss/base";
