@@ -31,7 +31,10 @@
       <text class="text-lg">商品名称</text>
       <text class="texg-sm">$68</text>
     </view>
-    <view class="flex flex-col border-b py-3 font-semibold">
+    <view
+      class="flex flex-col border-b py-3 font-semibold"
+      @click="openPopUpAddress"
+    >
       <view>
         <uni-icons type="flag" class="pr-3"></uni-icons>
         <text class="text-base">地址选择</text>
@@ -115,6 +118,40 @@
       >
     </view>
   </uni-popup>
+  <!-- popUPAddress -->
+  <uni-popup ref="popupAddress" type="bottom" background-color="#fff">
+    <view class="text-lg font-semibold text-center"><text>配送至</text></view>
+    <view class="flex justify-between border-b p-3 font-semibold">
+      <view class="flex flex-col">
+        <text class="text-base">李明 13824686868</text>
+        <text class="text-xs text-gray-400">
+          北京市顺义区后沙峪地区安平北街6号院</text
+        >
+      </view>
+      <uni-icons type="checkmarkempty" color="" size="24" />
+    </view>
+    <view class="flex justify-between border-b p-3 font-semibold">
+      <view class="flex flex-col">
+        <text class="text-base">李明 13824686868</text>
+        <text class="text-xs text-gray-400">
+          北京市顺义区后沙峪地区安平北街6号院</text
+        >
+      </view>
+      <uni-icons type="circle" color="" size="24" />
+    </view>
+    <view class="flex justify-between border-b p-3 font-semibold">
+      <view class="flex flex-col">
+        <text class="text-base">李明 13824686868</text>
+        <text class="text-xs text-gray-400">
+          北京市顺义区后沙峪地区安平北街6号院</text
+        >
+      </view>
+      <uni-icons type="circle" color="" size="24" />
+    </view>
+    <view class="flex flex-col border-b p-3 font-semibold">
+      <button>新建地址</button>
+    </view>
+  </uni-popup>
 </template>
 
 <script lang="ts" setup>
@@ -172,9 +209,17 @@ onMounted(() => {
 // popup元素
 const popup = ref();
 
+//popupAddress
+const popupAddress = ref();
+
 // 打开popup的方法
 const openPopUp = () => {
   popup.value.open();
+};
+
+// 打开popUpAddress的方法
+const openPopUpAddress = () => {
+  popupAddress.value.open();
 };
 </script>
 
