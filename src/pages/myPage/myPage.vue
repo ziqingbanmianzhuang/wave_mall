@@ -1,67 +1,74 @@
 <template>
-  <view class="w-[375px] h-[530px] bg-slate-100">
-    <!-- 欢迎页 -->
-    <view class="flex m-1.5 mb-16 pt-4">
-      <view>
-        <text class="block mr-3 h-12 w-12 bg-white rounded-xl"></text>
+  <view class="bg-slate-100 rounded-xl mx-1.5 mt-1.5 mb-9 w-[363px] h-36">
+    <!-- 用户信息 -->
+    <view class="flex relative p-3">
+      <view class="bg-white rounded-xl w-14 h-14"> </view>
+      <view class="flex flex-col font-semibold ml-3">
+        <text class="mb-3 text-base">昵称</text>
+        <text class="text-xs text-gray-400">更新用户昵称</text>
       </view>
-      <view class="flex flex-col font-semibold">
-        <text class="text-lg">Wave Mall</text>
-        <text class="text-base">欢迎你来到购物天堂</text>
+      <view class="absolute right-1.5 top-1.5">
+        <uni-icons type="gear-filled" color="" size="24" />
       </view>
     </view>
-    <!-- 表单 -->
-    <view class="relative shadow-lg bg-white rounded-xl m-1.5 w-[363px] h-32">
-      <view class="flex flex-col border-b p-3 font-semibold">
-        <text class="text-base">your phone</text>
-        <input
-          v-model="phone"
-          class="text-xs text-gray-400"
-          placeholder="请填写你的手机号"
-          placeholder-class="input-placeholder"
-        />
+    <!-- 物流 -->
+    <view class="flex justify-between p-3 text-sm font-semibold">
+      <view class="flex flex-col">
+        <text>待付款</text>
+        <view
+          class="bg-white h-6 w-6 rounded-[12px] text-center leading-[24px]"
+        >
+          <uni-icons type="color" color="" size="18" />
+        </view>
       </view>
-      <view
-        class="flex flex-col p-3 font-semibold"
-        @tap="onGetphonenumberSimple"
-      >
-        <text class="text-base">登录</text>
+
+      <view class="flex flex-col">
+        <text>待发货</text>
+        <view
+          class="bg-white h-6 w-6 rounded-[12px] text-center leading-[24px]"
+        >
+          <uni-icons type="color" color="" size="18" />
+        </view>
       </view>
-      <view class="absolute right-1 top-1 flex">
-        <text
-          v-for="item in 3"
-          :key="item"
-          class="block m-0.5 h-2 w-2 bg-black rounded"
-        ></text>
+
+      <view class="flex flex-col">
+        <text>待收货</text>
+        <view
+          class="bg-white h-6 w-6 rounded-[12px] text-center leading-[24px]"
+        >
+          <uni-icons type="color" color="" size="18" />
+        </view>
+      </view>
+
+      <view class="flex flex-col">
+        <text>待评价</text>
+        <view
+          class="bg-white h-6 w-6 rounded-[12px] text-center leading-[24px]"
+        >
+          <uni-icons type="color" color="" size="18" />
+        </view>
+      </view>
+
+      <view class="flex flex-col">
+        <text>售后</text>
+        <view
+          class="bg-white h-6 w-6 rounded-[12px] text-center leading-[24px]"
+        >
+          <uni-icons type="color" color="" size="18" />
+        </view>
       </view>
     </view>
   </view>
+  <!-- 订单 -->
+  <view
+    class="flex justify-between bg-white shadow-lg rounded-xl m-1.5 p-3 h-16 leading-[64px] w-[363px] text-base font-semibold"
+  >
+    <text>我的订单</text>
+    <text>查看全部订单</text>
+  </view>
 </template>
 
-<script lang="ts" setup>
-import type { LoginResult } from "./myPageType";
-import { postLoginWxMinSimpleAPI } from "./myPageApi";
-import { ref } from "vue";
-
-// 用户登录数据
-const profile = ref<LoginResult>();
-
-// 手机号码
-const phone = ref<string>("");
-
-// 模拟手机号码快捷登录（开发练习）
-const onGetphonenumberSimple = async () => {
-  console.log("登录", profile.value, phone.value);
-  const res = await postLoginWxMinSimpleAPI(phone.value);
-  profile.value = res.result;
-
-  uni.showToast({ icon: "success", title: "登录成功" });
-  setTimeout(() => {
-    // 页面跳转
-    uni.switchTab({ url: "/pages/indexPage/indexPage" });
-  }, 500);
-};
-</script>
+<script setup lang="ts"></script>
 
 <style lang="scss" scoped>
 @import "tailwindcss/base";

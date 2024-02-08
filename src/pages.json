@@ -42,6 +42,12 @@
 			"style": {
 				"navigationBarTitleText": "goodsDetailPage"
 			}
+		},
+		{
+			"path": "pages/loginPage/index",
+			"style": {
+				"navigationBarTitleText": "loginPage"
+			}
 		}
 	],
 	// 组件自动导入

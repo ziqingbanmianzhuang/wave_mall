@@ -1,5 +1,5 @@
 import { http } from "../../utils/http";
-import type { LoginResult } from "./myPageType";
+import type { LoginResult } from "./loginPageType";
 
 /**
  * 小程序登录_内测版
