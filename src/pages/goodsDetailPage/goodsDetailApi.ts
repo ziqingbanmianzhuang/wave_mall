@@ -1,5 +1,5 @@
 import { http } from "../../utils/http";
-import { GoodsResult } from "./goodsDetailType";
+import type { GoodsResult } from "./goodsDetailType";
 export const getGoodsByIdAPI = (id: string) => {
   return http<GoodsResult>({
     method: "GET",

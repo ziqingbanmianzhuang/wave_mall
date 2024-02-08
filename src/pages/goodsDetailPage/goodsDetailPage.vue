@@ -1,7 +1,7 @@
 <template>
   <!-- 商品轮播 -->
   <swiper circular class="h-32" autoplay="false" @change="onChange">
-    <swiper-item v-for="item in goods.mainPictures" :key="item">
+    <swiper-item v-for="item in goods!.mainPictures" :key="item">
       <navigator
         url="/pages/hotItem/hotItem"
         open-type="navigate"
@@ -45,7 +45,7 @@
       </view>
       <text class="text-xs text-gray-400">128码 四条</text>
     </view>
-    <view class="flex flex-col border-b py-3 font-semibold">
+    <view class="flex flex-col border-b py-3 font-semibold" @click="openPopUp">
       <view>
         <uni-icons type="hand-up" class="pr-3"></uni-icons>
         <text class="text-base">店家服务</text>
@@ -91,6 +91,30 @@
     <uni-icons type="eye-filled" color="#064e3b"></uni-icons>
     <text class="text-sm font-semibold m-1.5">查看购物车</text>
   </view>
+  <!-- popup -->
+  <uni-popup ref="popup" type="bottom" background-color="#fff">
+    <view class="text-lg font-semibold text-center"><text>服务说明</text></view>
+    <view class="flex flex-col border-b p-3 font-semibold">
+      <text class="text-base">无忧退货</text>
+      <text class="text-xs text-gray-400">
+        自收到商品之日起30天内，可在线申请无忧退货服务（食品等特殊商品除外）</text
+      >
+    </view>
+    <view class="flex flex-col border-b p-3 font-semibold">
+      <text class="text-base">快速退款</text>
+      <text class="text-xs text-gray-400">
+        收到退货包裹并确认无误后，将在48小时内办理退款，
+        退款将原路返回，不同银行处理时间不同，预计1-5个工作日到账</text
+      >
+    </view>
+    <view class="flex flex-col border-b p-3 font-semibold">
+      <text class="text-base">满88元免邮费</text>
+      <text class="text-xs text-gray-400">
+        单笔订单金额(不含运费)满88元可免邮费，不满88元，
+        单笔订单收取10元邮费</text
+      >
+    </view>
+  </uni-popup>
 </template>
 
 <script lang="ts" setup>
@@ -119,7 +143,22 @@ const onTapImage = (url: string) => {
 };
 
 // 获取商品详情信息
-const goods = ref<GoodsResult>();
+const goods = ref<GoodsResult>({
+  id: "",
+  name: "",
+  desc: "",
+  price: 0,
+  oldPrice: 0,
+  details: {
+    properties: [],
+    pictures: [],
+  },
+  mainPictures: [],
+  similarProducts: [],
+  skus: [],
+  specs: [],
+  userAddresses: [],
+});
 const getGoodsByIdData = async () => {
   const res = await getGoodsByIdAPI(query.id);
   goods.value = res.result;
@@ -129,6 +168,14 @@ const getGoodsByIdData = async () => {
 onMounted(() => {
   getGoodsByIdData();
 });
+
+// popup元素
+const popup = ref();
+
+// 打开popup的方法
+const openPopUp = () => {
+  popup.value.open();
+};
 </script>
 
 <style lang="scss" scoped>
