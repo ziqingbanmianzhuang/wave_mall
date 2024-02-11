@@ -106,6 +106,12 @@
 					"style": {
 						"navigationBarTitleText": "设置"
 					}
+				},
+				{
+					"path": "profilePage/profilePage",
+					"style": {
+						"navigationBarTitleText": "个人信息"
+					}
 				}
 			]
 		}

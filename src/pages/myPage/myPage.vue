@@ -4,7 +4,9 @@
     <view class="flex relative p-3">
       <view class="bg-white rounded-xl w-14 h-14"> </view>
       <view class="flex flex-col font-semibold ml-3">
-        <text class="mb-3 text-base">昵称</text>
+        <navigator class="mb-3 text-base" url="/subPkg/profilePage/profilePage"
+          >昵称</navigator
+        >
         <text class="text-xs text-gray-400">更新用户昵称</text>
       </view>
       <navigator
