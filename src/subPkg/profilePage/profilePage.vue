@@ -7,6 +7,7 @@
         :src="profile?.avatar"
         mode="aspectFill"
         class="absolute top-[-40px] rounded-[24px] h-12 w-12"
+        @tap="onAvatarChange"
       />
       <text
         class="block border-b border-gray-300 border-solid mt-3 w-full text-base font-semibold"
@@ -96,6 +97,7 @@
 import { getMemberProfileAPI } from "./profileApi";
 import type { ProfileDetail } from "./profileType";
 import { ref, onMounted } from "vue";
+import { useProfileStore } from "../../store/profile/index";
 
 // 获取个人信息
 const profile = ref<ProfileDetail>();
@@ -104,6 +106,46 @@ const getMemberProfileData = async () => {
   profile.value = res.result;
 };
 
+// 更新图像
+
+const profileStore = useProfileStore();
+
+// 修改头像
+const onAvatarChange = () => {
+  // 调用拍照/选择图片
+  uni.chooseMedia({
+    // 文件个数
+    count: 1,
+    // 文件类型
+    mediaType: ["image"],
+    success: (res) => {
+      // 本地路径
+      const { tempFilePath } = res.tempFiles[0];
+      // 文件上传
+      uni.uploadFile({
+        url: "/member/profile/avatar",
+        name: "file", // 后端数据字段名
+        filePath: tempFilePath, // 新头像
+        success: (res) => {
+          // 判断状态码是否上传成功
+          if (res.statusCode === 200) {
+            // 提取头像
+            const { avatar } = JSON.parse(res.data).result;
+            // 当前页面更新头像
+            profile.value!.avatar = avatar;
+            // 更新 Store 头像
+            profileStore.profile!.avatar = avatar;
+            uni.showToast({ icon: "success", title: "更新成功" });
+          } else {
+            console.log("错误", res);
+
+            uni.showToast({ icon: "error", title: "出现错误" });
+          }
+        },
+      });
+    },
+  });
+};
 onMounted(() => {
   getMemberProfileData();
 });
