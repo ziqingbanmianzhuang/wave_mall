@@ -42,6 +42,7 @@
 import type { LoginResult } from "./loginPageType";
 import { postLoginWxMinSimpleAPI } from "./loginPageApi";
 import { ref } from "vue";
+import { useProfileStore } from "../../store/profile/index";
 
 // 用户登录数据
 const profile = ref<LoginResult>();
@@ -54,6 +55,10 @@ const onGetphonenumberSimple = async () => {
   console.log("登录", profile.value, phone.value);
   const res = await postLoginWxMinSimpleAPI(phone.value);
   profile.value = res.result;
+
+  const profileStore = useProfileStore();
+  profileStore.setProfile(profile);
+  console.log("profile", profileStore.profile.value);
 
   uni.showToast({ icon: "success", title: "登录成功" });
   setTimeout(() => {

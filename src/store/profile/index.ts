@@ -2,7 +2,7 @@ import type { LoginResult } from "../../pages/loginPage/loginPageType";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
-export const useAlertsStore = defineStore(
+export const useProfileStore = defineStore(
   "profile",
   () => {
     // 会员信息
