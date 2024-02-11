@@ -7,7 +7,9 @@
     >
       <uni-icons type="color" color="#fff" size="24" />
     </view>
-    <text class="ml-1.5 mb-3">我的收货地址</text>
+    <navigator class="ml-1.5 mb-3" url="/subPkg/addressPage/addressPage"
+      >我的收货地址</navigator
+    >
   </view>
   <view
     class="flex items-center border-b border-slate-300 border-solid w-[363px] m-1.5 mb-7 font-semibold"

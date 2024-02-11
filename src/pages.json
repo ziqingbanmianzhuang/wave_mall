@@ -112,6 +112,12 @@
 					"style": {
 						"navigationBarTitleText": "个人信息"
 					}
+				},
+				{
+					"path": "addressPage/addressPage",
+					"style": {
+						"navigationBarTitleText": "addressPage"
+					}
 				}
 			]
 		}
