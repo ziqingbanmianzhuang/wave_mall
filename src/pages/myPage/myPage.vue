@@ -71,6 +71,14 @@
     <text>我的订单</text>
     <text>查看全部订单</text>
   </view>
+  <!-- 登录 -->
+  <navigator
+    url="/pages/loginPage/loginPage"
+    open-type="navigate"
+    hover-class="navigator-hover"
+  >
+    登录
+  </navigator>
 </template>
 
 <script setup lang="ts"></script>
