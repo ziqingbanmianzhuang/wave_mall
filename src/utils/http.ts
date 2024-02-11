@@ -1,5 +1,5 @@
 // src/utils/http.ts
-
+import { useProfileStore } from "../store/profile/index";
 // 请求基地址
 const baseURL = "https://pcapi-xiaotuxian-front-devtest.itheima.net";
 
@@ -18,6 +18,19 @@ const httpInterceptor = {
       "source-client": "miniapp",
       ...options.header,
     };
+    // 4. 添加 token 请求头标识
+    const profileStore = useProfileStore();
+    const token = profileStore.profile?.token;
+    if (
+      options.url ===
+      "https://pcapi-xiaotuxian-front-devtest.itheima.net/member/profile"
+    ) {
+      console.log("token11111", token);
+      console.log("profileStore.profile11111", profileStore.profile?.token);
+    }
+    if (token) {
+      options.header.Authorization = token;
+    }
   },
 };
 

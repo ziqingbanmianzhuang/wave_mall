@@ -57,8 +57,8 @@ const onGetphonenumberSimple = async () => {
   profile.value = res.result;
 
   const profileStore = useProfileStore();
-  profileStore.setProfile(profile);
-  console.log("profile", profileStore.profile.value);
+  profileStore.setProfile(profile.value);
+  console.log("profilelogin", profileStore.profile);
 
   uni.showToast({ icon: "success", title: "登录成功" });
   setTimeout(() => {
