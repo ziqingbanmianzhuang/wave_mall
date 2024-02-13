@@ -17,11 +17,11 @@
   <view
     class="relative flex flex-col shadow-xl rounded-xl m-1.5 mb-3 px-1.5 w-[363px] h-32 leading-[32px] font-semibold"
   >
-    <text class="">+1821234333</text>
-    <text>张三</text>
-    <text class="border-b borde-slate-300 border-solid text-gray-300 text-xs"
-      >广东省 广州区 天玑</text
-    >
+    <text class="">{{ defaultAddress.contact }}</text>
+    <text>{{ defaultAddress.receiver }}</text>
+    <text class="border-b borde-slate-300 border-solid text-gray-300 text-xs">{{
+      defaultAddress.fullLocation
+    }}</text>
     <text class="block mt-3 text-xs">修改地址 -></text>
     <view class="flex absolute right-6 top-6">
       <text
@@ -71,10 +71,15 @@
 import { getMemberAddressAPI } from "./addressPageApi";
 import type { AddressItem } from "./addressPageType";
 import { onShow } from "@dcloudio/uni-app";
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
 // 收货地址列表数据
 const addressList = ref<AddressItem[]>([]);
+
+// 默认地址
+const defaultAddress = computed(() => {
+  return addressList.value.find((add) => add.isDefault === 1);
+});
 
 // 获取收货地址列表数据
 const getMemberAddressData = async () => {
