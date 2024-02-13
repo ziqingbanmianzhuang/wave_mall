@@ -49,7 +49,7 @@
         <uni-icons type="eye" class="pr-3"></uni-icons>
         <text class="text-base">商品规格</text>
       </view>
-      <text class="text-xs text-gray-400">10ml 黑色</text>
+      <text class="text-xs text-gray-400">{{ selectArrText }}</text>
     </view>
     <view class="flex flex-col border-b py-3 font-semibold" @tap="openPopUp">
       <view>
@@ -159,7 +159,7 @@
   </uni-popup>
   <!-- openPopUpSku -->
   <vk-data-goods-sku-popup
-    ref="skuPopup"
+    ref="skuPopupRef"
     v-model="skuKey"
     :localdata="goodsInfo"
     border-radius="20"
@@ -171,7 +171,7 @@
 import { getGoodsByIdAPI } from "./goodsDetailApi";
 import type { GoodsResult } from "./goodsDetailType";
 import type { SkuPopupLocaldata } from "../../components/vk-data-goods-sku-popup/vk-data-goods-sku-popup";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 
 // 接收页面参数
 const query = defineProps<{
@@ -318,6 +318,14 @@ const openPopUpSku = (val: number) => {
   skuKey.value = true;
   skuMode.value = val;
 };
+
+// SKU组件实例
+const skuPopupRef = ref<SkuPopupInstance>();
+
+// 计算被选中的值
+const selectArrText = computed(() => {
+  return skuPopupRef.value?.selectArr?.join(" ").trim() || "请选择商品规格";
+});
 </script>
 
 <style lang="scss" scoped>
