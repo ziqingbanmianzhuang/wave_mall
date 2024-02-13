@@ -1,4 +1,4 @@
-import { AddressItem } from "./addressPageType";
+import type { AddressItem } from "./addressPageType";
 import { http } from "../../utils/http";
 
 export const getMemberAddressAPI = () => {
