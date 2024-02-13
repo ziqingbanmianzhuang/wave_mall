@@ -1,10 +1,16 @@
 <template>
   <!-- 新建地址 -->
   <view
-    class="box-border bg-blue-100 rounded-xl m-1.5 mb-3 px-1.5 w-[363px] h-8 leading-[32px] font-semibold"
+    class="box-border flex bg-blue-100 rounded-xl m-1.5 mb-3 px-1.5 w-[363px] h-8 leading-[32px] font-semibold"
   >
-    <uni-icons type="plusempty"></uni-icons>
-    <text>新建地址</text>
+    <uni-icons type="plusempty" class="mr-1.5"></uni-icons>
+    <navigator
+      url="/subPkg/addressFormPage/addressFormPage"
+      open-type="navigate"
+      hover-class="navigator-hover"
+    >
+      新建地址
+    </navigator>
   </view>
   <!-- 默认地址 -->
   <text class="m-1.5 font-semibold">默认地址</text>

@@ -118,6 +118,12 @@
 					"style": {
 						"navigationBarTitleText": "addressPage"
 					}
+				},
+				{
+					"path": "addressFormPage/addressFormPage",
+					"style": {
+						"navigationBarTitleText": "新建地址"
+					}
 				}
 			]
 		}
