@@ -41,7 +41,10 @@
       </view>
       <text class="text-xs text-gray-400">四川省成都市双流区</text>
     </view>
-    <view class="flex flex-col border-b py-3 font-semibold" @tap="openPopUpSku">
+    <view
+      class="flex flex-col border-b py-3 font-semibold"
+      @tap="openPopUpSku(1)"
+    >
       <view>
         <uni-icons type="eye" class="pr-3"></uni-icons>
         <text class="text-base">商品规格</text>
@@ -74,6 +77,7 @@
     </button>
     <button
       class="bg-red-900 rounded-xl m-1.5 w-[251px] h-12 text-white font-semibold leading-[48px]"
+      @tap="openPopUpSku(2)"
     >
       加入购入车
     </button>
@@ -86,6 +90,7 @@
     </view>
     <button
       class="bg-teal-800 rounded-xl w-[80px] h-10 text-sm text-white font-semibold leading-[40px]"
+      @tap="openPopUpSku(3)"
     >
       立即购买
     </button>
@@ -295,15 +300,23 @@ const openPopUpAddress = () => {
   popupAddress.value.open();
 };
 
-//设置打开PopUpSku的模式
-const skuMode = ref<1 | 2 | 3>(1);
-
 // 控制是否打开PopUpSku
 const skuKey = ref(false);
 
+//sku插件的模式
+// 按钮模式
+enum SkuMode {
+  Both = 1,
+  Cart = 2,
+  Buy = 3,
+}
+//设置打开PopUpSku的模式
+const skuMode = ref<SkuMode>(SkuMode.Cart);
+
 // 打开openPopUpSku的方法
-const openPopUpSku = () => {
+const openPopUpSku = (val: number) => {
   skuKey.value = true;
+  skuMode.value = val;
 };
 </script>
 
