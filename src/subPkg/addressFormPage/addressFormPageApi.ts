@@ -1,4 +1,5 @@
 import type { AddressParams } from "./addressFormPageType.d.ts";
+import type { AddressItem } from "../addressPage/addressPageType";
 import { http } from "../../utils/http";
 
 /**
@@ -10,5 +11,13 @@ export const postMemberAddressAPI = (data: AddressParams) => {
     method: "POST",
     url: "/member/address",
     data,
+  });
+};
+
+// 修改地址
+export const getMemberAddressByIdAPI = (id: string) => {
+  return http<AddressItem>({
+    method: "GET",
+    url: `/member/address/${id}`,
   });
 };

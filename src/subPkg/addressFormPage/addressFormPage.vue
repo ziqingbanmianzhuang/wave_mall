@@ -93,8 +93,12 @@
 
 <script lang="ts" setup>
 import type { AddressParams } from "./addressFormPageType";
-import { postMemberAddressAPI } from "./addressFormPageApi";
-import { ref } from "vue";
+import {
+  postMemberAddressAPI,
+  getMemberAddressByIdAPI,
+} from "./addressFormPageApi";
+
+import { onMounted, ref } from "vue";
 
 // 获取页面参数
 const query = defineProps<{ id?: string }>();
@@ -139,6 +143,21 @@ const onSubmit = async () => {
     uni.navigateBack();
   }, 400);
 };
+
+//根据地址的Id获取地址的详细数据
+const getMemberAddressByIdData = async () => {
+  // 有 id 才调用接口
+  if (query.id) {
+    // 发送请求
+    const res = await getMemberAddressByIdAPI(query.id);
+    // 把数据合并到表单中
+    Object.assign(form.value, res.result);
+  }
+};
+// 页面加载
+onMounted(() => {
+  getMemberAddressByIdData();
+});
 </script>
 
 <style lang="scss" scoped>

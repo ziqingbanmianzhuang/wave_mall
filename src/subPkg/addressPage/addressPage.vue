@@ -17,10 +17,10 @@
   <view
     class="relative flex flex-col shadow-xl rounded-xl m-1.5 mb-3 px-1.5 w-[363px] h-32 leading-[32px] font-semibold"
   >
-    <text class="">{{ defaultAddress.contact }}</text>
-    <text>{{ defaultAddress.receiver }}</text>
+    <text class="">{{ defaultAddress?.contact }}</text>
+    <text>{{ defaultAddress?.receiver }}</text>
     <text class="border-b borde-slate-300 border-solid text-gray-300 text-xs">{{
-      defaultAddress.fullLocation
+      defaultAddress?.fullLocation
     }}</text>
     <text class="block mt-3 text-xs">修改地址 -></text>
     <view class="flex absolute right-6 top-6">
@@ -56,9 +56,14 @@
       <text class="text-gray-300 text-xs"
         >{{ item.fullLocation }} {{ item.address }}</text
       >
-      <view class="absolute right-1.5 top-1.5">
+      <navigator
+        :url="`/subPkg/addressFormPage/addressFormPage?id=${item.id}`"
+        open-type="navigate"
+        hover-class="navigator-hover"
+        class="absolute right-1.5 top-1.5"
+      >
         <uni-icons type="forward" color="" size="24" />
-      </view>
+      </navigator>
       <text
         class="absolute left-0 top-8 block bg-black rounded mx-0.5 h-2 w-2"
       ></text>
