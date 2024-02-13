@@ -89,6 +89,12 @@
   >
     保存地址
   </button>
+  <button
+    class="rounded-xl bg-blue-300 w-[363px] mx-1.5 mb-3 h-12 leading-[48px] font-semibold"
+    @tap="deleteAddress(query.id)"
+  >
+    删除地址
+  </button>
 </template>
 
 <script lang="ts" setup>
@@ -97,6 +103,7 @@ import {
   postMemberAddressAPI,
   getMemberAddressByIdAPI,
   putMemberAddressByIdAPI,
+  deleteMemberAddressByIdAPI,
 } from "./addressFormPageApi";
 
 import { onMounted, ref } from "vue";
@@ -162,6 +169,21 @@ const getMemberAddressByIdData = async () => {
     Object.assign(form.value, res.result);
   }
 };
+
+//删除地址
+const deleteAddress = (id: string) => {
+  uni.showModal({
+    content: "删除地址?",
+    success: async (res) => {
+      if (res.confirm) {
+        // 根据id删除收货地址
+        await deleteMemberAddressByIdAPI(id);
+      }
+      uni.navigateBack();
+    },
+  });
+};
+
 // 页面加载
 onMounted(() => {
   getMemberAddressByIdData();
