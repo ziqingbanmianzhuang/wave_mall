@@ -14,10 +14,19 @@ export const postMemberAddressAPI = (data: AddressParams) => {
   });
 };
 
-// 修改地址
+// 根据id获取地址
 export const getMemberAddressByIdAPI = (id: string) => {
   return http<AddressItem>({
     method: "GET",
     url: `/member/address/${id}`,
+  });
+};
+
+//修改地址
+export const putMemberAddressByIdAPI = (id: string, data: AddressParams) => {
+  return http({
+    method: "PUT",
+    url: `/member/address/${id}`,
+    data,
   });
 };
