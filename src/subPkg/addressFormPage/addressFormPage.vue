@@ -40,11 +40,11 @@
       >所在地区</text
     >
     <view class="flex my-4 px-11">
-      <input
-        type="text"
-        placeholder="请填写收货人所在地区"
-        class="text-xs w-[340px]"
-      />
+      <view>
+        <picker class="text-xs w-[340px]" mode="region" value="">
+          <text class="text-xs w-[340px]">请选择省/市/区(县)</text>
+        </picker>
+      </view>
       <uni-icons type="closeempty" color="" size="18" class="" />
     </view>
   </view>
