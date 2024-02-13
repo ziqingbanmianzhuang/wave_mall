@@ -77,7 +77,12 @@
   </button>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+// 获取页面参数
+const query = defineProps<{ id?: string }>();
+
+uni.setNavigationBarTitle({ title: query.id ? "修改地址" : "新建地址" });
+</script>
 
 <style lang="scss" scoped>
 @import "tailwindcss/base";
