@@ -169,6 +169,7 @@
 
 <script lang="ts" setup>
 import { getGoodsByIdAPI } from "./goodsDetailApi";
+import type { SkuPopupInstance } from "../../components/vk-data-goods-sku-popup/vk-data-goods-sku-popup";
 import type { GoodsResult } from "./goodsDetailType";
 import type { SkuPopupLocaldata } from "../../components/vk-data-goods-sku-popup/vk-data-goods-sku-popup";
 import { ref, onMounted, computed } from "vue";
