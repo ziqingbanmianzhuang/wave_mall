@@ -1,6 +1,6 @@
 <template>
   <!-- 商品轮播 -->
-  <swiper circular class="h-32" autoplay="false" @change="onChange">
+  <swiper circular class="h-32" :autoplay="false" @change="onChange">
     <swiper-item v-for="item in goods!.mainPictures" :key="item">
       <navigator
         url="/pages/hotItem/hotItem"
@@ -28,8 +28,8 @@
     class="relative top-[-20px] shadow-lg m-1.5 px-3 bg-white w-[363px] rounded-xl"
   >
     <view class="flex flex-col border-b py-3 font-semibold">
-      <text class="text-lg">商品名称</text>
-      <text class="texg-sm">$68</text>
+      <text class="text-lg">{{ goods?.name }}</text>
+      <text class="texg-sm">{{ goods?.price }}</text>
     </view>
     <view
       class="flex flex-col border-b py-3 font-semibold"
@@ -41,14 +41,14 @@
       </view>
       <text class="text-xs text-gray-400">四川省成都市双流区</text>
     </view>
-    <view class="flex flex-col border-b py-3 font-semibold">
+    <view class="flex flex-col border-b py-3 font-semibold" @tap="openPopUpSku">
       <view>
         <uni-icons type="eye" class="pr-3"></uni-icons>
         <text class="text-base">商品规格</text>
       </view>
-      <text class="text-xs text-gray-400">128码 四条</text>
+      <text class="text-xs text-gray-400">10ml 黑色</text>
     </view>
-    <view class="flex flex-col border-b py-3 font-semibold" @click="openPopUp">
+    <view class="flex flex-col border-b py-3 font-semibold" @tap="openPopUp">
       <view>
         <uni-icons type="hand-up" class="pr-3"></uni-icons>
         <text class="text-base">店家服务</text>
@@ -61,8 +61,8 @@
   <view
     class="flex flex-col shadow-lg bg-white m-1.5 p-3 w-[363px] rounded-xl font-semibold"
   >
-    <text class="text-lg">详情</text>
-    <text class="text-xs text-gray-400">轻巧 旅行 易携带</text>
+    <text class="text-lg">描述</text>
+    <text class="text-xs text-gray-400">{{ goods.desc }}</text>
   </view>
 
   <!-- 功能区 -->
@@ -152,11 +152,20 @@
       <button>新建地址</button>
     </view>
   </uni-popup>
+  <!-- openPopUpSku -->
+  <vk-data-goods-sku-popup
+    ref="skuPopup"
+    v-model="skuKey"
+    :localdata="goodsInfo"
+    border-radius="20"
+    :mode="skuMode"
+  ></vk-data-goods-sku-popup>
 </template>
 
 <script lang="ts" setup>
 import { getGoodsByIdAPI } from "./goodsDetailApi";
 import type { GoodsResult } from "./goodsDetailType";
+import type { SkuPopupLocaldata } from "../../components/vk-data-goods-sku-popup/vk-data-goods-sku-popup";
 import { ref, onMounted } from "vue";
 
 // 接收页面参数
@@ -179,6 +188,52 @@ const onTapImage = (url: string) => {
   });
 };
 
+//goodsinfo
+const goodsInfo = ref<SkuPopupLocaldata>({
+  _id: "002",
+  name: "迪奥香水",
+  goods_thumb:
+    "https://res.lancome.com.cn/resources/2020/9/11/15998112890781924_920X920.jpg?version=20200917220352530",
+  sku_list: [
+    {
+      _id: "004",
+      goods_id: "002",
+      goods_name: "迪奥香水",
+      image:
+        "https://res.lancome.com.cn/resources/2020/9/11/15998112890781924_920X920.jpg?version=20200917220352530",
+      price: 19800,
+      sku_name_arr: ["50ml/瓶"],
+      stock: 100,
+    },
+    {
+      _id: "005",
+      goods_id: "002",
+      goods_name: "迪奥香水",
+      image:
+        "https://res.lancome.com.cn/resources/2020/9/11/15998112890781924_920X920.jpg?version=20200917220352530",
+      price: 9800,
+      sku_name_arr: ["70ml/瓶"],
+      stock: 100,
+    },
+  ],
+  spec_list: [
+    {
+      list: [
+        {
+          name: "20ml/瓶",
+        },
+        {
+          name: "50ml/瓶",
+        },
+        {
+          name: "70ml/瓶",
+        },
+      ],
+      name: "规格",
+    },
+  ],
+});
+
 // 获取商品详情信息
 const goods = ref<GoodsResult>({
   id: "",
@@ -199,6 +254,24 @@ const goods = ref<GoodsResult>({
 const getGoodsByIdData = async () => {
   const res = await getGoodsByIdAPI(query.id);
   goods.value = res.result;
+  goodsInfo.value = {
+    _id: res.result.id,
+    name: res.result.name,
+    goods_thumb: res.result.mainPictures[0],
+    spec_list: res.result.specs.map((v) => ({
+      name: v.name,
+      list: v.values,
+    })),
+    sku_list: res.result.skus.map((v) => ({
+      _id: v.id,
+      goods_id: res.result.id,
+      goods_name: res.result.name,
+      image: v.picture,
+      price: v.price * 100, // 注意：需要乘以 100
+      stock: v.inventory,
+      sku_name_arr: v.specs.map((vv) => vv.valueName),
+    })),
+  };
 };
 
 // 页面加载
@@ -220,6 +293,17 @@ const openPopUp = () => {
 // 打开popUpAddress的方法
 const openPopUpAddress = () => {
   popupAddress.value.open();
+};
+
+//设置打开PopUpSku的模式
+const skuMode = ref<1 | 2 | 3>(1);
+
+// 控制是否打开PopUpSku
+const skuKey = ref(false);
+
+// 打开openPopUpSku的方法
+const openPopUpSku = () => {
+  skuKey.value = true;
 };
 </script>
 
