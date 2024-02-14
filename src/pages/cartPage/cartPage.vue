@@ -7,14 +7,16 @@
     </view>
     <!-- 商品数量 -->
     <view class="my-3 text-center text-slate-300"
-      >商品数量:<text class="font-semibold text-black">3</text></view
+      >商品数量:<text class="font-semibold text-black">{{
+        cartList.length
+      }}</text></view
     >
     <!-- 购物车列表 -->
     <!-- 购物车 -->
     <scroll-view scroll-y class="h-[320px]">
       <view
-        v-for="item in 3"
-        :key="item"
+        v-for="item in cartList"
+        :key="item.id"
         class="flex justify-between m-1.5 w-[363px] h-36"
       >
         <!-- 商品 -->
@@ -28,16 +30,18 @@
               mode="scaleToFill"
               class="rounded-xl border border-slate-300 border-solid mb-3 w-20 h-20"
             />
-            <text class="text-gray-300">商品规格</text>
+            <text class="text-gray-300">{{ item.attrsText }}</text>
           </view>
           <view class="flex flex-col mr-3">
-            <text class="font-semibold">商品名</text>
-            <text class="text-orange-300">$120</text>
+            <text class="font-semibold">{{ item.name }}</text>
+            <text class="text-orange-300"
+              >{{ item.price }} / {{ item.nowPrice }}</text
+            >
           </view>
           <view class="absolute right-3 top-3 flex">
             <text
-              v-for="item in 3"
-              :key="item"
+              v-for="it in 3"
+              :key="it"
               class="bg-black rounded m-0.5 h-2 w-2"
             ></text>
           </view>
@@ -47,7 +51,7 @@
           class="flex flex-col justify-around items-center shadow-lg rounded-xl px-3 w-[50px] h-36 text-slate-300"
         >
           <text class="font-semibold text-2xl">-</text>
-          <text class="text-red-300">2</text>
+          <text class="text-red-300">{{ item.count }}</text>
           <text class="font-semibold text-2xl">+</text>
         </view>
       </view>
@@ -89,11 +93,30 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useProfileStore } from "../../store/profile/index";
+import { getMemberCartAPI } from "./cartPageApi";
+import type { CartItem } from "./cartPage";
 
 // 获取会员Store
 const profileStore = useProfileStore();
+
+// 购物车数据
+const cartList = ref<CartItem[]>([]);
+
+//获取购物车列表
+const getMemberCartData = async () => {
+  const res = await getMemberCartAPI();
+  cartList.value = res.result;
+};
+
+// 初始化调用: 页面显示触发
+onMounted(() => {
+  // 用户已登录才允许调用
+  if (profileStore.profile) {
+    getMemberCartData();
+  }
+});
 </script>
 
 <style lang="scss" scoped>
