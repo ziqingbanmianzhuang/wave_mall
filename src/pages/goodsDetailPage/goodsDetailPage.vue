@@ -164,12 +164,16 @@
     :localdata="goodsInfo"
     border-radius="20"
     :mode="skuMode"
+    @add-cart="onAddCart"
   ></vk-data-goods-sku-popup>
 </template>
 
 <script lang="ts" setup>
-import { getGoodsByIdAPI } from "./goodsDetailApi";
-import type { SkuPopupInstance } from "../../components/vk-data-goods-sku-popup/vk-data-goods-sku-popup";
+import { getGoodsByIdAPI, postMemberCartAPI } from "./goodsDetailApi";
+import type {
+  SkuPopupInstance,
+  SkuPopupEvent,
+} from "../../components/vk-data-goods-sku-popup/vk-data-goods-sku-popup";
 import type { GoodsResult } from "./goodsDetailType";
 import type { SkuPopupLocaldata } from "../../components/vk-data-goods-sku-popup/vk-data-goods-sku-popup";
 import { ref, onMounted, computed } from "vue";
@@ -327,6 +331,13 @@ const skuPopupRef = ref<SkuPopupInstance>();
 const selectArrText = computed(() => {
   return skuPopupRef.value?.selectArr?.join(" ").trim() || "请选择商品规格";
 });
+
+// 加入购物车
+const onAddCart = async (ev: SkuPopupEvent) => {
+  await postMemberCartAPI({ skuId: ev._id, count: ev.buy_num });
+  uni.showToast({ title: "添加成功" });
+  skuKey.value = false;
+};
 </script>
 
 <style lang="scss" scoped>
