@@ -28,7 +28,7 @@
 		{
 			"path": "pages/cartPage/cartPage",
 			"style": {
-				"navigationBarTitleText": "cartPage"
+				"navigationBarTitleText": "购物车"
 			}
 		},
 		{

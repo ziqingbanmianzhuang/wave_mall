@@ -97,7 +97,13 @@
   </view>
   <view class="text-center">
     <uni-icons type="eye-filled" color="#064e3b"></uni-icons>
-    <text class="text-sm font-semibold m-1.5">查看购物车</text>
+    <navigator
+      url="/pages/cartPage/cartPage"
+      class="text-sm font-semibold m-1.5"
+      open-type="navigate"
+      hover-class="navigator-hover"
+      >查看购物车</navigator
+    >
   </view>
   <!-- popup -->
   <uni-popup ref="popup" type="bottom" background-color="#fff">
