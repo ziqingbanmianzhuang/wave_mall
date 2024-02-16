@@ -18,53 +18,51 @@
         <uni-swipe-action-item
           v-for="item in cartList"
           :key="item.id"
-          class="flex justify-between m-1.5 w-[363px] h-36"
+          class="m-1.5 w-[363px] h-36"
         >
-          <view>
+          <view class="flex items-center w-[363px] h-36">
             <!-- 商品 -->
-            <view class="relative flex items-center w-[363px] h-36">
-              <view
-                class="shadow-lg rounded-xl border border-slate-300 border-solid mr-3 pl-3 w-[300px]"
-              >
-                <checkbox value="" :checked="false" class="mr-3" />
-                <view class="flex flex-col mr-3">
-                  <image
-                    src=""
-                    mode="scaleToFill"
-                    class="rounded-xl border border-slate-300 border-solid mb-3 w-20 h-20"
-                  />
-                  <text class="text-gray-300">{{ item.attrsText }}</text>
-                </view>
-                <view class="flex flex-col mr-3">
-                  <text class="font-semibold">{{ item.name }}</text>
-                  <text class="text-orange-300"
-                    >{{ item.price }} / {{ item.nowPrice }}</text
-                  >
-                </view>
-                <view class="absolute right-3 top-3 flex">
-                  <text
-                    v-for="it in 3"
-                    :key="it"
-                    class="bg-black rounded m-0.5 h-2 w-2"
-                  ></text>
-                </view>
+            <view
+              class="flex justify-between items-center relative shadow-lg rounded-xl border border-slate-300 border-solid mr-3 pl-3 w-[300px]"
+            >
+              <checkbox value="" :checked="false" class="mr-3" />
+              <view class="flex flex-col mr-3">
+                <image
+                  :src="item.picture"
+                  mode="scaleToFill"
+                  class="rounded-xl border border-slate-300 border-solid mb-3 w-20 h-20"
+                />
+                <text class="text-gray-300">{{ item.attrsText }}</text>
               </view>
-              <!-- 数量 -->
-              <view
-                class="flex flex-col justify-around items-center shadow-lg rounded-xl px-3 w-[50px] h-36 text-slate-300"
-              >
-                <text
-                  class="font-semibold text-2xl"
-                  @tap="changeGoodsNum('cut', item)"
-                  >-</text
-                >
-                <text class="text-red-300">{{ item.count }}</text>
-                <text
-                  class="font-semibold text-2xl"
-                  @tap="changeGoodsNum('add', item)"
-                  >+</text
+              <view class="flex flex-col mr-3">
+                <text class="font-semibold">{{ item.name }}</text>
+                <text class="text-orange-300"
+                  >{{ item.price }} / {{ item.nowPrice }}</text
                 >
               </view>
+              <view class="absolute right-3 top-3 flex">
+                <text
+                  v-for="it in 3"
+                  :key="it"
+                  class="bg-black rounded m-0.5 h-2 w-2"
+                ></text>
+              </view>
+            </view>
+            <!-- 数量 -->
+            <view
+              class="flex flex-col justify-around items-center shadow-lg rounded-xl px-3 w-[50px] h-36 text-slate-300"
+            >
+              <text
+                class="font-semibold text-2xl"
+                @tap="changeGoodsNum('cut', item)"
+                >-</text
+              >
+              <text class="text-red-300">{{ item.count }}</text>
+              <text
+                class="font-semibold text-2xl"
+                @tap="changeGoodsNum('add', item)"
+                >+</text
+              >
             </view>
           </view>
           <!-- 插槽 -->
