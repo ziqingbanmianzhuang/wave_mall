@@ -85,11 +85,11 @@
     <view class="flex justify-around w-[300px] text-sm">
       <view
         ><text class="text-gray-300 font-semibold">总共</text>
-        <text class="font-semibold">$100</text></view
+        <text class="font-semibold">{{ selectedCartListMoney }}</text></view
       >
       <view
         ><text class="text-gray-300 font-semibold">购买数量</text
-        ><text class="font-semibold">6</text></view
+        ><text class="font-semibold">{{ selectedCartListCount }}</text></view
       >
     </view>
     <!-- 结算 -->
@@ -100,6 +100,7 @@
       </view>
       <button
         class="bg-blue-300 rounded-xl w-36 h-8 leading-8 font-semibold text-center text-sm"
+        @tap="gotoPayment"
       >
         去结算
       </button>
@@ -193,6 +194,35 @@ const checkChangeAll = () => {
   });
 
   putMemberCartSelectedAPI({ selected: _isSelectedAll });
+};
+
+// 计算选中单品列表
+const selectedCartList = computed(() => {
+  return cartList.value.filter((v) => v.selected);
+});
+
+// 计算选中总件数
+const selectedCartListCount = computed(() => {
+  return selectedCartList.value.reduce((sum, item) => sum + item.count, 0);
+});
+
+// 计算选中总金额
+const selectedCartListMoney = computed(() => {
+  return selectedCartList.value
+    .reduce((sum, item) => sum + item.count * item.nowPrice, 0)
+    .toFixed(2);
+});
+
+// 结算按钮
+const gotoPayment = () => {
+  if (selectedCartListCount.value === 0) {
+    return uni.showToast({
+      icon: "none",
+      title: "请选择商品",
+    });
+  }
+  // 跳转到结算页
+  uni.navigateTo({ url: "" });
 };
 </script>
 
