@@ -15,16 +15,22 @@
 
   <!-- 商品信息 -->
   <view
+    v-for="good in orderData.goods"
+    :key="good.id"
     class="flex items-center shadow-lg rounded-xl mx-1.5 mb-3 px-1.5 w-[363px] h-32"
   >
     <view class="bg-red-300 rounded-[8px] h-2 w-2"></view>
-    <image class="rounded-xl w-16 h-16" src="" mode="scaleToFill" />
+    <image
+      class="rounded-xl w-16 h-16"
+      :src="good.picture"
+      mode="scaleToFill"
+    />
     <view class="flex flex-col flex-1">
-      <text class="font-semibold">商品名</text>
-      <text class="text-xs text-slate-300">11 22 33</text>
+      <text class="font-semibold">{{ good.name }}</text>
+      <text class="text-xs text-slate-300">{{ good.attrsText }}</text>
       <view class="flex justify-between"
-        ><text class="text-red-300 font-semibold">$11.00</text
-        ><text class="font-semibold">X1</text></view
+        ><text class="text-red-300 font-semibold">{{ good.totalPrice }}</text
+        ><text class="font-semibold"> X {{ good.count }}</text></view
       >
     </view>
   </view>
@@ -42,8 +48,8 @@
         </view>
       </view>
       <view class="flex flex-col text-xs font-semibold text-red-300">
-        <text>$69</text>
-        <text>$8</text>
+        <text>${{ orderData.summary.totalPrice }}</text>
+        <text>${{ orderData.summary.postFee }}</text>
       </view>
     </view>
     <view
@@ -67,7 +73,7 @@
     class="flex justify-between items-center bg-blue-300 rounded-xl mx-1.5 px-1.5 w-[363px] h-32 font-semibold text-xs"
   >
     <view class="flex flex-col">
-      <text class="text-red-300">$120.00</text>
+      <text class="text-red-300">${{ orderData.summary.totalPayPrice }}</text>
       <text class="text-slate-300">黄色小象</text>
     </view>
     <button class="bg-green-400 rounded-xl text-white w-16 h-8 leading-8">
@@ -76,7 +82,24 @@
   </view>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { getMemberOrderPreAPI } from "./editOrderPageApi";
+import type { OrderPreResult } from "./editOrderPageType";
+import { onMounted, ref } from "vue";
+
+//订单数据
+let orderData = ref<OrderPreResult>();
+
+// 获取订单预付数据
+const getMemberOrderPreData = async () => {
+  const res = await getMemberOrderPreAPI();
+  orderData.value = res.result;
+};
+
+onMounted(() => {
+  getMemberOrderPreData();
+});
+</script>
 
 <style lang="scss" scoped>
 @import "tailwindcss/base";
