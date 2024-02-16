@@ -222,7 +222,7 @@ const gotoPayment = () => {
     });
   }
   // 跳转到结算页
-  uni.navigateTo({ url: "/orderPkg/editorOrderPage/editorOrderPage" });
+  uni.navigateTo({ url: "/orderPkg/editOrderPage/editOrderPage" });
 };
 </script>
 

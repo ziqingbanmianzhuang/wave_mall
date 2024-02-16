@@ -131,7 +131,7 @@
 			"root": "orderPkg",
 			"pages": [
 				{
-					"path": "editorOrderPage/editorOrderPage",
+					"path": "editOrderPage/editOrderPage",
 					"style": {
 						"navigationBarTitleText": "填写订单"
 					}
