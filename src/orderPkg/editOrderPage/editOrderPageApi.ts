@@ -21,3 +21,12 @@ export const getMemberOrderPreBySkuIDAPI = (data: {
     data,
   });
 };
+
+//提交订单
+export const postMemberOrderAPI = (data: OrderCreateParams) => {
+  return http<{ id: string }>({
+    method: "POST",
+    url: "/member/order",
+    data,
+  });
+};

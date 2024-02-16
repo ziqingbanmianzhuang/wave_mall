@@ -11,17 +11,17 @@
       <uni-icons type="plusempty" class="mr-1.5"></uni-icons>
       <text>请选择收货地址</text>
       <view class="user">
-        {{ selecteAddress.receiver }} {{ selecteAddress.contact }}
+        {{ selecteAddress?.receiver }} {{ selecteAddress?.contact }}
       </view>
       <view class="address">
-        {{ selecteAddress.fullLocation }} {{ selecteAddress.address }}
+        {{ selecteAddress?.fullLocation }} {{ selecteAddress?.address }}
       </view>
     </navigator>
   </view>
 
   <!-- 商品信息 -->
   <view
-    v-for="good in orderData.goods"
+    v-for="good in orderData?.goods"
     :key="good.id"
     class="flex items-center shadow-lg rounded-xl mx-1.5 mb-3 px-1.5 w-[363px] h-32"
   >
@@ -54,8 +54,8 @@
         </view>
       </view>
       <view class="flex flex-col text-xs font-semibold text-red-300">
-        <text>${{ orderData.summary.totalPrice }}</text>
-        <text>${{ orderData.summary.postFee }}</text>
+        <text>${{ orderData?.summary.totalPrice }}</text>
+        <text>${{ orderData?.summary.postFee }}</text>
       </view>
     </view>
     <view
@@ -65,11 +65,18 @@
         <view class="bg-orange-300 mr-3 rounded-[8px] h-2 w-2"></view>
         <view class="flex flex-col font-semibold">
           <text>配送时间</text>
+
           <text>订单备注</text>
         </view>
       </view>
       <view class="flex flex-col text-xs font-semibold text-slate-300">
-        <text>时间不限</text>
+        <uni-data-select
+          v-model="activeIndex"
+          :localdata="deliveryList"
+          :label="activeDelivery"
+          @change="changeDelivery"
+        >
+        </uni-data-select>
         <text>建议留言</text>
       </view>
     </view>
@@ -79,10 +86,13 @@
     class="flex justify-between items-center bg-blue-300 rounded-xl mx-1.5 px-1.5 w-[363px] h-32 font-semibold text-xs"
   >
     <view class="flex flex-col">
-      <text class="text-red-300">${{ orderData.summary.totalPayPrice }}</text>
+      <text class="text-red-300">${{ orderData?.summary.totalPayPrice }}</text>
       <text class="text-slate-300">黄色小象</text>
     </view>
-    <button class="bg-green-400 rounded-xl text-white w-16 h-8 leading-8">
+    <button
+      class="bg-green-400 rounded-xl text-white w-16 h-8 leading-8"
+      @tap="orderSubmit"
+    >
       提交订单
     </button>
   </view>
@@ -92,6 +102,7 @@
 import {
   getMemberOrderPreAPI,
   getMemberOrderPreBySkuIDAPI,
+  postMemberOrderAPI,
 } from "./editOrderPageApi";
 import type { OrderPreResult } from "./editOrderPageType";
 import { onMounted, ref, computed } from "vue";
@@ -132,6 +143,47 @@ const selecteAddress = computed(() => {
     orderData.value?.userAddresses.find((v) => v.isDefault)
   );
 });
+
+//// 订单备注
+const buyerMessage = ref("");
+// 配送时间
+const deliveryList = ref([
+  { type: 1, text: "时间不限 (周一至周日)" },
+  { type: 2, text: "工作日送 (周一至周五)" },
+  { type: 3, text: "周末配送 (周六至周日)" },
+]);
+// 当前配送时间下标
+const activeIndex = ref(0);
+// 当前配送时间
+const activeDelivery = computed(() => deliveryList.value[activeIndex.value]);
+// 修改配送时间
+const changeDelivery: UniHelper.SelectorPickerOnChange = (ev) => {
+  activeIndex.value = ev?.detail.value;
+};
+
+// 提交订单
+const orderSubmit = async () => {
+  // 没有收货地址提醒
+  if (!selecteAddress.value?.id) {
+    return uni.showToast({ icon: "none", title: "请选择收货地址" });
+  }
+  // 发送请求
+  const res = await postMemberOrderAPI({
+    addressId: selecteAddress.value?.id,
+    buyerMessage: buyerMessage.value,
+    deliveryTimeType: activeDelivery.value?.type,
+    goods: orderData.value!.goods.map((v) => ({
+      count: v.count,
+      skuId: v.skuId,
+    })),
+    payChannel: 2,
+    payType: 1,
+  });
+  // 关闭当前页面，跳转到订单详情，传递订单id
+  uni.redirectTo({
+    url: `/orderPkg/detailOrderPage/detailOrderPage?id=${res.result.id}`,
+  });
+};
 onMounted(() => {
   getMemberOrderPreData();
 });

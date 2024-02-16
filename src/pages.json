@@ -135,6 +135,12 @@
 					"style": {
 						"navigationBarTitleText": "填写订单"
 					}
+				},
+				{
+					"path": "detailOrderPage/detailOrderPage",
+					"style": {
+						"navigationBarTitleText": "订单详情"
+					}
 				}
 			]
 		}
