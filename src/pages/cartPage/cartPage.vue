@@ -2,7 +2,7 @@
   <template v-if="profileStore.profile">
     <!-- 选择所有商品 -->
     <view class="shadow-lg my-3 mx-1.5 rounded-xl px-3 w-[363px] h-8">
-      <checkbox value="全选" :checked="false" />
+      <checkbox value="全选" :checked="selectedAll" @tap="checkChangeAll" />
       <text class="text-gray-300">选择所有商品</text>
     </view>
     <!-- 商品数量 -->
@@ -25,7 +25,12 @@
             <view
               class="flex justify-between items-center relative shadow-lg rounded-xl border border-slate-300 border-solid mr-3 pl-3 w-[300px]"
             >
-              <checkbox value="" :checked="false" class="mr-3" />
+              <checkbox
+                value=""
+                :checked="item.selected"
+                class="mr-3"
+                @tap="checkChange(item)"
+              />
               <view class="flex flex-col mr-3">
                 <image
                   :src="item.picture"
@@ -113,12 +118,13 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { useProfileStore } from "../../store/profile/index";
 import {
   getMemberCartAPI,
   deleteMemberCartAPI,
   putMemberCartBySkuIdAPI,
+  putMemberCartSelectedAPI,
 } from "./cartPageApi";
 import type { CartItem } from "./cartPage";
 
@@ -158,10 +164,35 @@ const onDeleteCart = (skuId: string) => {
   });
 };
 
-//修改商品数量
-const changeGoodsNum = (type: "cut" | "add", good) => {
+// 修改选中状态-单品修改
+const checkChange = (item: CartItem) => {
+  // 前端数据更新-是否选中取反
+  item.selected = !item.selected;
+  // 后端数据更新
+  putMemberCartBySkuIdAPI(item.skuId, { selected: item.selected });
+};
+
+// 计算全选状态
+const selectedAll = computed(() => {
+  return cartList.value.length && cartList.value.every((v) => v.selected);
+});
+
+//商品数量修改
+const changeGoodsNum = (type: string, good: CartItem) => {
   type === "add" ? good.count++ : good.count--;
   putMemberCartBySkuIdAPI(good.skuId, { count: good.count });
+};
+
+// 全选修改
+const checkChangeAll = () => {
+  const _isSelectedAll = !selectedAll.value;
+  console.log("change-------");
+
+  cartList.value.forEach((item) => {
+    item.selected = _isSelectedAll;
+  });
+
+  putMemberCartSelectedAPI({ selected: _isSelectedAll });
 };
 </script>
 
