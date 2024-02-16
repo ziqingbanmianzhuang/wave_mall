@@ -8,3 +8,16 @@ export const getMemberOrderPreAPI = () => {
     url: "/member/order/pre",
   });
 };
+
+// 根据商品的skuid获取预付订单
+export const getMemberOrderPreBySkuIDAPI = (data: {
+  skuId: string;
+  count: string;
+  addressId?: string;
+}) => {
+  return http<OrderPreResult>({
+    method: "GET",
+    url: "/member/order/pre/now",
+    data,
+  });
+};

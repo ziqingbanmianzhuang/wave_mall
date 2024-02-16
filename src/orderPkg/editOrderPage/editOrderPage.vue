@@ -83,17 +83,36 @@
 </template>
 
 <script setup lang="ts">
-import { getMemberOrderPreAPI } from "./editOrderPageApi";
+import {
+  getMemberOrderPreAPI,
+  getMemberOrderPreBySkuIDAPI,
+} from "./editOrderPageApi";
 import type { OrderPreResult } from "./editOrderPageType";
 import { onMounted, ref } from "vue";
+
+// 页面参数
+const query = defineProps<{
+  skuId?: string;
+  count?: string;
+}>();
 
 //订单数据
 let orderData = ref<OrderPreResult>();
 
 // 获取订单预付数据
 const getMemberOrderPreData = async () => {
-  const res = await getMemberOrderPreAPI();
-  orderData.value = res.result;
+  // 是否有立即购买参数
+  if (query.count && query.skuId) {
+    // 调用立即购买 API
+    const res = await getMemberOrderPreBySkuIDAPI({
+      count: query.count,
+      skuId: query.skuId,
+    });
+    orderData.value = res.result;
+  } else {
+    const res = await getMemberOrderPreAPI();
+    orderData.value = res.result;
+  }
 };
 
 onMounted(() => {

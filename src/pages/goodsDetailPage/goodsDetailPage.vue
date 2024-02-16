@@ -171,6 +171,7 @@
     border-radius="20"
     :mode="skuMode"
     @add-cart="onAddCart"
+    @buy-now="onBuyNow"
   ></vk-data-goods-sku-popup>
 </template>
 
@@ -343,6 +344,14 @@ const onAddCart = async (ev: SkuPopupEvent) => {
   await postMemberCartAPI({ skuId: ev._id, count: ev.buy_num });
   uni.showToast({ title: "添加成功" });
   skuKey.value = false;
+};
+
+//跳转到订单结算页面
+// 立即购买
+const onBuyNow = (ev: SkuPopupEvent) => {
+  uni.navigateTo({
+    url: `/orderPkg/editOrderPage/editOrderPage?skuId=${ev._id}&count=${ev.buy_num}`,
+  });
 };
 </script>
 
