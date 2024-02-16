@@ -126,6 +126,17 @@
 					}
 				}
 			]
+		},
+		{
+			"root": "orderPkg",
+			"pages": [
+				{
+					"path": "editorOrderPage/editorOrderPage",
+					"style": {
+						"navigationBarTitleText": "填写订单"
+					}
+				}
+			]
 		}
 	],
 	"preloadRule": {
