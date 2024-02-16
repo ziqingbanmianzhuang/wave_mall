@@ -63,6 +63,7 @@
           <template #right>
             <view
               class="bg-orange-300 w-[50px] h-36 leading-[144px] text-white text-center"
+              @tap="onDeleteCart(item.skuId)"
               ><text>删除</text></view
             >
           </template>
