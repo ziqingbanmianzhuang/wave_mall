@@ -48,6 +48,7 @@
       v-for="item in addressList"
       :key="item.id"
       class="relative border-b borde-slate-300 border-solid mb-3 p-3"
+      @tap="onChangeAddress(item)"
     >
       <view>
         <text class="mr-1.5"> {{ item.receiver }}</text>
@@ -74,8 +75,9 @@
 
 <script lang="ts" setup>
 import { getMemberAddressAPI } from "./addressPageApi";
-import type { AddressItem } from "./addressPageType";
 import { onShow } from "@dcloudio/uni-app";
+import type { AddressItem } from "./addressPageType";
+import { useAddressStore } from "../../store/address";
 import { ref, computed } from "vue";
 
 // 收货地址列表数据
@@ -90,6 +92,15 @@ const defaultAddress = computed(() => {
 const getMemberAddressData = async () => {
   const res = await getMemberAddressAPI();
   addressList.value = res.result;
+};
+
+// 修改收货地址
+const onChangeAddress = (item: AddressItem) => {
+  // 修改选中收货地址
+  const addressStore = useAddressStore();
+  addressStore.changeSelectedAddress(item);
+  // 返回上一页
+  uni.navigateBack();
 };
 
 // 初始化调用(页面显示)

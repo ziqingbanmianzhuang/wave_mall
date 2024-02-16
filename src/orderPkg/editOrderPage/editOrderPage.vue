@@ -1,15 +1,21 @@
 <template>
   <!-- 选择收货地址 -->
   <view
-    class="box-border flex bg-blue-100 rounded-xl m-1.5 mb-3 px-1.5 w-[363px] h-8 leading-[32px] font-semibold"
+    class="box-border flex bg-blue-100 rounded-xl m-1.5 mb-3 px-1.5 w-[363px] h-32 leading-[32px] font-semibold"
   >
-    <uni-icons type="plusempty" class="mr-1.5"></uni-icons>
     <navigator
-      url="/subPkg/addressFormPage/addressFormPage"
+      url="/subPkg/addressPage/addressPage"
       open-type="navigate"
       hover-class="navigator-hover"
     >
-      请选择收货地址
+      <uni-icons type="plusempty" class="mr-1.5"></uni-icons>
+      <text>请选择收货地址</text>
+      <view class="user">
+        {{ selecteAddress.receiver }} {{ selecteAddress.contact }}
+      </view>
+      <view class="address">
+        {{ selecteAddress.fullLocation }} {{ selecteAddress.address }}
+      </view>
     </navigator>
   </view>
 
@@ -88,7 +94,8 @@ import {
   getMemberOrderPreBySkuIDAPI,
 } from "./editOrderPageApi";
 import type { OrderPreResult } from "./editOrderPageType";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, computed } from "vue";
+import { useAddressStore } from "../../store/address/index";
 
 // 页面参数
 const query = defineProps<{
@@ -115,6 +122,16 @@ const getMemberOrderPreData = async () => {
   }
 };
 
+//pinia中的地址
+const addressStore = useAddressStore();
+
+// 收货地址
+const selecteAddress = computed(() => {
+  return (
+    addressStore.selectedAddress ||
+    orderData.value?.userAddresses.find((v) => v.isDefault)
+  );
+});
 onMounted(() => {
   getMemberOrderPreData();
 });
