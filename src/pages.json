@@ -139,7 +139,7 @@
 				{
 					"path": "detailOrderPage/detailOrderPage",
 					"style": {
-						"navigationBarTitleText": "订单详情"
+						"navigationBarTitleText": "等待付款"
 					}
 				}
 			]
