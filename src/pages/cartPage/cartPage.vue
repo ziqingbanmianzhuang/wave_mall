@@ -53,9 +53,17 @@
               <view
                 class="flex flex-col justify-around items-center shadow-lg rounded-xl px-3 w-[50px] h-36 text-slate-300"
               >
-                <text class="font-semibold text-2xl">-</text>
+                <text
+                  class="font-semibold text-2xl"
+                  @tap="changeGoodsNum('cut', item)"
+                  >-</text
+                >
                 <text class="text-red-300">{{ item.count }}</text>
-                <text class="font-semibold text-2xl">+</text>
+                <text
+                  class="font-semibold text-2xl"
+                  @tap="changeGoodsNum('add', item)"
+                  >+</text
+                >
               </view>
             </view>
           </view>
@@ -109,7 +117,11 @@
 <script lang="ts" setup>
 import { ref, onMounted } from "vue";
 import { useProfileStore } from "../../store/profile/index";
-import { getMemberCartAPI, deleteMemberCartAPI } from "./cartPageApi";
+import {
+  getMemberCartAPI,
+  deleteMemberCartAPI,
+  putMemberCartBySkuIdAPI,
+} from "./cartPageApi";
 import type { CartItem } from "./cartPage";
 
 // 获取会员Store
@@ -146,6 +158,12 @@ const onDeleteCart = (skuId: string) => {
       }
     },
   });
+};
+
+//修改商品数量
+const changeGoodsNum = (type: "cut" | "add", good) => {
+  type === "add" ? good.count++ : good.count--;
+  putMemberCartBySkuIdAPI(good.skuId, { count: good.count });
 };
 </script>
 

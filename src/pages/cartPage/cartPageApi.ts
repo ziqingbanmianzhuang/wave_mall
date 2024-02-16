@@ -16,3 +16,15 @@ export const deleteMemberCartAPI = (data: { ids: string[] }) => {
     data,
   });
 };
+
+//修改购物车
+export const putMemberCartBySkuIdAPI = (
+  skuId: string,
+  data: { selected?: boolean; count?: number },
+) => {
+  return http({
+    method: "PUT",
+    url: `/member/cart/${skuId}`,
+    data,
+  });
+};
