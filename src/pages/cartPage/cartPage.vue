@@ -14,47 +14,60 @@
     <!-- 购物车列表 -->
     <!-- 购物车 -->
     <scroll-view scroll-y class="h-[320px]">
-      <view
-        v-for="item in cartList"
-        :key="item.id"
-        class="flex justify-between m-1.5 w-[363px] h-36"
-      >
-        <!-- 商品 -->
-        <view
-          class="relative flex items-center shadow-lg rounded-xl px-3 w-[300px] h-36"
+      <uni-swipe-action class="h-[320px]">
+        <uni-swipe-action-item
+          v-for="item in cartList"
+          :key="item.id"
+          class="flex justify-between m-1.5 w-[363px] h-36"
         >
-          <checkbox value="" :checked="false" class="mr-3" />
-          <view class="flex flex-col mr-3">
-            <image
-              src=""
-              mode="scaleToFill"
-              class="rounded-xl border border-slate-300 border-solid mb-3 w-20 h-20"
-            />
-            <text class="text-gray-300">{{ item.attrsText }}</text>
+          <view>
+            <!-- 商品 -->
+            <view class="relative flex items-center w-[363px] h-36">
+              <view
+                class="shadow-lg rounded-xl border border-slate-300 border-solid mr-3 pl-3 w-[300px]"
+              >
+                <checkbox value="" :checked="false" class="mr-3" />
+                <view class="flex flex-col mr-3">
+                  <image
+                    src=""
+                    mode="scaleToFill"
+                    class="rounded-xl border border-slate-300 border-solid mb-3 w-20 h-20"
+                  />
+                  <text class="text-gray-300">{{ item.attrsText }}</text>
+                </view>
+                <view class="flex flex-col mr-3">
+                  <text class="font-semibold">{{ item.name }}</text>
+                  <text class="text-orange-300"
+                    >{{ item.price }} / {{ item.nowPrice }}</text
+                  >
+                </view>
+                <view class="absolute right-3 top-3 flex">
+                  <text
+                    v-for="it in 3"
+                    :key="it"
+                    class="bg-black rounded m-0.5 h-2 w-2"
+                  ></text>
+                </view>
+              </view>
+              <!-- 数量 -->
+              <view
+                class="flex flex-col justify-around items-center shadow-lg rounded-xl px-3 w-[50px] h-36 text-slate-300"
+              >
+                <text class="font-semibold text-2xl">-</text>
+                <text class="text-red-300">{{ item.count }}</text>
+                <text class="font-semibold text-2xl">+</text>
+              </view>
+            </view>
           </view>
-          <view class="flex flex-col mr-3">
-            <text class="font-semibold">{{ item.name }}</text>
-            <text class="text-orange-300"
-              >{{ item.price }} / {{ item.nowPrice }}</text
+          <!-- 插槽 -->
+          <template #right>
+            <view
+              class="bg-orange-300 w-[50px] h-36 leading-[144px] text-white text-center"
+              ><text>删除</text></view
             >
-          </view>
-          <view class="absolute right-3 top-3 flex">
-            <text
-              v-for="it in 3"
-              :key="it"
-              class="bg-black rounded m-0.5 h-2 w-2"
-            ></text>
-          </view>
-        </view>
-        <!-- 数量 -->
-        <view
-          class="flex flex-col justify-around items-center shadow-lg rounded-xl px-3 w-[50px] h-36 text-slate-300"
-        >
-          <text class="font-semibold text-2xl">-</text>
-          <text class="text-red-300">{{ item.count }}</text>
-          <text class="font-semibold text-2xl">+</text>
-        </view>
-      </view>
+          </template>
+        </uni-swipe-action-item>
+      </uni-swipe-action>
     </scroll-view>
     <!-- 总计 -->
     <view class="flex justify-around w-[300px] text-sm">
@@ -95,7 +108,7 @@
 <script lang="ts" setup>
 import { ref, onMounted } from "vue";
 import { useProfileStore } from "../../store/profile/index";
-import { getMemberCartAPI } from "./cartPageApi";
+import { getMemberCartAPI, deleteMemberCartAPI } from "./cartPageApi";
 import type { CartItem } from "./cartPage";
 
 // 获取会员Store
@@ -117,6 +130,22 @@ onMounted(() => {
     getMemberCartData();
   }
 });
+
+// 点击删除按钮
+const onDeleteCart = (skuId: string) => {
+  // 弹窗二次确认
+  uni.showModal({
+    content: "是否删除",
+    success: async (res) => {
+      if (res.confirm) {
+        // 后端删除单品
+        await deleteMemberCartAPI({ ids: [skuId] });
+        // 重新获取列表
+        getMemberCartData();
+      }
+    },
+  });
+};
 </script>
 
 <style lang="scss" scoped>
