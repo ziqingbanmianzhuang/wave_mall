@@ -114,6 +114,13 @@
     >
       再次购买
     </navigator>
+    <view
+      v-if="orderDetail?.orderState == OrderState.DaiFaHuo"
+      class="button"
+      @tap="sendGoodsMock"
+    >
+      模拟发货
+    </view>
   </view>
 
   <!-- 取消 or 支付订单 -->
@@ -128,7 +135,11 @@
 <script lang="ts" setup>
 import type { OrderResult } from "./detailOrdrerPageType";
 import { OrderState, orderStateList } from "./detailOrderPageUtils";
-import { getMemberOrderByIdAPI, getPayMockAPI } from "./detailOrderPageApi";
+import {
+  getMemberOrderByIdAPI,
+  getPayMockAPI,
+  getMemberOrderConsignmentByIdAPI,
+} from "./detailOrderPageApi";
 import { ref, onMounted } from "vue";
 
 // 获取页面参数
@@ -166,6 +177,14 @@ const payOrder = async () => {
 
   // 跳转支付结果页
   uni.redirectTo({ url: `/orderPkg/payResPage/payResPage?id=${query.id}` });
+};
+
+// 模拟发货
+const sendGoodsMock = async () => {
+  await getMemberOrderConsignmentByIdAPI(query.id);
+  uni.showToast({ icon: "success", title: "模拟发货完成" });
+  // 主动更新订单状态
+  orderDetail.value!.orderState = OrderState.DaiShouHuo;
 };
 </script>
 
