@@ -87,11 +87,20 @@
 
   <!-- 支付剩余 -->
   <view
-    v-if="orderDetail?.orderState !== OrderState.DaiFuKuan"
-    class="text-center font-semibold"
+    v-if="orderDetail?.orderState === OrderState.DaiFuKuan"
+    class="flex text-center font-semibold"
   >
     <text class="mr-3">应付金额:{{ orderDetail?.payMoney }}</text>
-    <text>支付倒计时:{{ orderDetail?.countdown }}</text>
+    <!-- 倒计时组件 -->
+    <text>倒计时: </text>
+    <uni-countdown
+      :second="orderDetail?.countdown"
+      color="#000"
+      splitor-color="#000"
+      :show-day="false"
+      :show-colon="false"
+      @timeup="timeUp"
+    />
   </view>
 
   <view v-else class="flex justify-center font-semibold">
@@ -142,6 +151,11 @@ onMounted(() => {
     title: orderStateList[orderDetail.value?.orderState]?.text,
   });
 });
+
+//倒计时结束的时候,修改订单状态为已取消
+const timeUp = () => {
+  orderDetail.value.orderState = OrderState.YiQuXiao;
+};
 </script>
 
 <style lang="scss" scoped>
