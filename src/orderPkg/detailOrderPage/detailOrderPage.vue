@@ -121,6 +121,13 @@
     >
       模拟发货
     </view>
+    <view
+      v-if="orderDetail?.orderState == OrderState.DaiShouHuo"
+      class="button"
+      @tap="confirmReceiveGoods"
+    >
+      确认收货
+    </view>
   </view>
 
   <!-- 取消 or 支付订单 -->
@@ -139,6 +146,7 @@ import {
   getMemberOrderByIdAPI,
   getPayMockAPI,
   getMemberOrderConsignmentByIdAPI,
+  putMemberOrderReceiptByIdAPI,
 } from "./detailOrderPageApi";
 import { ref, onMounted } from "vue";
 
@@ -185,6 +193,22 @@ const sendGoodsMock = async () => {
   uni.showToast({ icon: "success", title: "模拟发货完成" });
   // 主动更新订单状态
   orderDetail.value!.orderState = OrderState.DaiShouHuo;
+};
+
+//确认收货
+// 确认收货
+const confirmReceiveGoods = () => {
+  // 二次确认弹窗
+  uni.showModal({
+    content: "为保障您的权益，请收到货并确认无误后，再确认收货",
+    success: async (success) => {
+      if (success.confirm) {
+        const res = await putMemberOrderReceiptByIdAPI(query.id);
+        // 更新订单状态
+        orderDetail.value = res.result;
+      }
+    },
+  });
 };
 </script>
 
