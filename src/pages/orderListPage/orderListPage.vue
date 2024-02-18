@@ -8,44 +8,59 @@
       <uni-icons type="color" color="" size="24" />
     </view>
   </view>
-  <!-- 订单列表 -->
-  <scroll-view scroll-y>
-    <view v-for="item in 10" :key="item" class="mx-1.5 mb-3">
-      <!-- 日期和订单状态 -->
-      <view class="flex justify-between w-[363px]">
-        <text class="text-xs text-slate-300">2023-12-12</text>
-        <text class="font-semibold text-sm">待付款</text>
-      </view>
-      <!-- 商品图片和信息 -->
-      <view class="flex justify-start">
-        <image src="" mode="scaleToFill" class="rounded-xl mr-3 h-16 w-16" />
-        <view class="flex flex-col">
-          <text class="font-semibold">商品名</text>
-          <text class="text-xs text-slate-300">商品规格</text>
-          <text class="text-xs text-slate-300"
-            >您一共买了一件商品,实付:<text class="text-red-300">
-              $227</text
-            ></text
-          >
+  <swiper :current="activeIndex" @change="activeIndex = $event.detail.current">
+    <swiper-item v-for="tab in orderTabs" :key="tab.state" class="h-96">
+      <!-- 订单列表 -->
+      <scroll-view scroll-y class="h-96">
+        <view v-for="item in 10" :key="item" class="mx-1.5 mb-3">
+          <!-- 日期和订单状态 -->
+          <view class="flex justify-between w-[363px]">
+            <text class="text-xs text-slate-300">2023-12-12</text>
+            <text class="font-semibold text-sm">待付款</text>
+          </view>
+          <!-- 商品图片和信息 -->
+          <view class="flex justify-start">
+            <image
+              src=""
+              mode="scaleToFill"
+              class="rounded-xl mr-3 h-16 w-16"
+            />
+            <view class="flex flex-col">
+              <text class="font-semibold">商品名</text>
+              <text class="text-xs text-slate-300">商品规格</text>
+              <text class="text-xs text-slate-300"
+                >您一共买了一件商品,实付:<text class="text-red-300">
+                  $227</text
+                ></text
+              >
+            </view>
+          </view>
+          <!-- 按钮 -->
+          <view class="flex justify-end">
+            <button
+              class="border border-slate-300 border-solid mr-3 w-20 h-8 leading-8"
+            >
+              取消
+            </button>
+            <button
+              class="border border-slate-600 border-solid w-20 h-8 leading-8"
+            >
+              支付
+            </button>
+          </view>
         </view>
-      </view>
-      <!-- 按钮 -->
-      <view class="flex justify-end">
-        <button
-          class="border border-slate-300 border-solid mr-3 w-20 h-8 leading-8"
-        >
-          取消
-        </button>
-        <button class="border border-slate-600 border-solid w-20 h-8 leading-8">
-          支付
-        </button>
-      </view>
-    </view>
-  </scroll-view>
+      </scroll-view>
+    </swiper-item>
+  </swiper>
 </template>
 
 <script lang="ts" setup>
 import { ref } from "vue";
+
+// 获取页面参数
+const query = defineProps<{
+  type: string;
+}>();
 
 // tabs 数据
 const orderTabs = ref([
@@ -55,6 +70,11 @@ const orderTabs = ref([
   { state: 3, title: "待收货" },
   { state: 4, title: "待评价" },
 ]);
+
+// 高亮下标
+const activeIndex = ref(
+  orderTabs.value.findIndex((v) => v.state === Number(query.type)),
+);
 </script>
 
 <style lang="scss" scoped>

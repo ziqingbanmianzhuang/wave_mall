@@ -69,7 +69,9 @@
     class="flex justify-between bg-white shadow-lg rounded-xl m-1.5 p-3 h-16 leading-[64px] w-[363px] text-base font-semibold"
   >
     <text>我的订单</text>
-    <navigator url="/pages/orderListPage/orderListPage">查看全部订单</navigator>
+    <navigator url="/pages/orderListPage/orderListPage?type='0'"
+      >查看全部订单</navigator
+    >
   </view>
   <!-- 登录 -->
   <navigator
