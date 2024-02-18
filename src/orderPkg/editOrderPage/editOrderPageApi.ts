@@ -30,3 +30,11 @@ export const postMemberOrderAPI = (data: OrderCreateParams) => {
     data,
   });
 };
+
+//根据Orderid获取订单
+export const getMemberOrderRepurchaseByIdAPI = (id: string) => {
+  return http<OrderPreResult>({
+    method: "GET",
+    url: `/member/order/repurchase/${id}`,
+  });
+};

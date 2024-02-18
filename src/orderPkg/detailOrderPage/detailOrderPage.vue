@@ -87,7 +87,7 @@
 
   <!-- 支付剩余 -->
   <view
-    v-if="orderDetail?.orderState === OrderState.DaiFuKuan"
+    v-if="orderDetail?.orderState !== OrderState.DaiFuKuan"
     class="text-center font-semibold"
   >
     <text class="mr-3">应付金额:{{ orderDetail?.payMoney }}</text>
@@ -136,6 +136,11 @@ const getMemberOrderByIdData = async () => {
 
 onMounted(() => {
   getMemberOrderByIdData();
+
+  //动态设置标题
+  uni.setNavigationBarTitle({
+    title: orderStateList[orderDetail.value?.orderState]?.text,
+  });
 });
 </script>
 

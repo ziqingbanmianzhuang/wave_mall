@@ -103,6 +103,7 @@ import {
   getMemberOrderPreAPI,
   getMemberOrderPreBySkuIDAPI,
   postMemberOrderAPI,
+  getMemberOrderRepurchaseByIdAPI,
 } from "./editOrderPageApi";
 import type { OrderPreResult } from "./editOrderPageType";
 import { onMounted, ref, computed } from "vue";
@@ -112,6 +113,7 @@ import { useAddressStore } from "../../store/address/index";
 const query = defineProps<{
   skuId?: string;
   count?: string;
+  orderId?: string;
 }>();
 
 //订单数据
@@ -127,8 +129,14 @@ const getMemberOrderPreData = async () => {
       skuId: query.skuId,
     });
     orderData.value = res.result;
+  } else if (query.orderId) {
+    // 再次购买
+    const res = await getMemberOrderRepurchaseByIdAPI(query.orderId);
+    orderData.value = res.result;
   } else {
     const res = await getMemberOrderPreAPI();
+    console.log("getMemberOrderPreAPI", res);
+
     orderData.value = res.result;
   }
 };
