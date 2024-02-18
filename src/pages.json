@@ -48,6 +48,12 @@
 			"style": {
 				"navigationBarTitleText": "loginPage"
 			}
+		},
+		{
+			"path": "pages/orderListPage/orderListPage",
+			"style": {
+				"navigationBarTitleText": "orderListPage"
+			}
 		}
 	],
 	// 组件自动导入
