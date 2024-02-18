@@ -119,14 +119,16 @@
   <!-- 取消 or 支付订单 -->
   <view class="flex justify-between mx-1.5 text-white">
     <button class="bg-green-300 rounded-xl w-28 h-8 leading-8">取消订单</button>
-    <button class="bg-red-300 rounded-xl w-36 h-8 leading-8">去支付</button>
+    <button class="bg-red-300 rounded-xl w-36 h-8 leading-8" @tap="payOrder">
+      去支付
+    </button>
   </view>
 </template>
 
 <script lang="ts" setup>
 import type { OrderResult } from "./detailOrdrerPageType";
 import { OrderState, orderStateList } from "./detailOrderPageUtils";
-import { getMemberOrderByIdAPI } from "./detailOrderPageApi";
+import { getMemberOrderByIdAPI, getPayMockAPI } from "./detailOrderPageApi";
 import { ref, onMounted } from "vue";
 
 // 获取页面参数
@@ -155,6 +157,15 @@ onMounted(() => {
 //倒计时结束的时候,修改订单状态为已取消
 const timeUp = () => {
   orderDetail.value.orderState = OrderState.YiQuXiao;
+};
+
+//支付订单
+// 订单支付
+const payOrder = async () => {
+  await getPayMockAPI({ orderId: query.id });
+
+  // 跳转支付结果页
+  uni.redirectTo({ url: `/orderPkg/payResPage/payResPage?id=${query.id}` });
 };
 </script>
 

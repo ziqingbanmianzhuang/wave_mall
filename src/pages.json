@@ -141,6 +141,12 @@
 					"style": {
 						"navigationBarTitleText": "等待付款"
 					}
+				},
+				{
+					"path": "payResPage/payResPage",
+					"style": {
+						"navigationBarTitleText": "支付"
+					}
 				}
 			]
 		}

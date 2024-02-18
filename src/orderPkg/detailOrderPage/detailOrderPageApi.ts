@@ -8,3 +8,12 @@ export const getMemberOrderByIdAPI = (id: string) => {
     url: `/member/order/${id}`,
   });
 };
+
+//微信模拟支付
+export const getPayMockAPI = (data: { orderId: string }) => {
+  return http({
+    method: "GET",
+    url: "/pay/mock",
+    data,
+  });
+};
