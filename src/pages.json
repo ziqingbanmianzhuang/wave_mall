@@ -145,7 +145,7 @@
 				{
 					"path": "payResPage/payResPage",
 					"style": {
-						"navigationBarTitleText": "支付"
+						"navigationBarTitleText": "支付成功"
 					}
 				}
 			]
