@@ -33,3 +33,15 @@ export const putMemberOrderReceiptByIdAPI = (id: string) => {
     url: `/member/order/${id}/receipt`,
   });
 };
+
+//取消订单
+export const getMemberOrderCancelByIdAPI = (
+  id: string,
+  data: { cancelReason: string },
+) => {
+  return http<OrderResult>({
+    method: "PUT",
+    url: `/member/order/${id}/cancel`,
+    data,
+  });
+};

@@ -132,7 +132,12 @@
 
   <!-- 取消 or 支付订单 -->
   <view class="flex justify-between mx-1.5 text-white">
-    <button class="bg-green-300 rounded-xl w-28 h-8 leading-8">取消订单</button>
+    <button
+      class="bg-green-300 rounded-xl w-28 h-8 leading-8"
+      @tap="cancelOrder"
+    >
+      取消订单
+    </button>
     <button class="bg-red-300 rounded-xl w-36 h-8 leading-8" @tap="payOrder">
       去支付
     </button>
@@ -147,6 +152,7 @@ import {
   getPayMockAPI,
   getMemberOrderConsignmentByIdAPI,
   putMemberOrderReceiptByIdAPI,
+  getMemberOrderCancelByIdAPI,
 } from "./detailOrderPageApi";
 import { ref, onMounted } from "vue";
 
@@ -209,6 +215,12 @@ const confirmReceiveGoods = () => {
       }
     },
   });
+};
+
+//取消订单
+const cancelOrder = () => {
+  getMemberOrderCancelByIdAPI(query.id, { cancelReason: "不想要了" });
+  uni.navigateBack({});
 };
 </script>
 
