@@ -3,20 +3,9 @@
   <view
     class="flex justify-between border-b border-slate-300 border-solid m-1.5 pb-1.5 w-[363px] h-20"
   >
-    <view>
-      <view>全部</view> <uni-icons type="color" color="" size="24" />
-    </view>
-    <view>
-      <view>待付款</view> <uni-icons type="color" color="" size="24" />
-    </view>
-    <view>
-      <view>待发货</view> <uni-icons type="color" color="" size="24" />
-    </view>
-    <view>
-      <view>待收货</view> <uni-icons type="color" color="" size="24" />
-    </view>
-    <view>
-      <view>待评价</view> <uni-icons type="color" color="" size="24" />
+    <view v-for="item in orderTabs" :key="item.state">
+      <view>{{ item.title }}</view>
+      <uni-icons type="color" color="" size="24" />
     </view>
   </view>
   <!-- 订单列表 -->
@@ -55,7 +44,18 @@
   </scroll-view>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { ref } from "vue";
+
+// tabs 数据
+const orderTabs = ref([
+  { state: 0, title: "全部" },
+  { state: 1, title: "待付款" },
+  { state: 2, title: "待发货" },
+  { state: 3, title: "待收货" },
+  { state: 4, title: "待评价" },
+]);
+</script>
 
 <style lang="scss" scoped>
 @import "tailwindcss/base";
