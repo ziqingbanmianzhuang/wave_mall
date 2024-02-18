@@ -6,18 +6,22 @@
     >
       <text class="block bg-orange-300 rounded-[8px] mr-3 w-2 h-2"></text>
       <view class="flex flex-col my-3">
-        <text class="font-semibold">物流信息</text>
-        <text class="text-xs text-slate-300">2023 04 19</text>
+        <text class="font-semibold">下单时间</text>
+        <text class="text-xs text-slate-300">{{
+          orderDetail?.createTime
+        }}</text>
       </view>
     </view>
     <view class="flex items-center justify-start my-3 w-full">
       <text class="block bg-orange-300 rounded-[8px] mr-3 w-2 h-2"></text>
       <view
         ><view class="font-semibold">
-          <text class="mr-3">姓名</text>
-          <text>+12345678</text>
+          <text class="mr-3">{{ orderDetail?.receiverContact }}</text>
+          <text>+{{ orderDetail?.receiverMobile }}</text>
         </view>
-        <text class="text-xs text-slate-300">广东 广州</text>
+        <text class="text-xs text-slate-300">{{
+          orderDetail?.receiverAddress
+        }}</text>
       </view></view
     >
   </view>
@@ -25,15 +29,19 @@
   <!-- 订单商品 -->
   <view>
     <view
-      v-for="item in 2"
-      :key="item"
+      v-for="item in orderDetail?.skus"
+      :key="item.id"
       class="flex justify-start shadow-lg rounded-xl mx-1.5 px-3 w-[363px] h-32"
     >
-      <image src="" mode="scaleToFill" class="rounded-xl mr-3 w-16 h-16" />
+      <image
+        :src="item.image"
+        mode="scaleToFill"
+        class="rounded-xl mr-3 w-16 h-16"
+      />
       <view class="flex flex-col justify-around">
-        <text class="font-semibold">商品名</text>
-        <text class="text-slate-300 text-xs">11 22 33</text>
-        <text class="text-orange-300">200</text>
+        <text class="font-semibold">{{ item.name }}</text>
+        <text class="text-slate-300 text-xs">{{ item.attrsText }}</text>
+        <text class="text-orange-300">X {{ item.quantity }} </text>
       </view>
     </view>
   </view>
@@ -59,28 +67,44 @@
         <text class="block bg-orange-300 rounded-[8px] mr-3 w-2 h-2"> </text>
         <text>商品总价</text></view
       >
-      <text class="text-slate-300 text-xs">$69</text>
+      <text class="text-slate-300 text-xs">{{ orderDetail?.totalMoney }}</text>
     </view>
     <view class="flex justify-between items-center">
       <view class="flex items-center">
         <text class="block bg-orange-300 rounded-[8px] mr-3 w-2 h-2"></text
         ><text>商品运费</text></view
       >
-      <text class="text-slate-300 text-xs">$56</text>
+      <text class="text-slate-300 text-xs">{{ orderDetail?.postFee }}</text>
     </view>
     <view class="flex justify-between items-center">
       <view class="flex items-center">
         <text class="block bg-orange-300 rounded-[8px] mr-3 w-2 h-2"></text
         ><text>应付金额</text></view
       >
-      <text class="text-orange-300">$45</text>
+      <text class="text-orange-300">{{ orderDetail?.payMoney }}</text>
     </view>
   </view>
 
   <!-- 支付剩余 -->
-  <view class="text-center font-semibold">
-    <text class="mr-3">应付金额:$12</text>
-    <text>支付剩余:00小时</text>
+  <view
+    v-if="orderDetail?.orderState === OrderState.DaiFuKuan"
+    class="text-center font-semibold"
+  >
+    <text class="mr-3">应付金额:{{ orderDetail?.payMoney }}</text>
+    <text>支付倒计时:{{ orderDetail?.countdown }}</text>
+  </view>
+
+  <view v-else class="flex justify-center font-semibold">
+    <view class="mr-3">
+      {{ orderStateList[orderDetail?.orderState]?.text }}
+    </view>
+    <navigator
+      class="button"
+      :url="`/orderPkg/editOrderPage/editOrderPage?orderId=${query.id}`"
+      hover-class="none"
+    >
+      再次购买
+    </navigator>
   </view>
 
   <!-- 取消 or 支付订单 -->
@@ -90,7 +114,30 @@
   </view>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import type { OrderResult } from "./detailOrdrerPageType";
+import { OrderState, orderStateList } from "./detailOrderPageUtils";
+import { getMemberOrderByIdAPI } from "./detailOrderPageApi";
+import { ref, onMounted } from "vue";
+
+// 获取页面参数
+const query = defineProps<{
+  id: string;
+}>();
+
+// 订单详情
+const orderDetail = ref<OrderResult>();
+
+//获取订单详情
+const getMemberOrderByIdData = async () => {
+  const res = await getMemberOrderByIdAPI(query.id);
+  orderDetail.value = res.result;
+};
+
+onMounted(() => {
+  getMemberOrderByIdData();
+});
+</script>
 
 <style lang="scss" scoped>
 @import "tailwindcss/base";
