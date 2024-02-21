@@ -1,110 +1,115 @@
 <template>
-  <!-- 轮播图组件 -->
-  <uni-swiper-dot
-    mode="round"
-    :info="swiperList"
-    color="#ccc"
-    :current="current"
-    :dots-styles="dotsStyles"
-  >
-    <swiper circular class="h-28 mb-6" @change="change">
-      <swiper-item v-for="item in swiperList" :key="item.id">
-        <navigator
-          url="/pages/hotItem/hotItem"
-          open-type="navigate"
-          hover-class="navigator-hover"
-        >
-          <view
-            class="flex justify-between items-center box-border mx-1.5 p-6 w-[363px] h-28 bg-orange-200 font-sans text-xs text-black rounded-xl"
-          >
-            <text>click here ->{{ item.id }}</text>
-            <image
-              :src="item.hrefUrl"
-              mode="scaleToFill"
-              class="w-[200px] h-16 border-8 border-white border-solid rounded-xl"
-            />
-          </view>
-        </navigator>
-      </swiper-item>
-    </swiper>
-  </uni-swiper-dot>
-
-  <!-- 分类组件 -->
-  <view class="flex flex-wrap">
-    <navigator
-      v-for="item in list"
-      :key="item.id"
-      url="/pages/categoryItem/categoryItem"
-      :class="`flex justify-start items-center box-border m-1.5 p-3 w-[175.5px] h-20 font-sans font-semibold text-lg text-black ${item.bg} rounded-xl`"
+  <view v-if="!isLoading"
+    ><!-- 轮播图组件 -->
+    <uni-swiper-dot
+      mode="round"
+      :info="swiperList"
+      color="#ccc"
+      :current="current"
+      :dots-styles="dotsStyles"
     >
-      <view
-        class="flex justify-center items-center mx-3 w-9 h-9 bg-white rounded-xl"
-      >
-        <uni-icons :type="item.icon" size="30" color="#000"></uni-icons>
-      </view>
-      <text>{{ item.name }}</text>
-    </navigator>
-  </view>
-  <!-- 推荐组件 -->
-  <view class="mb-6">
-    <text class="block mx-1.5 mt-6 font-sans font-semibold text-xl">推荐</text>
-    <view class="flex justify-between items-center m-1.5">
+      <swiper circular class="h-28 mb-6" @change="change">
+        <swiper-item v-for="item in swiperList" :key="item.id">
+          <navigator
+            url="/pages/hotItem/hotItem"
+            open-type="navigate"
+            hover-class="navigator-hover"
+          >
+            <view
+              class="flex justify-between items-center box-border mx-1.5 p-6 w-[363px] h-28 bg-orange-200 font-sans text-xs text-black rounded-xl"
+            >
+              <text>click here ->{{ item.id }}</text>
+              <image
+                :src="item.hrefUrl"
+                mode="scaleToFill"
+                class="w-[200px] h-16 border-8 border-white border-solid rounded-xl"
+              />
+            </view>
+          </navigator>
+        </swiper-item>
+      </swiper>
+    </uni-swiper-dot>
+
+    <!-- 分类组件 -->
+    <view class="flex flex-wrap">
       <navigator
-        v-for="item in recommendList"
+        v-for="item in list"
         :key="item.id"
-        :url="`/pages/recommendItem/recommendItem?type=${item.type}`"
-        open-type="navigate"
-        hover-class="navigator-hover"
-        class="flex flex-col justify-start items-center"
+        url="/pages/categoryItem/categoryItem"
+        :class="`flex justify-start items-center box-border m-1.5 p-3 w-[175.5px] h-20 font-sans font-semibold text-lg text-black ${item.bg} rounded-xl`"
       >
         <view
-          :class="`flex justify-center items-center w-9 h-9 ${item.bg} rounded-xl`"
+          class="flex justify-center items-center mx-3 w-9 h-9 bg-white rounded-xl"
         >
-          <uni-icons :type="item.icon" color="" size="30" />
+          <uni-icons :type="item.icon" size="30" color="#000"></uni-icons>
         </view>
-        <view>{{ item.alt }}</view>
-        <view class="font-sans font-semibold text-lg text-black">{{
-          item.title
-        }}</view>
+        <text>{{ item.name }}</text>
       </navigator>
     </view>
-  </view>
-  <!-- 推荐喜欢组件 -->
-  <view class="text-xs text-center">---你可能喜欢---</view>
-  <scroll-view
-    scroll-y
-    class="h-[667px] w-[363px] m-1.5"
-    refresher-enabled
-    :refresher-triggered="isTriggered"
-    @refresherrefresh="onRefresherrefresh"
-    @scrolltolower="onScrolltolower"
-  >
-    <navigator
-      v-for="item in likeList"
-      :key="item.id"
-      url="/pages/goodsDetailPage/goodsDetailPage"
-      open-type="navigate"
-      hover-class="navigator-hover"
-      class="grid grid-cols-7 items-center m-1.5"
-    >
-      <text
-        class="col-span-1 h-2 w-2 bg-black rounded justify-self-start"
-      ></text>
-      <text class="col-span-5 justify-self-start font-semibold">{{
-        item.name
-      }}</text>
-      <text class="col-span-1 justify-self-end">{{ item.price }}</text>
-      <view
-        class="col-start-2 col-end-8 flex justify-center m-1.5 border border-inherit border-solid rounded-xl"
+    <!-- 推荐组件 -->
+    <view class="mb-6">
+      <text class="block mx-1.5 mt-6 font-sans font-semibold text-xl"
+        >推荐</text
       >
-        <image class="w-24 h-24" :src="item.picture" mode="scaleToFill" />
+      <view class="flex justify-between items-center m-1.5">
+        <navigator
+          v-for="item in recommendList"
+          :key="item.id"
+          :url="`/pages/recommendItem/recommendItem?type=${item.type}`"
+          open-type="navigate"
+          hover-class="navigator-hover"
+          class="flex flex-col justify-start items-center"
+        >
+          <view
+            :class="`flex justify-center items-center w-9 h-9 ${item.bg} rounded-xl`"
+          >
+            <uni-icons :type="item.icon" color="" size="30" />
+          </view>
+          <view>{{ item.alt }}</view>
+          <view class="font-sans font-semibold text-lg text-black">{{
+            item.title
+          }}</view>
+        </navigator>
       </view>
-    </navigator>
-  </scroll-view>
+    </view>
+    <!-- 推荐喜欢组件 -->
+    <view class="text-xs text-center">---你可能喜欢---</view>
+    <scroll-view
+      scroll-y
+      class="h-[667px] w-[363px] m-1.5"
+      refresher-enabled
+      :refresher-triggered="isTriggered"
+      @refresherrefresh="onRefresherrefresh"
+      @scrolltolower="onScrolltolower"
+    >
+      <navigator
+        v-for="item in likeList"
+        :key="item.id"
+        url="/pages/goodsDetailPage/goodsDetailPage"
+        open-type="navigate"
+        hover-class="navigator-hover"
+        class="grid grid-cols-7 items-center m-1.5"
+      >
+        <text
+          class="col-span-1 h-2 w-2 bg-black rounded justify-self-start"
+        ></text>
+        <text class="col-span-5 justify-self-start font-semibold">{{
+          item.name
+        }}</text>
+        <text class="col-span-1 justify-self-end">{{ item.price }}</text>
+        <view
+          class="col-start-2 col-end-8 flex justify-center m-1.5 border border-inherit border-solid rounded-xl"
+        >
+          <image class="w-24 h-24" :src="item.picture" mode="scaleToFill" />
+        </view>
+      </navigator> </scroll-view
+  ></view>
+  <skeletonPage v-else></skeletonPage>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
+import { skeletonPage } from "./skeletonPage.vue";
 import type {
   CategoryItem,
   RecommendItem,
@@ -119,6 +124,8 @@ import {
   getHomeLikeAPI,
 } from "./indexPageApi";
 import { onMounted } from "vue";
+
+const isLoading = ref(true);
 
 //轮播图当前序号
 let current = ref(0);
@@ -281,18 +288,24 @@ const resetData = () => {
   finish.value = false;
 };
 
-onMounted(() => {
+onMounted(async () => {
   //获取首页分类
-  getHomeCategoryData();
-
+  // getHomeCategoryData()
   //获取首页推荐
-  getHomeRecommendData();
+  // getHomeRecommendData();
 
   //获取轮播图数据
-  getHomeSwiperData();
+  // getHomeSwiperData();
 
   //获取推荐喜欢组件数据
-  getHomeLikeData();
+  // getHomeLikeData();
+  await Promise.all([
+    getHomeCategoryData(),
+    getHomeRecommendData(),
+    getHomeSwiperData(),
+    getHomeLikeData(),
+  ]);
+  isLoading.value = false;
 });
 </script>
 
