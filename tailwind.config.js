@@ -11,6 +11,7 @@ export default {
         black: "#000",
         bgWhite: "#f5f5f5",
         fontBlack: "#2B2D42",
+        fontGray: "#54566d",
       },
     },
     plugins: [],

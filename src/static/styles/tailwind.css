@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+/*字体 */
 .font-primary {
-	@apply font-semibold text-fontBlack text-base;
+	@apply font-semibold text-fontBlack text-base font-sans;
+}
+.font-primary-smaller {
+	@apply font-semibold text-fontBlack text-sm font-sans;
+}
+.font-primary-biger {
+	@apply font-semibold text-fontBlack text-lg font-sans;
+}
+.font-secondary {
+	@apply font-normal text-fontGray text-xs font-sans;
 }
