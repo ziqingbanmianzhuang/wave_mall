@@ -1,5 +1,5 @@
 <template>
-  <view class="flex justify-between">
+  <view v-if="!isLoading" class="flex justify-between">
     <view class="w-[327px]">
       <swiper circular class="m-1.5 mb-6 h-28">
         <swiper-item v-for="item in 5" :key="item">
@@ -62,12 +62,16 @@
       >
     </view>
   </view>
+  <skeletonPage v-else></skeletonPage>
 </template>
 
 <script lang="ts" setup>
 import { onMounted, ref, computed } from "vue";
 import { getCategoryTopAPI } from "./categoryPageApi";
 import type { CategoryTopItem } from "./categoryPageType";
+import skeletonPage from "./skeletonPage.vue";
+
+let isLoading = ref(true);
 
 //一级分类数据
 const categoryList = ref<CategoryTopItem[]>([]);
@@ -85,8 +89,9 @@ const getCategoryTopData = async () => {
   const res = await getCategoryTopAPI();
   categoryList.value = res.result;
 };
-onMounted(() => {
-  getCategoryTopData();
+onMounted(async () => {
+  await getCategoryTopData();
+  isLoading.value = false;
 });
 </script>
 

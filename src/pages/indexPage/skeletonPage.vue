@@ -1,29 +1,10 @@
-<!--
-此文件为开发者工具生成，生成时间: 2024/2/21上午9:24:28
-使用方法：
-在 C:\Users\ziqing\Desktop\wava_mall\wave_mall_source4\dist\dev\mp-weixin\pages\indexPage\indexPage.wxml 引入模板
-
-```
-<import src="indexPage.skeleton.wxml"/>
-<template is="skeleton" wx:if="{{loading}}" />
-```
-
-在 C:\Users\ziqing\Desktop\wava_mall\wave_mall_source4\dist\dev\mp-weixin\pages\indexPage\indexPage.wxss 中引入样式
-```
-@import "./indexPage.skeleton.wxss";
-```
-
-更多详细信息可以参考文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/skeleton.html
--->
 <template name="skeleton">
   <view class="sk-container">
-    <component
-      :is="`node-modules/@dcloudio/uni-ui/lib/uni-swiper-dot/uni-swiper-dot`"
-    >
+    <view>
       <view class="uni-swiper__warp dot--uni-swiper__warp">
         <swiper
           :circular="true"
-          class="h-28 mb-6"
+          class="h-28 h-28 mb-6 mb-6"
           :current="0"
           :autoplay="false"
         >
@@ -37,10 +18,10 @@
           >
             <navigator hover-class="navigator-hover" open-type="navigate">
               <view
-                class="flexjustify-between items-center box-border mx-1d5 p-6 w-_363px_ h-28 bg-orange-200 font-sans text-xs text-black rounded-xl"
+                class="flex flex justify-between justify-between items-center items-center box-border box-border mx-1d5 mx-1d5 p-6 p-6 w-_363px_ w-_363px_ h-28 h-28 bg-orange-200 bg-orange-200 font-sans font-sans text-xs text-xs text-black text-black rounded-xl rounded-xl"
               >
-                <text class="sk-transparent sk-text-12-5000-730 sk-text"
-                  >click here -&gt;23</text
+                <text class="sk-transparent sk-text-12-5000-663 sk-text"
+                  >click here -&gt;21</text
                 >
                 <image
                   class="w-_200px_ h-16 border-8 border-white border-solid rounded-xl sk-image"
@@ -96,188 +77,151 @@
           ></view>
         </view>
       </view>
-    </component>
-    <view class="flex flex flex-wrap flex-wrap">
-      <navigator
-        class="flex flex justify-start justify-start items-center items-center box-border box-border m-1d5 m-1d5 p-3 p-3 w-_175d5px_ w-_175d5px_ h-20 h-20 font-sans font-sans font-semibold font-semibold text-lg text-lg text-black text-black bg-cyan-200 bg-cyan-200 rounded-xl rounded-xl"
-      >
-        <view
-          class="flex flex justify-center justify-center items-center items-center mx-3 mx-3 w-9 w-9 h-9 h-9 bg-white bg-white rounded-xl rounded-xl"
+
+      <view class="flex flex flex-wrap flex-wrap">
+        <navigator
+          class="flex flex justify-start justify-start items-center items-center box-border box-border m-1d5 m-1d5 p-3 p-3 w-_175d5px_ w-_175d5px_ h-20 h-20 font-sans font-sans font-semibold font-semibold text-lg text-lg text-black text-black bg-cyan-200 bg-cyan-200 rounded-xl rounded-xl"
         >
-          <component
-            :is="`node-modules/@dcloudio/uni-ui/lib/uni-icons/uni-icons`"
+          <view
+            class="flex flex justify-center justify-center items-center items-center mx-3 mx-3 w-9 w-9 h-9 h-9 bg-white bg-white rounded-xl rounded-xl"
           >
             <text
               class="uni-icons icons--uni-icons uniui-home icons--uniui-home sk-pseudo sk-pseudo-circle"
               style="color: #000; font-size: 30px"
             ></text>
-          </component>
-        </view>
-        <text class="sk-transparent sk-text-17-8571-343 sk-text">居家</text>
-      </navigator>
-      <navigator
-        class="flex flex justify-start justify-start items-center items-center box-border box-border m-1d5 m-1d5 p-3 p-3 w-_175d5px_ w-_175d5px_ h-20 h-20 font-sans font-sans font-semibold font-semibold text-lg text-lg text-black text-black bg-sky-300 bg-sky-300 rounded-xl rounded-xl"
-      >
-        <view
-          class="flex flex justify-center justify-center items-center items-center mx-3 mx-3 w-9 w-9 h-9 h-9 bg-white bg-white rounded-xl rounded-xl"
+          </view>
+          <text class="sk-transparent sk-text-17-8571-795 sk-text">居家</text>
+        </navigator>
+        <navigator
+          class="flex flex justify-start justify-start items-center items-center box-border box-border m-1d5 m-1d5 p-3 p-3 w-_175d5px_ w-_175d5px_ h-20 h-20 font-sans font-sans font-semibold font-semibold text-lg text-lg text-black text-black bg-sky-300 bg-sky-300 rounded-xl rounded-xl"
         >
-          <component
-            :is="`node-modules/@dcloudio/uni-ui/lib/uni-icons/uni-icons`"
+          <view
+            class="flex flex justify-center justify-center items-center items-center mx-3 mx-3 w-9 w-9 h-9 h-9 bg-white bg-white rounded-xl rounded-xl"
           >
             <text
               class="uni-icons icons--uni-icons uniui-star icons--uniui-star sk-pseudo sk-pseudo-circle"
               style="color: #000; font-size: 30px"
             ></text>
-          </component>
-        </view>
-        <text class="sk-transparent sk-text-17-8571-549 sk-text">锦鲤</text>
-      </navigator>
-      <navigator
-        class="flex flex justify-start justify-start items-center items-center box-border box-border m-1d5 m-1d5 p-3 p-3 w-_175d5px_ w-_175d5px_ h-20 h-20 font-sans font-sans font-semibold font-semibold text-lg text-lg text-black text-black bg-pink-200 bg-pink-200 rounded-xl rounded-xl"
-      >
-        <view
-          class="flex flex justify-center justify-center items-center items-center mx-3 mx-3 w-9 w-9 h-9 h-9 bg-white bg-white rounded-xl rounded-xl"
+          </view>
+          <text class="sk-transparent sk-text-17-8571-522 sk-text">锦鲤</text>
+        </navigator>
+        <navigator
+          class="flex flex justify-start justify-start items-center items-center box-border box-border m-1d5 m-1d5 p-3 p-3 w-_175d5px_ w-_175d5px_ h-20 h-20 font-sans font-sans font-semibold font-semibold text-lg text-lg text-black text-black bg-pink-200 bg-pink-200 rounded-xl rounded-xl"
         >
-          <component
-            :is="`node-modules/@dcloudio/uni-ui/lib/uni-icons/uni-icons`"
+          <view
+            class="flex flex justify-center justify-center items-center items-center mx-3 mx-3 w-9 w-9 h-9 h-9 bg-white bg-white rounded-xl rounded-xl"
           >
             <text
               class="uni-icons icons--uni-icons uniui-gift icons--uniui-gift sk-pseudo sk-pseudo-circle"
               style="color: #000; font-size: 30px"
             ></text>
-          </component>
-        </view>
-        <text class="sk-transparent sk-text-17-8571-463 sk-text">服饰</text>
-      </navigator>
-      <navigator
-        class="flex flex justify-start justify-start items-center items-center box-border box-border m-1d5 m-1d5 p-3 p-3 w-_175d5px_ w-_175d5px_ h-20 h-20 font-sans font-sans font-semibold font-semibold text-lg text-lg text-black text-black bg-orange-200 bg-orange-200 rounded-xl rounded-xl"
-      >
-        <view
-          class="flex flex justify-center justify-center items-center items-center mx-3 mx-3 w-9 w-9 h-9 h-9 bg-white bg-white rounded-xl rounded-xl"
+          </view>
+          <text class="sk-transparent sk-text-17-8571-96 sk-text">服饰</text>
+        </navigator>
+        <navigator
+          class="flex flex justify-start justify-start items-center items-center box-border box-border m-1d5 m-1d5 p-3 p-3 w-_175d5px_ w-_175d5px_ h-20 h-20 font-sans font-sans font-semibold font-semibold text-lg text-lg text-black text-black bg-orange-200 bg-orange-200 rounded-xl rounded-xl"
         >
-          <component
-            :is="`node-modules/@dcloudio/uni-ui/lib/uni-icons/uni-icons`"
+          <view
+            class="flex flex justify-center justify-center items-center items-center mx-3 mx-3 w-9 w-9 h-9 h-9 bg-white bg-white rounded-xl rounded-xl"
           >
             <text
               class="uni-icons icons--uni-icons uniui-hand-up icons--uniui-hand-up sk-pseudo sk-pseudo-circle"
               style="color: #000; font-size: 30px"
             ></text>
-          </component>
-        </view>
-        <text class="sk-transparent sk-text-17-8571-308 sk-text">母婴</text>
-      </navigator>
-      <navigator
-        class="flex flex justify-start justify-start items-center items-center box-border box-border m-1d5 m-1d5 p-3 p-3 w-_175d5px_ w-_175d5px_ h-20 h-20 font-sans font-sans font-semibold font-semibold text-lg text-lg text-black text-black bg-blue-300 bg-blue-300 rounded-xl rounded-xl"
-      >
-        <view
-          class="flex flex justify-center justify-center items-center items-center mx-3 mx-3 w-9 w-9 h-9 h-9 bg-white bg-white rounded-xl rounded-xl"
+          </view>
+          <text class="sk-transparent sk-text-17-8571-557 sk-text">母婴</text>
+        </navigator>
+        <navigator
+          class="flex flex justify-start justify-start items-center items-center box-border box-border m-1d5 m-1d5 p-3 p-3 w-_175d5px_ w-_175d5px_ h-20 h-20 font-sans font-sans font-semibold font-semibold text-lg text-lg text-black text-black bg-blue-300 bg-blue-300 rounded-xl rounded-xl"
         >
-          <component
-            :is="`node-modules/@dcloudio/uni-ui/lib/uni-icons/uni-icons`"
+          <view
+            class="flex flex justify-center justify-center items-center items-center mx-3 mx-3 w-9 w-9 h-9 h-9 bg-white bg-white rounded-xl rounded-xl"
           >
             <text
               class="uni-icons icons--uni-icons uniui-medal icons--uniui-medal sk-pseudo sk-pseudo-circle"
               style="color: #000; font-size: 30px"
             ></text>
-          </component>
-        </view>
-        <text class="sk-transparent sk-text-17-8571-411 sk-text">个护</text>
-      </navigator>
-      <navigator
-        class="flex flex justify-start justify-start items-center items-center box-border box-border m-1d5 m-1d5 p-3 p-3 w-_175d5px_ w-_175d5px_ h-20 h-20 font-sans font-sans font-semibold font-semibold text-lg text-lg text-black text-black bg-indigo-200 bg-indigo-200 rounded-xl rounded-xl"
-      >
-        <view
-          class="flex flex justify-center justify-center items-center items-center mx-3 mx-3 w-9 w-9 h-9 h-9 bg-white bg-white rounded-xl rounded-xl"
+          </view>
+          <text class="sk-transparent sk-text-17-8571-166 sk-text">个护</text>
+        </navigator>
+        <navigator
+          class="flex flex justify-start justify-start items-center items-center box-border box-border m-1d5 m-1d5 p-3 p-3 w-_175d5px_ w-_175d5px_ h-20 h-20 font-sans font-sans font-semibold font-semibold text-lg text-lg text-black text-black bg-indigo-200 bg-indigo-200 rounded-xl rounded-xl"
         >
-          <component
-            :is="`node-modules/@dcloudio/uni-ui/lib/uni-icons/uni-icons`"
+          <view
+            class="flex flex justify-center justify-center items-center items-center mx-3 mx-3 w-9 w-9 h-9 h-9 bg-white bg-white rounded-xl rounded-xl"
           >
             <text
               class="uni-icons icons--uni-icons uniui-staff icons--uniui-staff sk-pseudo sk-pseudo-circle"
               style="color: #000; font-size: 30px"
             ></text>
-          </component>
-        </view>
-        <text class="sk-transparent sk-text-17-8571-381 sk-text">严选</text>
-      </navigator>
-      <navigator
-        class="flex flex justify-start justify-start items-center items-center box-border box-border m-1d5 m-1d5 p-3 p-3 w-_175d5px_ w-_175d5px_ h-20 h-20 font-sans font-sans font-semibold font-semibold text-lg text-lg text-black text-black bg-orange-200 bg-orange-200 rounded-xl rounded-xl"
-      >
-        <view
-          class="flex flex justify-center justify-center items-center items-center mx-3 mx-3 w-9 w-9 h-9 h-9 bg-white bg-white rounded-xl rounded-xl"
+          </view>
+          <text class="sk-transparent sk-text-17-8571-296 sk-text">严选</text>
+        </navigator>
+        <navigator
+          class="flex flex justify-start justify-start items-center items-center box-border box-border m-1d5 m-1d5 p-3 p-3 w-_175d5px_ w-_175d5px_ h-20 h-20 font-sans font-sans font-semibold font-semibold text-lg text-lg text-black text-black bg-orange-200 bg-orange-200 rounded-xl rounded-xl"
         >
-          <component
-            :is="`node-modules/@dcloudio/uni-ui/lib/uni-icons/uni-icons`"
+          <view
+            class="flex flex justify-center justify-center items-center items-center mx-3 mx-3 w-9 w-9 h-9 h-9 bg-white bg-white rounded-xl rounded-xl"
           >
             <text
               class="uni-icons icons--uni-icons uniui-headphones icons--uniui-headphones sk-pseudo sk-pseudo-circle"
               style="color: #000; font-size: 30px"
             ></text>
-          </component>
-        </view>
-        <text class="sk-transparent sk-text-17-8571-137 sk-text">数码</text>
-      </navigator>
-      <navigator
-        class="flex flex justify-start justify-start items-center items-center box-border box-border m-1d5 m-1d5 p-3 p-3 w-_175d5px_ w-_175d5px_ h-20 h-20 font-sans font-sans font-semibold font-semibold text-lg text-lg text-black text-black bg-emerald-200 bg-emerald-200 rounded-xl rounded-xl"
-      >
-        <view
-          class="flex flex justify-center justify-center items-center items-center mx-3 mx-3 w-9 w-9 h-9 h-9 bg-white bg-white rounded-xl rounded-xl"
+          </view>
+          <text class="sk-transparent sk-text-17-8571-613 sk-text">数码</text>
+        </navigator>
+        <navigator
+          class="flex flex justify-start justify-start items-center items-center box-border box-border m-1d5 m-1d5 p-3 p-3 w-_175d5px_ w-_175d5px_ h-20 h-20 font-sans font-sans font-semibold font-semibold text-lg text-lg text-black text-black bg-emerald-200 bg-emerald-200 rounded-xl rounded-xl"
         >
-          <component
-            :is="`node-modules/@dcloudio/uni-ui/lib/uni-icons/uni-icons`"
+          <view
+            class="flex flex justify-center justify-center items-center items-center mx-3 mx-3 w-9 w-9 h-9 h-9 bg-white bg-white rounded-xl rounded-xl"
           >
             <text
               class="uni-icons icons--uni-icons uniui-spinner-cycle icons--uniui-spinner-cycle sk-pseudo sk-pseudo-circle"
               style="color: #000; font-size: 30px"
             ></text>
-          </component>
-        </view>
-        <text class="sk-transparent sk-text-17-8571-468 sk-text">运动</text>
-      </navigator>
-      <navigator
-        class="flex flex justify-start justify-start items-center items-center box-border box-border m-1d5 m-1d5 p-3 p-3 w-_175d5px_ w-_175d5px_ h-20 h-20 font-sans font-sans font-semibold font-semibold text-lg text-lg text-black text-black bg-violet-200 bg-violet-200 rounded-xl rounded-xl"
-      >
-        <view
-          class="flex flex justify-center justify-center items-center items-center mx-3 mx-3 w-9 w-9 h-9 h-9 bg-white bg-white rounded-xl rounded-xl"
+          </view>
+          <text class="sk-transparent sk-text-17-8571-711 sk-text">运动</text>
+        </navigator>
+        <navigator
+          class="flex flex justify-start justify-start items-center items-center box-border box-border m-1d5 m-1d5 p-3 p-3 w-_175d5px_ w-_175d5px_ h-20 h-20 font-sans font-sans font-semibold font-semibold text-lg text-lg text-black text-black bg-violet-200 bg-violet-200 rounded-xl rounded-xl"
         >
-          <component
-            :is="`node-modules/@dcloudio/uni-ui/lib/uni-icons/uni-icons`"
+          <view
+            class="flex flex justify-center justify-center items-center items-center mx-3 mx-3 w-9 w-9 h-9 h-9 bg-white bg-white rounded-xl rounded-xl"
           >
             <text
               class="uni-icons icons--uni-icons uniui-loop icons--uniui-loop sk-pseudo sk-pseudo-circle"
               style="color: #000; font-size: 30px"
             ></text>
-          </component>
-        </view>
-        <text class="sk-transparent sk-text-17-8571-278 sk-text">杂项</text>
-      </navigator>
-      <navigator
-        class="flex flex justify-start justify-start items-center items-center box-border box-border m-1d5 m-1d5 p-3 p-3 w-_175d5px_ w-_175d5px_ h-20 h-20 font-sans font-sans font-semibold font-semibold text-lg text-lg text-black text-black bg-amber-200 bg-amber-200 rounded-xl rounded-xl"
-      >
-        <view
-          class="flex flex justify-center justify-center items-center items-center mx-3 mx-3 w-9 w-9 h-9 h-9 bg-white bg-white rounded-xl rounded-xl"
+          </view>
+          <text class="sk-transparent sk-text-17-8571-694 sk-text">杂项</text>
+        </navigator>
+        <navigator
+          class="flex flex justify-start justify-start items-center items-center box-border box-border m-1d5 m-1d5 p-3 p-3 w-_175d5px_ w-_175d5px_ h-20 h-20 font-sans font-sans font-semibold font-semibold text-lg text-lg text-black text-black bg-amber-200 bg-amber-200 rounded-xl rounded-xl"
         >
-          <component
-            :is="`node-modules/@dcloudio/uni-ui/lib/uni-icons/uni-icons`"
+          <view
+            class="flex flex justify-center justify-center items-center items-center mx-3 mx-3 w-9 w-9 h-9 h-9 bg-white bg-white rounded-xl rounded-xl"
           >
             <text
               class="uni-icons icons--uni-icons uniui-paperclip icons--uniui-paperclip sk-pseudo sk-pseudo-circle"
               style="color: #000; font-size: 30px"
             ></text>
-          </component>
-        </view>
-        <text class="sk-transparent sk-text-17-8571-294 sk-text">品牌</text>
-      </navigator>
+          </view>
+          <text class="sk-transparent sk-text-17-8571-633 sk-text">品牌</text>
+        </navigator>
+      </view>
     </view>
   </view>
 </template>
+
 <script setup lang="ts"></script>
-<style lang="scss">
+
+<style lang="scss" scoped>
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 /*
-此文件为开发者工具生成，生成时间: 2024/2/21上午9:24:28
+此文件为开发者工具生成，生成时间: 2024/2/21上午10:26:19
 
 在 C:\Users\ziqing\Desktop\wava_mall\wave_mall_source4\dist\dev\mp-weixin\pages\indexPage\indexPage.wxss 中引入样式
 ```
@@ -289,7 +233,7 @@
 .sk-transparent {
   color: transparent !important;
 }
-.sk-text-12-5000-730 {
+.sk-text-12-5000-663 {
   background-image: linear-gradient(
     transparent 12.5%,
     #eeeeee 0%,
@@ -306,7 +250,7 @@
   color: transparent !important;
   background-repeat: repeat-y !important;
 }
-.sk-text-17-8571-343 {
+.sk-text-17-8571-795 {
   background-image: linear-gradient(
     transparent 17.8571%,
     #eeeeee 0%,
@@ -316,7 +260,7 @@
   background-size: 100% 56rpx;
   position: relative !important;
 }
-.sk-text-17-8571-549 {
+.sk-text-17-8571-522 {
   background-image: linear-gradient(
     transparent 17.8571%,
     #eeeeee 0%,
@@ -326,7 +270,7 @@
   background-size: 100% 56rpx;
   position: relative !important;
 }
-.sk-text-17-8571-463 {
+.sk-text-17-8571-96 {
   background-image: linear-gradient(
     transparent 17.8571%,
     #eeeeee 0%,
@@ -336,7 +280,7 @@
   background-size: 100% 56rpx;
   position: relative !important;
 }
-.sk-text-17-8571-308 {
+.sk-text-17-8571-557 {
   background-image: linear-gradient(
     transparent 17.8571%,
     #eeeeee 0%,
@@ -346,7 +290,7 @@
   background-size: 100% 56rpx;
   position: relative !important;
 }
-.sk-text-17-8571-411 {
+.sk-text-17-8571-166 {
   background-image: linear-gradient(
     transparent 17.8571%,
     #eeeeee 0%,
@@ -356,7 +300,7 @@
   background-size: 100% 56rpx;
   position: relative !important;
 }
-.sk-text-17-8571-381 {
+.sk-text-17-8571-296 {
   background-image: linear-gradient(
     transparent 17.8571%,
     #eeeeee 0%,
@@ -366,7 +310,7 @@
   background-size: 100% 56rpx;
   position: relative !important;
 }
-.sk-text-17-8571-137 {
+.sk-text-17-8571-613 {
   background-image: linear-gradient(
     transparent 17.8571%,
     #eeeeee 0%,
@@ -376,7 +320,7 @@
   background-size: 100% 56rpx;
   position: relative !important;
 }
-.sk-text-17-8571-468 {
+.sk-text-17-8571-711 {
   background-image: linear-gradient(
     transparent 17.8571%,
     #eeeeee 0%,
@@ -386,7 +330,7 @@
   background-size: 100% 56rpx;
   position: relative !important;
 }
-.sk-text-17-8571-278 {
+.sk-text-17-8571-694 {
   background-image: linear-gradient(
     transparent 17.8571%,
     #eeeeee 0%,
@@ -396,7 +340,7 @@
   background-size: 100% 56rpx;
   position: relative !important;
 }
-.sk-text-17-8571-294 {
+.sk-text-17-8571-633 {
   background-image: linear-gradient(
     transparent 17.8571%,
     #eeeeee 0%,

@@ -109,7 +109,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { skeletonPage } from "./skeletonPage.vue";
+import skeletonPage from "./skeletonPage.vue";
 import type {
   CategoryItem,
   RecommendItem,
