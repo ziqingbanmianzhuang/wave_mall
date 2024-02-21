@@ -20,5 +20,6 @@
 		"vue",
 		"vue-html",
 		"typescript"
-	]
+	],
+	"css.lint.unknownAtRules": "ignore"
 }

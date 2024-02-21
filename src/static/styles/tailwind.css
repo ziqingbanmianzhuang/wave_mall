@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.font-primary {
+	@apply font-semibold text-fontBlack text-base;
+}

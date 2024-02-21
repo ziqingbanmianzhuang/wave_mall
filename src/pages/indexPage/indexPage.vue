@@ -16,13 +16,13 @@
             hover-class="navigator-hover"
           >
             <view
-              class="flex justify-between items-center box-border mx-1.5 p-6 w-[363px] h-28 bg-orange-200 font-sans text-xs text-black rounded-xl"
+              class="flex justify-between items-center box-border mx-1.5 p-6 w-[363px] h-28 bg-orange-200 font-sans text-sm text-fontBlack rounded-md"
             >
               <text>click here ->{{ item.id }}</text>
               <image
                 :src="item.hrefUrl"
                 mode="scaleToFill"
-                class="w-[200px] h-16 border-8 border-white border-solid rounded-xl"
+                class="w-[200px] h-16 border-8 border-white border-solid rounded-md"
               />
             </view>
           </navigator>
@@ -36,19 +36,25 @@
         v-for="item in list"
         :key="item.id"
         url="/pages/categoryItem/categoryItem"
-        :class="`flex justify-start items-center box-border m-1.5 p-3 w-[175.5px] h-20 font-sans font-semibold text-lg text-black ${item.bg} rounded-xl`"
+        :class="`flex justify-start items-center box-border m-1.5 p-3 w-[175.5px] h-20 font-sans font-semibold text-base text-fontBlack ${item.bg} rounded-md`"
       >
         <view
-          class="flex justify-center items-center mx-3 w-9 h-9 bg-white rounded-xl"
+          class="flex justify-center items-center mx-3 w-9 h-9 bg-white rounded-md"
         >
-          <uni-icons :type="item.icon" size="30" color="#000"></uni-icons>
+          <uni-icons
+            class="flex justify-center items-center"
+            :type="item.icon"
+            size="30"
+            color="#000"
+          ></uni-icons>
         </view>
         <text>{{ item.name }}</text>
       </navigator>
     </view>
     <!-- 推荐组件 -->
     <view class="mb-6">
-      <text class="block mx-1.5 mt-6 font-sans font-semibold text-xl"
+      <text
+        class="block mx-1.5 mt-6 font-sans font-semibold text-lg text-fontBlack"
         >推荐</text
       >
       <view class="flex justify-between items-center m-1.5">
@@ -61,19 +67,19 @@
           class="flex flex-col justify-start items-center"
         >
           <view
-            :class="`flex justify-center items-center w-9 h-9 ${item.bg} rounded-xl`"
+            :class="`flex justify-center items-center w-9 h-9 ${item.bg} rounded-md`"
           >
             <uni-icons :type="item.icon" color="" size="30" />
           </view>
           <view>{{ item.alt }}</view>
-          <view class="font-sans font-semibold text-lg text-black">{{
+          <view class="font-sans font-semibold text-lg text-fontBlack">{{
             item.title
           }}</view>
         </navigator>
       </view>
     </view>
     <!-- 推荐喜欢组件 -->
-    <view class="text-xs text-center">---你可能喜欢---</view>
+    <view class="text-sm text-center">---你可能喜欢---</view>
     <scroll-view
       scroll-y
       class="h-[667px] w-[363px] m-1.5"
@@ -91,14 +97,14 @@
         class="grid grid-cols-7 items-center m-1.5"
       >
         <text
-          class="col-span-1 h-2 w-2 bg-black rounded justify-self-start"
+          class="col-span-1 h-2 w-2 bg-black rounded-md justify-self-start"
         ></text>
         <text class="col-span-5 justify-self-start font-semibold">{{
           item.name
         }}</text>
         <text class="col-span-1 justify-self-end">{{ item.price }}</text>
         <view
-          class="col-start-2 col-end-8 flex justify-center m-1.5 border border-inherit border-solid rounded-xl"
+          class="col-start-2 col-end-8 flex justify-center m-1.5 border border-inherit border-solid rounded-md"
         >
           <image class="w-24 h-24" :src="item.picture" mode="scaleToFill" />
         </view>
@@ -309,8 +315,4 @@ onMounted(async () => {
 });
 </script>
 
-<style>
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
-</style>
+<style lang="scss"></style>

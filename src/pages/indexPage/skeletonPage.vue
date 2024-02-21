@@ -20,13 +20,13 @@
               <view
                 class="flex flex justify-between justify-between items-center items-center box-border box-border mx-1d5 mx-1d5 p-6 p-6 w-_363px_ w-_363px_ h-28 h-28 bg-orange-200 bg-orange-200 font-sans font-sans text-xs text-xs text-black text-black rounded-xl rounded-xl"
               >
-                <text class="sk-transparent sk-text-12-5000-663 sk-text"
-                  >click here -&gt;21</text
-                >
+                <text class="sk-transparent sk-text-12-5000-663 sk-text">
+                  click here -&gt;21
+                </text>
                 <image
                   class="w-_200px_ h-16 border-8 border-white border-solid rounded-xl sk-image"
                   mode="scaleToFill"
-                ></image>
+                />
               </view>
             </navigator>
           </swiper-item>
@@ -38,7 +38,7 @@
           <view
             class="uni-swiper__dots-long dot--uni-swiper__dots-long uni-swiper__dots-item dot--uni-swiper__dots-item"
             style="width: 24px; height: 6px; background-color:; border:"
-          ></view>
+          />
           <view
             class="uni-swiper__dots-item dot--uni-swiper__dots-item"
             style="
@@ -47,7 +47,7 @@
               background-color:;
               border: 0px solid skyblue;
             "
-          ></view>
+          />
           <view
             class="uni-swiper__dots-item dot--uni-swiper__dots-item"
             style="
@@ -56,7 +56,7 @@
               background-color:;
               border: 0px solid skyblue;
             "
-          ></view>
+          />
           <view
             class="uni-swiper__dots-item dot--uni-swiper__dots-item"
             style="
@@ -65,7 +65,7 @@
               background-color:;
               border: 0px solid skyblue;
             "
-          ></view>
+          />
           <view
             class="uni-swiper__dots-item dot--uni-swiper__dots-item"
             style="
@@ -74,7 +74,7 @@
               background-color:;
               border: 0px solid skyblue;
             "
-          ></view>
+          />
         </view>
       </view>
 
@@ -88,9 +88,9 @@
             <text
               class="uni-icons icons--uni-icons uniui-home icons--uniui-home sk-pseudo sk-pseudo-circle"
               style="color: #000; font-size: 30px"
-            ></text>
+            />
           </view>
-          <text class="sk-transparent sk-text-17-8571-795 sk-text">居家</text>
+          <text class="sk-transparent sk-text-17-8571-795 sk-text"> 居家 </text>
         </navigator>
         <navigator
           class="flex flex justify-start justify-start items-center items-center box-border box-border m-1d5 m-1d5 p-3 p-3 w-_175d5px_ w-_175d5px_ h-20 h-20 font-sans font-sans font-semibold font-semibold text-lg text-lg text-black text-black bg-sky-300 bg-sky-300 rounded-xl rounded-xl"
@@ -101,9 +101,9 @@
             <text
               class="uni-icons icons--uni-icons uniui-star icons--uniui-star sk-pseudo sk-pseudo-circle"
               style="color: #000; font-size: 30px"
-            ></text>
+            />
           </view>
-          <text class="sk-transparent sk-text-17-8571-522 sk-text">锦鲤</text>
+          <text class="sk-transparent sk-text-17-8571-522 sk-text"> 锦鲤 </text>
         </navigator>
         <navigator
           class="flex flex justify-start justify-start items-center items-center box-border box-border m-1d5 m-1d5 p-3 p-3 w-_175d5px_ w-_175d5px_ h-20 h-20 font-sans font-sans font-semibold font-semibold text-lg text-lg text-black text-black bg-pink-200 bg-pink-200 rounded-xl rounded-xl"
@@ -114,9 +114,9 @@
             <text
               class="uni-icons icons--uni-icons uniui-gift icons--uniui-gift sk-pseudo sk-pseudo-circle"
               style="color: #000; font-size: 30px"
-            ></text>
+            />
           </view>
-          <text class="sk-transparent sk-text-17-8571-96 sk-text">服饰</text>
+          <text class="sk-transparent sk-text-17-8571-96 sk-text"> 服饰 </text>
         </navigator>
         <navigator
           class="flex flex justify-start justify-start items-center items-center box-border box-border m-1d5 m-1d5 p-3 p-3 w-_175d5px_ w-_175d5px_ h-20 h-20 font-sans font-sans font-semibold font-semibold text-lg text-lg text-black text-black bg-orange-200 bg-orange-200 rounded-xl rounded-xl"
@@ -127,9 +127,9 @@
             <text
               class="uni-icons icons--uni-icons uniui-hand-up icons--uniui-hand-up sk-pseudo sk-pseudo-circle"
               style="color: #000; font-size: 30px"
-            ></text>
+            />
           </view>
-          <text class="sk-transparent sk-text-17-8571-557 sk-text">母婴</text>
+          <text class="sk-transparent sk-text-17-8571-557 sk-text"> 母婴 </text>
         </navigator>
         <navigator
           class="flex flex justify-start justify-start items-center items-center box-border box-border m-1d5 m-1d5 p-3 p-3 w-_175d5px_ w-_175d5px_ h-20 h-20 font-sans font-sans font-semibold font-semibold text-lg text-lg text-black text-black bg-blue-300 bg-blue-300 rounded-xl rounded-xl"
@@ -140,9 +140,9 @@
             <text
               class="uni-icons icons--uni-icons uniui-medal icons--uniui-medal sk-pseudo sk-pseudo-circle"
               style="color: #000; font-size: 30px"
-            ></text>
+            />
           </view>
-          <text class="sk-transparent sk-text-17-8571-166 sk-text">个护</text>
+          <text class="sk-transparent sk-text-17-8571-166 sk-text"> 个护 </text>
         </navigator>
         <navigator
           class="flex flex justify-start justify-start items-center items-center box-border box-border m-1d5 m-1d5 p-3 p-3 w-_175d5px_ w-_175d5px_ h-20 h-20 font-sans font-sans font-semibold font-semibold text-lg text-lg text-black text-black bg-indigo-200 bg-indigo-200 rounded-xl rounded-xl"
@@ -153,9 +153,9 @@
             <text
               class="uni-icons icons--uni-icons uniui-staff icons--uniui-staff sk-pseudo sk-pseudo-circle"
               style="color: #000; font-size: 30px"
-            ></text>
+            />
           </view>
-          <text class="sk-transparent sk-text-17-8571-296 sk-text">严选</text>
+          <text class="sk-transparent sk-text-17-8571-296 sk-text"> 严选 </text>
         </navigator>
         <navigator
           class="flex flex justify-start justify-start items-center items-center box-border box-border m-1d5 m-1d5 p-3 p-3 w-_175d5px_ w-_175d5px_ h-20 h-20 font-sans font-sans font-semibold font-semibold text-lg text-lg text-black text-black bg-orange-200 bg-orange-200 rounded-xl rounded-xl"
@@ -166,9 +166,9 @@
             <text
               class="uni-icons icons--uni-icons uniui-headphones icons--uniui-headphones sk-pseudo sk-pseudo-circle"
               style="color: #000; font-size: 30px"
-            ></text>
+            />
           </view>
-          <text class="sk-transparent sk-text-17-8571-613 sk-text">数码</text>
+          <text class="sk-transparent sk-text-17-8571-613 sk-text"> 数码 </text>
         </navigator>
         <navigator
           class="flex flex justify-start justify-start items-center items-center box-border box-border m-1d5 m-1d5 p-3 p-3 w-_175d5px_ w-_175d5px_ h-20 h-20 font-sans font-sans font-semibold font-semibold text-lg text-lg text-black text-black bg-emerald-200 bg-emerald-200 rounded-xl rounded-xl"
@@ -179,9 +179,9 @@
             <text
               class="uni-icons icons--uni-icons uniui-spinner-cycle icons--uniui-spinner-cycle sk-pseudo sk-pseudo-circle"
               style="color: #000; font-size: 30px"
-            ></text>
+            />
           </view>
-          <text class="sk-transparent sk-text-17-8571-711 sk-text">运动</text>
+          <text class="sk-transparent sk-text-17-8571-711 sk-text"> 运动 </text>
         </navigator>
         <navigator
           class="flex flex justify-start justify-start items-center items-center box-border box-border m-1d5 m-1d5 p-3 p-3 w-_175d5px_ w-_175d5px_ h-20 h-20 font-sans font-sans font-semibold font-semibold text-lg text-lg text-black text-black bg-violet-200 bg-violet-200 rounded-xl rounded-xl"
@@ -192,9 +192,9 @@
             <text
               class="uni-icons icons--uni-icons uniui-loop icons--uniui-loop sk-pseudo sk-pseudo-circle"
               style="color: #000; font-size: 30px"
-            ></text>
+            />
           </view>
-          <text class="sk-transparent sk-text-17-8571-694 sk-text">杂项</text>
+          <text class="sk-transparent sk-text-17-8571-694 sk-text"> 杂项 </text>
         </navigator>
         <navigator
           class="flex flex justify-start justify-start items-center items-center box-border box-border m-1d5 m-1d5 p-3 p-3 w-_175d5px_ w-_175d5px_ h-20 h-20 font-sans font-sans font-semibold font-semibold text-lg text-lg text-black text-black bg-amber-200 bg-amber-200 rounded-xl rounded-xl"
@@ -205,9 +205,9 @@
             <text
               class="uni-icons icons--uni-icons uniui-paperclip icons--uniui-paperclip sk-pseudo sk-pseudo-circle"
               style="color: #000; font-size: 30px"
-            ></text>
+            />
           </view>
-          <text class="sk-transparent sk-text-17-8571-633 sk-text">品牌</text>
+          <text class="sk-transparent sk-text-17-8571-633 sk-text"> 品牌 </text>
         </navigator>
       </view>
     </view>
