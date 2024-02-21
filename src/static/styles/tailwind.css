@@ -20,3 +20,17 @@
 .border-radius-primary {
 	@apply rounded-md;
 }
+
+/* margin-x */
+.margin-x-primary {
+	@apply mx-1.5;
+}
+
+/* bgcolor */
+.bg-primary {
+	@apply bg-backgroundWhite;
+}
+
+.bg-secondary {
+	@apply bg-white;
+}

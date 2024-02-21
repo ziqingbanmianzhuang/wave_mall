@@ -1,14 +1,19 @@
 <template>
-  <view v-if="!isLoading"
+  <view v-if="!isLoading" class="bg-primary"
     ><!-- 轮播图组件 -->
     <uni-swiper-dot
       mode="round"
       :info="swiperList"
       color="#ccc"
       :current="current"
-      :dots-styles="dotsStyles"
+      :dots-styles="{
+        backgroundColor: '#FFD166',
+        border: '0px solid #000',
+        selectedBackgroundColor: '#957200',
+        selectedBorder: '0px solid #000',
+      }"
     >
-      <swiper circular class="h-28 mb-6" @change="change">
+      <swiper circular autoplay class="h-28 mb-6" @change="change">
         <swiper-item v-for="item in swiperList" :key="item.id">
           <navigator
             url="/pages/hotItem/hotItem"
@@ -16,13 +21,13 @@
             hover-class="navigator-hover"
           >
             <view
-              class="flex justify-between items-center box-border mx-1.5 p-6 w-[363px] h-28 bg-orange-200 font-secondary border-radius-primary"
+              class="flex justify-between items-center box-border margin-x-primary p-3 w-[363px] h-28 bg-secondary font-secondary border-radius-primary"
             >
-              <text>click here ->{{ item.id }}</text>
+              <text>click here -></text>
               <image
-                :src="item.hrefUrl"
+                :src="item.imgUrl"
                 mode="scaleToFill"
-                class="w-[200px] h-16 border-8 border-white border-solid border-radius-primary"
+                class="w-[250px] h-20 border-8 border-white border-solid border-radius-primary"
               />
             </view>
           </navigator>
@@ -31,7 +36,7 @@
     </uni-swiper-dot>
 
     <!-- 分类组件 -->
-    <view class="flex flex-wrap">
+    <view class="flex flex-wrap bg-secondary">
       <navigator
         v-for="item in list"
         :key="item.id"
@@ -47,8 +52,8 @@
       </navigator>
     </view>
     <!-- 推荐组件 -->
-    <view class="mb-6">
-      <text class="block mx-1.5 mt-6 font-primary-biger">推荐</text>
+    <view class="bg-secondary mb-6">
+      <text class="block margin-x-primary mt-6 font-primary-biger">推荐</text>
       <view class="flex justify-between items-center m-1.5">
         <navigator
           v-for="item in recommendList"
@@ -72,7 +77,7 @@
     <view class="font-secondary text-center">---你可能喜欢---</view>
     <scroll-view
       scroll-y
-      class="h-[667px] w-[363px] m-1.5"
+      class="h-[667px] w-[363px] margin-x-primary my-1.5"
       refresher-enabled
       :refresher-triggered="isTriggered"
       @refresherrefresh="onRefresherrefresh"
@@ -84,7 +89,7 @@
         url="/pages/goodsDetailPage/goodsDetailPage"
         open-type="navigate"
         hover-class="navigator-hover"
-        class="grid grid-cols-7 items-center m-1.5"
+        class="grid grid-cols-7 items-center bg-secondary m-1.5"
       >
         <text
           class="col-span-1 h-2 w-2 bg-black rounded justify-self-start"
