@@ -15,3 +15,8 @@
 .font-secondary {
 	@apply font-normal text-fontGray text-xs font-sans;
 }
+
+/* border radius */
+.border-radius-primary {
+	@apply rounded-md;
+}

@@ -16,13 +16,13 @@
             hover-class="navigator-hover"
           >
             <view
-              class="flex justify-between items-center box-border mx-1.5 p-6 w-[363px] h-28 bg-orange-200 font-secondary rounded-xl"
+              class="flex justify-between items-center box-border mx-1.5 p-6 w-[363px] h-28 bg-orange-200 font-secondary border-radius-primary"
             >
               <text>click here ->{{ item.id }}</text>
               <image
                 :src="item.hrefUrl"
                 mode="scaleToFill"
-                class="w-[200px] h-16 border-8 border-white border-solid rounded-xl"
+                class="w-[200px] h-16 border-8 border-white border-solid border-radius-primary"
               />
             </view>
           </navigator>
@@ -36,10 +36,10 @@
         v-for="item in list"
         :key="item.id"
         url="/pages/categoryItem/categoryItem"
-        :class="`flex justify-start items-center box-border m-1.5 p-3 w-[175.5px] h-20 font-primary ${item.bg} rounded-xl`"
+        :class="`flex justify-start items-center box-border m-1.5 p-3 w-[175.5px] h-20 font-primary ${item.bg} border-radius-primary`"
       >
         <view
-          class="flex justify-center items-center mx-3 w-9 h-9 bg-white rounded-xl"
+          class="flex justify-center items-center mx-3 w-9 h-9 bg-white border-radius-primary"
         >
           <uni-icons :type="item.icon" size="30" color="#000"></uni-icons>
         </view>
@@ -59,7 +59,7 @@
           class="flex flex-col justify-start items-center"
         >
           <view
-            :class="`flex justify-center items-center w-9 h-9 ${item.bg} rounded-xl`"
+            :class="`flex justify-center items-center w-9 h-9 ${item.bg} border-radius-primary`"
           >
             <uni-icons :type="item.icon" color="" size="30" />
           </view>
@@ -96,7 +96,7 @@
           item.price
         }}</text>
         <view
-          class="col-start-2 col-end-8 flex justify-center m-1.5 border border-inherit border-solid rounded-xl"
+          class="col-start-2 col-end-8 flex justify-center m-1.5 border border-inherit border-solid border-radius-primary"
         >
           <image class="w-24 h-24" :src="item.picture" mode="scaleToFill" />
         </view>
