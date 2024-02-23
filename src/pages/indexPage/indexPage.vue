@@ -59,7 +59,7 @@
       class="relative left-1/2 -translate-x-1/2 w-12 h-8 text-center"
       @tap="showCategory"
     >
-      <text class="font-secondary">展开</text>
+      <text class="font-secondary">{{ isShowCategory ? "收起" : "展开" }}</text>
     </view>
     <!-- 推荐组件 -->
     <view class="bg-secondary mb-6">
