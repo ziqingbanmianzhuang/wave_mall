@@ -36,20 +36,30 @@
     </uni-swiper-dot>
 
     <!-- 分类组件 -->
-    <view class="flex flex-wrap bg-secondary">
+    <view
+      class="relative flex flex-wrap bg-secondary max-h-32 overflow-hidden transition-all after:bg-gradient-to-b after:from-transparent after:to-white after:absolute after:bottom-0 after:h-16 after:w-full"
+      :class="{ show: isShowCategory }"
+    >
       <navigator
         v-for="item in list"
         :key="item.id"
         url="/pages/categoryItem/categoryItem"
-        :class="`flex justify-start items-center box-border m-1.5 p-3 w-[175.5px] h-20 font-primary ${item.bg} border-radius-primary`"
+        :class="`flex justify-start items-center box-border m-1.5 p-3 w-[175.5px] h-12 font-primary ${item.bg} border-radius-primary`"
       >
         <view
-          class="flex justify-center items-center mx-3 w-9 h-9 bg-white border-radius-primary"
+          class="flex justify-center items-center mx-3 w-6 h-6 bg-white border-radius-primary"
         >
-          <uni-icons :type="item.icon" size="30" color="#000"></uni-icons>
+          <uni-icons :type="item.icon" size="20" color="#000"></uni-icons>
         </view>
         <text>{{ item.name }}</text>
       </navigator>
+    </view>
+    <!-- 展开 -->
+    <view
+      class="relative left-1/2 -translate-x-1/2 w-12 h-8 text-center"
+      @tap="showCategory"
+    >
+      <text class="font-secondary">展开</text>
     </view>
     <!-- 推荐组件 -->
     <view class="bg-secondary mb-6">
@@ -128,6 +138,14 @@ import {
 } from "./indexPageApi";
 import { onMounted } from "vue";
 
+//是否展开category
+let isShowCategory = ref(false);
+
+//展开category组件
+const showCategory = () => {
+  isShowCategory.value = !isShowCategory.value;
+};
+
 const isLoading = ref(true);
 
 //轮播图当前序号
@@ -136,16 +154,6 @@ let current = ref(0);
 //轮播图数据
 
 const swiperList = ref<SwiperItem[]>([]);
-
-//轮播图点样式对象
-let dotsStyles = {
-  width: 8,
-  bottom: 5,
-  backgroundColor: "",
-  border: "0px solid skyblue",
-  selectedBackgroundColor: "",
-  selectedBorder: "",
-};
 
 //轮播图事件切换回调
 const change: UniHelper.SwiperOnChange = (e) => {
@@ -316,4 +324,10 @@ onMounted(async () => {
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+.show {
+  max-height: 300px;
+}
+.show::after {
+  background-image: none !important;
+}
 </style>
