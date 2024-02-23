@@ -62,8 +62,8 @@
       <text class="font-secondary">{{ isShowCategory ? "收起" : "展开" }}</text>
     </view>
     <!-- 推荐组件 -->
-    <view class="bg-secondary mb-6">
-      <text class="block margin-x-primary mt-6 font-primary-biger">推荐</text>
+    <text class="block margin-x-primary mt-3 font-primary-biger">推荐</text>
+    <view class="bg-secondary mb-3 py-3">
       <view class="flex justify-between items-center m-1.5">
         <navigator
           v-for="item in recommendList"
@@ -74,12 +74,11 @@
           class="flex flex-col justify-start items-center"
         >
           <view
-            :class="`flex justify-center items-center w-9 h-9 ${item.bg} border-radius-primary`"
+            :class="`flex justify-center items-center w-6 h-6 bg-white border-radius-primary`"
           >
-            <uni-icons :type="item.icon" color="" size="30" />
+            <uni-icons :type="item.icon" :color="`${item.bg}`" size="20" />
           </view>
-          <view class="font-secondary">{{ item.alt }}</view>
-          <view class="font-primary">{{ item.title }}</view>
+          <view class="font-primary-smaller">{{ item.alt }}</view>
         </navigator>
       </view>
     </view>
@@ -225,10 +224,10 @@ let recommendListIcon = ref<string[]>(["home", "star", "gift", "hand-up"]);
 //首页分类背景颜色
 //首页分类图标数据
 let recommendListBg = ref<string[]>([
-  "bg-cyan-200",
-  "bg-sky-300",
-  "bg-pink-200",
-  "bg-orange-200",
+  "#fbcfe8",
+  "#fed7aa",
+  "#c7d2fe",
+  "#93c5fd",
 ]);
 //获取首页推荐数据
 const getHomeRecommendData = async () => {
