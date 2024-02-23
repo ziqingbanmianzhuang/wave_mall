@@ -1,7 +1,9 @@
 <template>
-  <view v-if="!isLoading" class="flex justify-between">
+  <view v-if="!isLoading" class="flex justify-between bg-primary">
+    <!-- 二级分类 -->
     <view class="w-[327px]">
-      <swiper circulars autoplay class="m-1.5 mb-3 h-28">
+      <!-- 轮播图 -->
+      <swiper circulars autoplay class="mb-3 h-24">
         <swiper-item v-for="item in swiperList" :key="item.id">
           <navigator
             url="/pages/hotItem/hotItem"
@@ -16,9 +18,12 @@
           </navigator>
         </swiper-item>
       </swiper>
+      <!-- 商品列表 -->
       <scroll-view scroll-y class="h-[400px]">
-        <view v-for="item in subCategoryList" :key="item.id">
-          <text class="m-1.5 font-semibold">{{ item.name }}</text>
+        <view v-for="item in subCategoryList" :key="item.id" class="bg-primary">
+          <text class="margin-x-primary my-1.5 font-primary">{{
+            item.name
+          }}</text>
           <view class="flex flex-wrap">
             <navigator
               v-for="goods in item.goods"
@@ -26,36 +31,34 @@
               :url="`/pages/goodsDetailPage/goodsDetailPage?id=${goods.id}`"
               open-type="navigate"
               hover-class="navigator-hover"
-              class="relative block m-1.5 w-[148px] h-48 rounded-xl"
+              class="relative block border-radius-primary m-1.5 w-[148px] h-48"
             >
               <image
                 :src="goods.picture"
-                mode="scaleToFill"
-                class="rounded-xl w-[148px] h-48"
+                mode="aspectFill"
+                class="border-radius-primary w-[148px] h-48"
               />
               <view
-                class="absolute bottom-0 left-0 flex flex-col bg-white shadow-lg w-full"
+                class="absolute bottom-0 left-0 flex flex-col bg-white shadow-lg border-radius-b-primary w-full"
               >
-                <text class="text-sm">{{ goods.name }}</text>
-                <text class="text-xs">$ {{ goods.price }} </text>
+                <text class="font-primary-smaller">{{ goods.name }}</text>
+                <text class="font-secondary font-yellow"
+                  >$ {{ goods.price }}
+                </text>
               </view>
-              <view class="absolute top-0 left-0 flex">
-                <text
-                  v-for="dots in 3"
-                  :key="dots"
-                  class="block m-0.5 h-2 w-2 bg-black rounded"
-                ></text>
-              </view>
+
+              <threeDots></threeDots>
             </navigator>
           </view>
         </view>
       </scroll-view>
     </view>
+    <!-- 一级分类 -->
     <view class="flex flex-col justify-between m-1.5">
       <text
         v-for="(item, index) in categoryList"
         :key="item.id"
-        class="flex items-center justify-center bg-sky-200 h-8 w-8 rounded-sm text-white"
+        class="flex items-center justify-center font-secondary"
         @tap="activeIndex = index"
       >
         {{ item.name }}</text
@@ -70,6 +73,7 @@ import { onMounted, ref, computed } from "vue";
 import { getCategoryTopAPI, getCatgorySwiperAPI } from "./categoryPageApi";
 import type { CategoryTopItem, SwiperItem } from "./categoryPageType";
 import skeletonPage from "./skeletonPage.vue";
+import threeDots from "../../components/threeDots/threeGots.vue";
 
 let isLoading = ref(true);
 

@@ -13,12 +13,15 @@
 	@apply font-semibold text-fontBlack text-lg font-sans;
 }
 .font-secondary {
-	@apply font-normal text-fontGray text-xs font-sans;
+	@apply text-fontGray text-xs font-sans font-semibold;
 }
 
 /* border radius */
 .border-radius-primary {
 	@apply rounded-md;
+}
+.border-radius-b-primary {
+	@apply rounded-b-md;
 }
 
 /* margin-x */
