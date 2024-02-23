@@ -15,9 +15,9 @@
         color="#ccc"
         :current="current"
         :dots-styles="{
-          backgroundColor: '#FFD166',
+          backgroundColor: '#f97316',
           border: '0px solid #000',
-          selectedBackgroundColor: '#957200',
+          selectedBackgroundColor: '#9a3412',
           selectedBorder: '0px solid #000',
         }"
       >

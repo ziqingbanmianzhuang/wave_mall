@@ -8,12 +8,6 @@
 			}
 		},
 		{
-			"path": "pages/categoryItem/categoryItem",
-			"style": {
-				"navigationBarTitleText": "categoryItem"
-			}
-		},
-		{
 			"path": "pages/recommendItem/recommendItem",
 			"style": {
 				"navigationBarTitleText": "hotItem"
