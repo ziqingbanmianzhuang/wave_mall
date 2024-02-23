@@ -1,124 +1,128 @@
 <template>
-  <view v-if="!isLoading" class="bg-primary"
-    ><!-- 轮播图组件 -->
-    <uni-swiper-dot
-      mode="round"
-      :info="swiperList"
-      color="#ccc"
-      :current="current"
-      :dots-styles="{
-        backgroundColor: '#FFD166',
-        border: '0px solid #000',
-        selectedBackgroundColor: '#957200',
-        selectedBorder: '0px solid #000',
-      }"
-    >
-      <swiper circular autoplay class="h-28 mb-6" @change="change">
-        <swiper-item v-for="item in swiperList" :key="item.id">
-          <navigator
-            url="/pages/hotItem/hotItem"
-            open-type="navigate"
-            hover-class="navigator-hover"
-          >
-            <view
-              class="flex justify-between items-center box-border margin-x-primary p-3 w-[363px] h-28 bg-secondary font-secondary border-radius-primary"
-            >
-              <text>click here -></text>
-              <image
-                :src="item.imgUrl"
-                mode="scaleToFill"
-                class="w-[250px] h-20 border-8 border-white border-solid border-radius-primary"
-              />
-            </view>
-          </navigator>
-        </swiper-item>
-      </swiper>
-    </uni-swiper-dot>
-
-    <!-- 分类组件 -->
-    <view
-      class="relative flex flex-wrap bg-secondary max-h-32 overflow-hidden transition-all after:bg-gradient-to-b after:from-transparent after:to-white after:absolute after:bottom-0 after:h-16 after:w-full"
-      :class="{ show: isShowCategory }"
-    >
-      <navigator
-        v-for="item in list"
-        :key="item.id"
-        url="/pages/categoryPage/categoryPage"
-        open-type="switchTab"
-        hover-class="none"
-        :class="`flex justify-start items-center box-border m-1.5 p-3 w-[175.5px] h-12 font-primary ${item.bg} border-radius-primary`"
+  <scroll-view
+    scroll-y
+    class="h-[500px] w-full my-1.5"
+    refresher-enabled
+    :refresher-triggered="isTriggered"
+    @refresherrefresh="onRefresherrefresh"
+    @scrolltolower="onScrolltolower"
+  >
+    <view v-if="!isLoading" class="bg-primary"
+      ><!-- 轮播图组件 -->
+      <uni-swiper-dot
+        mode="round"
+        :info="swiperList"
+        color="#ccc"
+        :current="current"
+        :dots-styles="{
+          backgroundColor: '#FFD166',
+          border: '0px solid #000',
+          selectedBackgroundColor: '#957200',
+          selectedBorder: '0px solid #000',
+        }"
       >
-        <view
-          class="flex justify-center items-center mx-3 w-6 h-6 bg-white border-radius-primary"
-        >
-          <uni-icons :type="item.icon" size="20" color="#000"></uni-icons>
-        </view>
-        <text>{{ item.name }}</text>
-      </navigator>
-    </view>
-    <!-- 展开 -->
-    <view
-      class="relative left-1/2 -translate-x-1/2 w-12 h-8 text-center"
-      @tap="showCategory"
-    >
-      <text class="font-secondary">{{ isShowCategory ? "收起" : "展开" }}</text>
-    </view>
-    <!-- 推荐组件 -->
-    <text class="block margin-x-primary mt-3 font-primary-biger">推荐</text>
-    <view class="bg-secondary mb-3 py-3">
-      <view class="flex justify-between items-center m-1.5">
+        <swiper circular autoplay class="h-28 mb-6" @change="change">
+          <swiper-item v-for="item in swiperList" :key="item.id">
+            <navigator
+              url="/pages/hotItem/hotItem"
+              open-type="navigate"
+              hover-class="navigator-hover"
+            >
+              <view
+                class="flex justify-between items-center box-border margin-x-primary p-3 w-[363px] h-28 bg-secondary font-secondary border-radius-primary"
+              >
+                <text>click here -></text>
+                <image
+                  :src="item.imgUrl"
+                  mode="scaleToFill"
+                  class="w-[250px] h-20 border-8 border-white border-solid border-radius-primary"
+                />
+              </view>
+            </navigator>
+          </swiper-item>
+        </swiper>
+      </uni-swiper-dot>
+
+      <!-- 分类组件 -->
+      <view
+        class="relative flex flex-wrap bg-secondary border-radius-primary max-h-32 overflow-hidden transition-all after:bg-gradient-to-b after:from-transparent after:to-white after:absolute after:bottom-0 after:h-16 after:w-full"
+        :class="{ show: isShowCategory }"
+      >
         <navigator
-          v-for="item in recommendList"
+          v-for="item in list"
           :key="item.id"
-          :url="`/pages/recommendItem/recommendItem?type=${item.type}`"
-          open-type="navigate"
-          hover-class="navigator-hover"
-          class="flex flex-col justify-start items-center"
+          url="/pages/categoryPage/categoryPage"
+          open-type="switchTab"
+          hover-class="none"
+          :class="`flex justify-start items-center box-border margin-x-primary my-1.5 p-3 w-[175.5px] h-12 font-primary ${item.bg} border-radius-primary`"
         >
           <view
-            :class="`flex justify-center items-center w-6 h-6 bg-white border-radius-primary`"
+            class="flex justify-center items-center mx-3 w-6 h-6 bg-white border-radius-primary"
           >
-            <uni-icons :type="item.icon" :color="`${item.bg}`" size="20" />
+            <uni-icons :type="item.icon" size="20" color="#000"></uni-icons>
           </view>
-          <view class="font-primary-smaller">{{ item.alt }}</view>
+          <text>{{ item.name }}</text>
         </navigator>
       </view>
-    </view>
-    <!-- 推荐喜欢组件 -->
-    <view class="font-secondary text-center">---你可能喜欢---</view>
-    <scroll-view
-      scroll-y
-      class="h-[667px] w-[363px] margin-x-primary my-1.5"
-      refresher-enabled
-      :refresher-triggered="isTriggered"
-      @refresherrefresh="onRefresherrefresh"
-      @scrolltolower="onScrolltolower"
-    >
+      <!-- 展开 -->
+      <view
+        class="relative left-1/2 -translate-x-1/2 w-12 h-8 text-center"
+        @tap="showCategory"
+      >
+        <text class="font-secondary">{{
+          isShowCategory ? "收起" : "展开"
+        }}</text>
+      </view>
+      <!-- 推荐组件 -->
+      <text class="block margin-x-primary mt-3 font-primary-biger">推荐</text>
+      <view class="bg-secondary border-radius-primary mb-3 py-3">
+        <view class="flex justify-between items-center m-1.5">
+          <navigator
+            v-for="item in recommendList"
+            :key="item.id"
+            :url="`/pages/recommendItem/recommendItem?type=${item.type}`"
+            open-type="navigate"
+            hover-class="navigator-hover"
+            class="flex flex-col justify-start items-center"
+          >
+            <view
+              :class="`flex justify-center items-center w-6 h-6 bg-white border-radius-primary`"
+            >
+              <uni-icons :type="item.icon" :color="`${item.bg}`" size="20" />
+            </view>
+            <view class="font-primary-smaller">{{ item.alt }}</view>
+          </navigator>
+        </view>
+      </view>
+      <!-- 推荐喜欢组件 -->
+      <view class="font-secondary text-center">---你可能喜欢---</view>
+      <!-- 商品页面 -->
       <navigator
         v-for="item in likeList"
         :key="item.id"
         url="/pages/goodsDetailPage/goodsDetailPage"
         open-type="navigate"
         hover-class="navigator-hover"
-        class="grid grid-cols-7 items-center bg-secondary m-1.5"
+        class="grid grid-cols-7 items-center bg-secondary border-radius-primary m-1.5"
       >
         <text
-          class="col-span-1 h-2 w-2 bg-black rounded justify-self-start"
+          class="col-span-1 h-2 w-2 bg-orange-800 rounded justify-self-start"
         ></text>
-        <text class="col-span-5 justify-self-start font-primary-smaller">{{
-          item.name
-        }}</text>
-        <text class="col-span-1 justify-self-end font-secondary">{{
+        <text class="col-span-5 font-primary-smaller">{{ item.name }}</text>
+        <text class="col-span-1 justify-self-end font-secondary font-yellow">{{
           item.price
         }}</text>
-        <view
-          class="col-start-2 col-end-8 flex justify-center m-1.5 border border-inherit border-solid border-radius-primary"
-        >
-          <image class="w-24 h-24" :src="item.picture" mode="scaleToFill" />
+        <view class="col-start-1 col-end-8 flex justify-center m-1.5">
+          <image
+            class="border-radius-primary w-full h-32"
+            :src="item.picture"
+            mode="center"
+          ></image>
         </view>
-      </navigator> </scroll-view
-  ></view>
-  <skeletonPage v-else></skeletonPage>
+      </navigator>
+    </view>
+    <skeletonPage v-else></skeletonPage>
+  </scroll-view>
 </template>
 
 <script setup lang="ts">

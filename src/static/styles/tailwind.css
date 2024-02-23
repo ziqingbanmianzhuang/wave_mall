@@ -34,3 +34,8 @@
 .bg-secondary {
 	@apply bg-white;
 }
+
+/* font-color */
+.font-yellow {
+	@apply text-orange-500;
+}
