@@ -1,17 +1,17 @@
 <template>
   <view v-if="!isLoading" class="flex justify-between">
     <view class="w-[327px]">
-      <swiper circular class="m-1.5 mb-6 h-28">
-        <swiper-item v-for="item in 5" :key="item">
+      <swiper circulars autoplay class="m-1.5 mb-3 h-28">
+        <swiper-item v-for="item in swiperList" :key="item.id">
           <navigator
             url="/pages/hotItem/hotItem"
             open-type="navigate"
             hover-class="navigator-hover"
           >
             <image
-              src="https://yanxuan-item.nosdn.127.net/674ec7a88de58a026304983dd049ea69.jpg"
-              mode="scaleToFill"
-              class="w-[315px] h-24 rounded-xl"
+              :src="item.imgUrl"
+              mode="aspectFill"
+              class="w-[309px] h-24 rounded-xl margin-x-primary"
             />
           </navigator>
         </swiper-item>
@@ -67,8 +67,8 @@
 
 <script lang="ts" setup>
 import { onMounted, ref, computed } from "vue";
-import { getCategoryTopAPI } from "./categoryPageApi";
-import type { CategoryTopItem } from "./categoryPageType";
+import { getCategoryTopAPI, getCatgorySwiperAPI } from "./categoryPageApi";
+import type { CategoryTopItem, SwiperItem } from "./categoryPageType";
 import skeletonPage from "./skeletonPage.vue";
 
 let isLoading = ref(true);
@@ -89,7 +89,17 @@ const getCategoryTopData = async () => {
   const res = await getCategoryTopAPI();
   categoryList.value = res.result;
 };
+
+//轮播图数据
+let swiperList = ref<SwiperItem[]>();
+
+//获取轮播图数据
+const getCatgorySwiperData = async () => {
+  const res = await getCatgorySwiperAPI();
+  swiperList.value = res.result;
+};
 onMounted(async () => {
+  await getCatgorySwiperData();
   await getCategoryTopData();
   isLoading.value = false;
 });

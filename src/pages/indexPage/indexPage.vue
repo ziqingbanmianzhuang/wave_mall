@@ -34,7 +34,7 @@
                 <text>click here -></text>
                 <image
                   :src="item.imgUrl"
-                  mode="scaleToFill"
+                  mode="aspectFill"
                   class="w-[250px] h-20 border-8 border-white border-solid border-radius-primary"
                 />
               </view>

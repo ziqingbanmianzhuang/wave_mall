@@ -28,3 +28,15 @@ export type CategoryChildItem = {
   /** 二级分类图片 */
   picture: string;
 };
+
+/**分类页轮播图数据 */
+export type SwiperItem = {
+  /** 跳转链接 */
+  hrefUrl: string;
+  /** id */
+  id: string;
+  /** 图片链接 */
+  imgUrl: string;
+  /** 跳转类型 */
+  type: number;
+};
