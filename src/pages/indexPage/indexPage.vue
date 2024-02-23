@@ -43,7 +43,9 @@
       <navigator
         v-for="item in list"
         :key="item.id"
-        url="/pages/categoryItem/categoryItem"
+        url="/pages/categoryPage/categoryPage"
+        open-type="switchTab"
+        hover-class="none"
         :class="`flex justify-start items-center box-border m-1.5 p-3 w-[175.5px] h-12 font-primary ${item.bg} border-radius-primary`"
       >
         <view
