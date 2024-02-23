@@ -100,7 +100,7 @@
       <navigator
         v-for="item in likeList"
         :key="item.id"
-        url="/pages/goodsDetailPage/goodsDetailPage"
+        :url="`/pages/goodsDetailPage/goodsDetailPage?id=${item.id}`"
         open-type="navigate"
         hover-class="navigator-hover"
         class="grid grid-cols-7 items-center bg-secondary border-radius-primary m-1.5"
