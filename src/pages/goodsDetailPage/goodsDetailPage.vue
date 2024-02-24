@@ -1,178 +1,181 @@
 <template>
-  <!-- 商品轮播 -->
-  <swiper circular class="h-32" :autoplay="false" @change="onChange">
-    <swiper-item v-for="item in goods!.mainPictures" :key="item">
+  <view class="bg-primary w-full">
+    <!-- 商品轮播 -->
+    <swiper circular autoplay class="h-32" @change="onChange">
+      <swiper-item v-for="item in goods!.mainPictures" :key="item">
+        <navigator
+          url="/pages/hotItem/hotItem"
+          open-type="navigate"
+          hover-class="navigator-hover"
+        >
+          <view class="relative h-32">
+            <image
+              :src="item"
+              mode="aspectFill"
+              class="w-[375px] h-32"
+              @tap="onTapImage(item)"
+            />
+            <view
+              class="flex justify-center items-center w-6 h-6 absolute right-2 top-2 bg-white border-radius-primary"
+            >
+              <uni-icons type="arrow-right" color="#7f1d1d" size="20" />
+            </view>
+          </view>
+        </navigator>
+      </swiper-item>
+    </swiper>
+    <!-- 商品服务 -->
+    <view
+      class="relative top-[-20px] margin-x-primary my-1.5 px-3 bg-secondary w-[363px] border-radius-primary"
+    >
+      <view class="flex flex-col border-b py-3">
+        <text class="font-primary">{{ goods?.name }}</text>
+        <text class="font-primary-smaller font-yellow">{{ goods?.price }}</text>
+      </view>
+      <view class="flex flex-col border-b py-3" @click="openPopUpAddress">
+        <view>
+          <uni-icons type="flag" class="pr-3"></uni-icons>
+          <text class="font-primary-smaller">地址选择</text>
+        </view>
+        <text class="font-secondary">四川省成都市双流区</text>
+      </view>
+      <view class="flex flex-col border-b py-3" @tap="openPopUpSku(1)">
+        <view>
+          <uni-icons type="eye" class="pr-3"></uni-icons>
+          <text class="font-primary-smaller">商品规格</text>
+        </view>
+        <text class="font-secondary">{{ selectArrText }}</text>
+      </view>
+      <view class="flex flex-col border-b py-3" @tap="openPopUp">
+        <view>
+          <uni-icons type="hand-up" class="pr-3"></uni-icons>
+          <text class="font-primary-smaller">店家服务</text>
+        </view>
+        <text class="font-secondary">包退 快速退款 免费包邮</text>
+      </view>
+    </view>
+
+    <!-- 商品详情 -->
+    <view
+      class="flex flex-col bg-secondary margin-x-primary my-1.5 p-3 w-[363px] border-radius-primary"
+    >
+      <text class="font-primary">描述</text>
+      <text class="font-secondary">{{
+        goods.desc ? goods.desc : "暂无描述"
+      }}</text>
+    </view>
+
+    <!-- 功能区 -->
+    <view class="flex">
+      <button
+        class="bg-orange-500 border-radius-primary m-1.5 w-[100px] h-12 text-white text-base font-sans font-semibold leading-[48px]"
+      >
+        客服
+      </button>
+      <button
+        class="bg-orange-800 border-radius-primary m-1.5 w-[251px] h-12 text-white text-base font-sans font-semibold leading-[48px]"
+        @tap="openPopUpSku(2)"
+      >
+        加入购入车
+      </button>
+    </view>
+    <!-- 购买区 -->
+    <view
+      class="flex justify-between bg-teal-100 border-radius-primary m-1.5 p-3"
+    >
+      <view class="flex flex-col">
+        <text class="font-yellow font-primary-smaller">$68</text>
+        <text class="font-secondary">128 码 四条</text>
+      </view>
+      <button
+        class="bg-backgroundGreen border-radius-primary w-[80px] h-10 font-semibold text-sm font-sans text-white leading-[40px]"
+        @tap="openPopUpSku(3)"
+      >
+        立即购买
+      </button>
+    </view>
+    <!-- 查看购物车 -->
+    <view class="flex justify-center items-center">
+      <uni-icons type="eye-filled" color="#22c55e"></uni-icons>
       <navigator
-        url="/pages/hotItem/hotItem"
+        url="/pages/cartPage/cartPage"
+        class="font-primary-smaller m-1.5"
         open-type="navigate"
         hover-class="navigator-hover"
+        >查看购物车</navigator
       >
-        <view class="relative h-32">
-          <image
-            :src="item"
-            mode="scaleToFill"
-            class="w-[375px] h-32"
-            @tap="onTapImage(item)"
-          />
-          <view
-            class="flex justify-center items-center w-6 h-6 absolute right-2 top-2 bg-white rounded-xl"
+    </view>
+    <!-- popup -->
+    <uni-popup ref="popup" type="bottom" background-color="#fff">
+      <view class="text-lg font-semibold text-center"
+        ><text>服务说明</text></view
+      >
+      <view class="flex flex-col border-b p-3 font-semibold">
+        <text class="text-base">无忧退货</text>
+        <text class="text-xs text-gray-400">
+          自收到商品之日起30天内，可在线申请无忧退货服务（食品等特殊商品除外）</text
+        >
+      </view>
+      <view class="flex flex-col border-b p-3 font-semibold">
+        <text class="text-base">快速退款</text>
+        <text class="text-xs text-gray-400">
+          收到退货包裹并确认无误后，将在48小时内办理退款，
+          退款将原路返回，不同银行处理时间不同，预计1-5个工作日到账</text
+        >
+      </view>
+      <view class="flex flex-col border-b p-3 font-semibold">
+        <text class="text-base">满88元免邮费</text>
+        <text class="text-xs text-gray-400">
+          单笔订单金额(不含运费)满88元可免邮费，不满88元，
+          单笔订单收取10元邮费</text
+        >
+      </view>
+    </uni-popup>
+    <!-- popUPAddress -->
+    <uni-popup ref="popupAddress" type="bottom" background-color="#fff">
+      <view class="text-lg font-semibold text-center"><text>配送至</text></view>
+      <view class="flex justify-between border-b p-3 font-semibold">
+        <view class="flex flex-col">
+          <text class="text-base">李明 13824686868</text>
+          <text class="text-xs text-gray-400">
+            北京市顺义区后沙峪地区安平北街6号院</text
           >
-            <uni-icons type="arrow-right" color="#000" size="20" />
-          </view>
         </view>
-      </navigator>
-    </swiper-item>
-  </swiper>
-  <!-- 商品服务 -->
-  <view
-    class="relative top-[-20px] shadow-lg m-1.5 px-3 bg-white w-[363px] rounded-xl"
-  >
-    <view class="flex flex-col border-b py-3 font-semibold">
-      <text class="text-lg">{{ goods?.name }}</text>
-      <text class="texg-sm">{{ goods?.price }}</text>
-    </view>
-    <view
-      class="flex flex-col border-b py-3 font-semibold"
-      @click="openPopUpAddress"
-    >
-      <view>
-        <uni-icons type="flag" class="pr-3"></uni-icons>
-        <text class="text-base">地址选择</text>
+        <uni-icons type="checkmarkempty" color="" size="24" />
       </view>
-      <text class="text-xs text-gray-400">四川省成都市双流区</text>
-    </view>
-    <view
-      class="flex flex-col border-b py-3 font-semibold"
-      @tap="openPopUpSku(1)"
-    >
-      <view>
-        <uni-icons type="eye" class="pr-3"></uni-icons>
-        <text class="text-base">商品规格</text>
+      <view class="flex justify-between border-b p-3 font-semibold">
+        <view class="flex flex-col">
+          <text class="text-base">李明 13824686868</text>
+          <text class="text-xs text-gray-400">
+            北京市顺义区后沙峪地区安平北街6号院</text
+          >
+        </view>
+        <uni-icons type="circle" color="" size="24" />
       </view>
-      <text class="text-xs text-gray-400">{{ selectArrText }}</text>
-    </view>
-    <view class="flex flex-col border-b py-3 font-semibold" @tap="openPopUp">
-      <view>
-        <uni-icons type="hand-up" class="pr-3"></uni-icons>
-        <text class="text-base">店家服务</text>
+      <view class="flex justify-between border-b p-3 font-semibold">
+        <view class="flex flex-col">
+          <text class="text-base">李明 13824686868</text>
+          <text class="text-xs text-gray-400">
+            北京市顺义区后沙峪地区安平北街6号院</text
+          >
+        </view>
+        <uni-icons type="circle" color="" size="24" />
       </view>
-      <text class="text-xs text-gray-400">包退 快速退款 免费包邮</text>
-    </view>
+      <view class="flex flex-col border-b p-3 font-semibold">
+        <button>新建地址</button>
+      </view>
+    </uni-popup>
+    <!-- openPopUpSku -->
+    <vk-data-goods-sku-popup
+      ref="skuPopupRef"
+      v-model="skuKey"
+      :localdata="goodsInfo"
+      border-radius="20"
+      :mode="skuMode"
+      @add-cart="onAddCart"
+      @buy-now="onBuyNow"
+    ></vk-data-goods-sku-popup>
   </view>
-
-  <!-- 商品详情 -->
-  <view
-    class="flex flex-col shadow-lg bg-white m-1.5 p-3 w-[363px] rounded-xl font-semibold"
-  >
-    <text class="text-lg">描述</text>
-    <text class="text-xs text-gray-400">{{ goods.desc }}</text>
-  </view>
-
-  <!-- 功能区 -->
-  <view class="flex">
-    <button
-      class="bg-teal-800 rounded-xl m-1.5 w-[100px] h-12 text-white font-semibold leading-[48px]"
-    >
-      客服
-    </button>
-    <button
-      class="bg-red-900 rounded-xl m-1.5 w-[251px] h-12 text-white font-semibold leading-[48px]"
-      @tap="openPopUpSku(2)"
-    >
-      加入购入车
-    </button>
-  </view>
-  <!-- 购买区 -->
-  <view class="flex justify-between bg-teal-100 rounded-xl m-1.5 p-3">
-    <view class="flex flex-col">
-      <text class="text-red-600 font-semibold">$68</text>
-      <text class="text-xs text-gray-400">128 码 四条</text>
-    </view>
-    <button
-      class="bg-teal-800 rounded-xl w-[80px] h-10 text-sm text-white font-semibold leading-[40px]"
-      @tap="openPopUpSku(3)"
-    >
-      立即购买
-    </button>
-  </view>
-  <view class="text-center">
-    <uni-icons type="eye-filled" color="#064e3b"></uni-icons>
-    <navigator
-      url="/pages/cartPage/cartPage"
-      class="text-sm font-semibold m-1.5"
-      open-type="navigate"
-      hover-class="navigator-hover"
-      >查看购物车</navigator
-    >
-  </view>
-  <!-- popup -->
-  <uni-popup ref="popup" type="bottom" background-color="#fff">
-    <view class="text-lg font-semibold text-center"><text>服务说明</text></view>
-    <view class="flex flex-col border-b p-3 font-semibold">
-      <text class="text-base">无忧退货</text>
-      <text class="text-xs text-gray-400">
-        自收到商品之日起30天内，可在线申请无忧退货服务（食品等特殊商品除外）</text
-      >
-    </view>
-    <view class="flex flex-col border-b p-3 font-semibold">
-      <text class="text-base">快速退款</text>
-      <text class="text-xs text-gray-400">
-        收到退货包裹并确认无误后，将在48小时内办理退款，
-        退款将原路返回，不同银行处理时间不同，预计1-5个工作日到账</text
-      >
-    </view>
-    <view class="flex flex-col border-b p-3 font-semibold">
-      <text class="text-base">满88元免邮费</text>
-      <text class="text-xs text-gray-400">
-        单笔订单金额(不含运费)满88元可免邮费，不满88元，
-        单笔订单收取10元邮费</text
-      >
-    </view>
-  </uni-popup>
-  <!-- popUPAddress -->
-  <uni-popup ref="popupAddress" type="bottom" background-color="#fff">
-    <view class="text-lg font-semibold text-center"><text>配送至</text></view>
-    <view class="flex justify-between border-b p-3 font-semibold">
-      <view class="flex flex-col">
-        <text class="text-base">李明 13824686868</text>
-        <text class="text-xs text-gray-400">
-          北京市顺义区后沙峪地区安平北街6号院</text
-        >
-      </view>
-      <uni-icons type="checkmarkempty" color="" size="24" />
-    </view>
-    <view class="flex justify-between border-b p-3 font-semibold">
-      <view class="flex flex-col">
-        <text class="text-base">李明 13824686868</text>
-        <text class="text-xs text-gray-400">
-          北京市顺义区后沙峪地区安平北街6号院</text
-        >
-      </view>
-      <uni-icons type="circle" color="" size="24" />
-    </view>
-    <view class="flex justify-between border-b p-3 font-semibold">
-      <view class="flex flex-col">
-        <text class="text-base">李明 13824686868</text>
-        <text class="text-xs text-gray-400">
-          北京市顺义区后沙峪地区安平北街6号院</text
-        >
-      </view>
-      <uni-icons type="circle" color="" size="24" />
-    </view>
-    <view class="flex flex-col border-b p-3 font-semibold">
-      <button>新建地址</button>
-    </view>
-  </uni-popup>
-  <!-- openPopUpSku -->
-  <vk-data-goods-sku-popup
-    ref="skuPopupRef"
-    v-model="skuKey"
-    :localdata="goodsInfo"
-    border-radius="20"
-    :mode="skuMode"
-    @add-cart="onAddCart"
-    @buy-now="onBuyNow"
-  ></vk-data-goods-sku-popup>
 </template>
 
 <script lang="ts" setup>

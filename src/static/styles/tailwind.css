@@ -37,6 +37,15 @@
 .bg-secondary {
 	@apply bg-white;
 }
+.bg-modifiable-yellow {
+	@apply bg-orange-500;
+}
+.bg-modifiable-red {
+	@apply bg-orange-800;
+}
+.bg-modifiable-green {
+	@apply bg-backgroundGreen;
+}
 
 /* font-color */
 .font-yellow {
