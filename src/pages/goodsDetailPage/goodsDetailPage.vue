@@ -37,7 +37,9 @@
           <uni-icons type="flag" class="pr-3"></uni-icons>
           <text class="font-primary-smaller">地址选择</text>
         </view>
-        <text class="font-secondary">四川省成都市双流区</text>
+        <text class="font-secondary">{{
+          selectedAddress ? selectedAddress : "请选择地址"
+        }}</text>
       </view>
       <view class="flex flex-col border-b py-3" @tap="openPopUpSku(1)">
         <view>
@@ -100,32 +102,30 @@
       <navigator
         url="/pages/cartPage/cartPage"
         class="font-primary-smaller m-1.5"
-        open-type="navigate"
+        open-type="switchTab"
         hover-class="navigator-hover"
         >查看购物车</navigator
       >
     </view>
-    <!-- popup -->
+    <!-- services popup -->
     <uni-popup ref="popup" type="bottom" background-color="#fff">
-      <view class="text-lg font-semibold text-center"
-        ><text>服务说明</text></view
-      >
-      <view class="flex flex-col border-b p-3 font-semibold">
-        <text class="text-base">无忧退货</text>
-        <text class="text-xs text-gray-400">
+      <view class="font-primary text-center"><text>服务说明</text></view>
+      <view class="flex flex-col border-b p-3">
+        <text class="font-primary">无忧退货</text>
+        <text class="font-secondary">
           自收到商品之日起30天内，可在线申请无忧退货服务（食品等特殊商品除外）</text
         >
       </view>
-      <view class="flex flex-col border-b p-3 font-semibold">
-        <text class="text-base">快速退款</text>
-        <text class="text-xs text-gray-400">
+      <view class="flex flex-col border-b p-3">
+        <text class="font-primary">快速退款</text>
+        <text class="font-secondary">
           收到退货包裹并确认无误后，将在48小时内办理退款，
           退款将原路返回，不同银行处理时间不同，预计1-5个工作日到账</text
         >
       </view>
-      <view class="flex flex-col border-b p-3 font-semibold">
-        <text class="text-base">满88元免邮费</text>
-        <text class="text-xs text-gray-400">
+      <view class="flex flex-col border-b p-3">
+        <text class="font-primary">满88元免邮费</text>
+        <text class="font-secondary">
           单笔订单金额(不含运费)满88元可免邮费，不满88元，
           单笔订单收取10元邮费</text
         >
@@ -133,36 +133,47 @@
     </uni-popup>
     <!-- popUPAddress -->
     <uni-popup ref="popupAddress" type="bottom" background-color="#fff">
-      <view class="text-lg font-semibold text-center"><text>配送至</text></view>
-      <view class="flex justify-between border-b p-3 font-semibold">
-        <view class="flex flex-col">
-          <text class="text-base">李明 13824686868</text>
-          <text class="text-xs text-gray-400">
-            北京市顺义区后沙峪地区安平北街6号院</text
-          >
+      <view class="font-primary text-center"><text>配送至</text></view>
+      <template v-if="goods.userAddresses?.length">
+        <view
+          v-for="address in goods.userAddresses"
+          :key="address.id"
+          class="flex justify-between border-b p-3"
+          @tap="selectAddress(address.fullLocation)"
+        >
+          <view class="flex flex-col">
+            <text class="font-primary-smaller"
+              >{{ address.receiver }} {{ address.contact }}</text
+            >
+            <text class="font-secondary"> {{ address.fullLocation }}</text>
+          </view>
+          <uni-icons
+            v-if="address.isDefault"
+            type="checkmarkempty"
+            color="#22c55e"
+            size="20"
+          />
+          <uni-icons
+            v-else
+            type="circle"
+            color="#9a3412"
+            size="20"
+            @tap="setDefaultAddress(address.id, address)"
+          />
         </view>
-        <uni-icons type="checkmarkempty" color="" size="24" />
-      </view>
-      <view class="flex justify-between border-b p-3 font-semibold">
-        <view class="flex flex-col">
-          <text class="text-base">李明 13824686868</text>
-          <text class="text-xs text-gray-400">
-            北京市顺义区后沙峪地区安平北街6号院</text
-          >
-        </view>
-        <uni-icons type="circle" color="" size="24" />
-      </view>
-      <view class="flex justify-between border-b p-3 font-semibold">
-        <view class="flex flex-col">
-          <text class="text-base">李明 13824686868</text>
-          <text class="text-xs text-gray-400">
-            北京市顺义区后沙峪地区安平北街6号院</text
-          >
-        </view>
-        <uni-icons type="circle" color="" size="24" />
-      </view>
+      </template>
+      <template v-else>
+        <view class="font-secondary text-center">暂无收货地址</view>
+      </template>
       <view class="flex flex-col border-b p-3 font-semibold">
-        <button>新建地址</button>
+        <navigator
+          url="/subPkg/addressFormPage/addressFormPage"
+          open-type="navigate"
+          hover-class="navigator-hover"
+          class="text-center font-primary-smaller"
+        >
+          新建地址
+        </navigator>
       </view>
     </uni-popup>
     <!-- openPopUpSku -->
@@ -179,10 +190,15 @@
 </template>
 
 <script lang="ts" setup>
-import { getGoodsByIdAPI, postMemberCartAPI } from "./goodsDetailApi";
+import {
+  getGoodsByIdAPI,
+  postMemberCartAPI,
+  putMemberAddressByIdAPI,
+} from "./goodsDetailApi";
 import type {
   SkuPopupInstance,
   SkuPopupEvent,
+  AddressParams,
 } from "../../components/vk-data-goods-sku-popup/vk-data-goods-sku-popup";
 import type { GoodsResult } from "./goodsDetailType";
 import type { SkuPopupLocaldata } from "../../components/vk-data-goods-sku-popup/vk-data-goods-sku-popup";
@@ -355,6 +371,37 @@ const onBuyNow = (ev: SkuPopupEvent) => {
   uni.navigateTo({
     url: `/orderPkg/editOrderPage/editOrderPage?skuId=${ev._id}&count=${ev.buy_num}`,
   });
+};
+
+// 设置默认地址
+const setDefaultAddress = async (id, data) => {
+  data.isDefault = 1;
+  const {
+    receiver,
+    contact,
+    provinceCode,
+    cityCode,
+    countyCode,
+    address,
+    isDefault,
+  }: AddressParams = data;
+  await putMemberAddressByIdAPI(id, {
+    receiver,
+    contact,
+    provinceCode,
+    cityCode,
+    countyCode,
+    address,
+    isDefault,
+  });
+  getGoodsByIdData();
+};
+//收货地址
+const selectedAddress = ref<string>();
+
+//选择收货地址
+const selectAddress = (address) => {
+  selectedAddress.value = address;
 };
 </script>
 
