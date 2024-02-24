@@ -1,15 +1,16 @@
 <template>
-  <template v-if="profileStore.profile">
+  <view v-if="profileStore.profile" class="bg-primary">
     <!-- 选择所有商品 -->
-    <view class="shadow-lg my-3 mx-1.5 rounded-xl px-3 w-[363px] h-8">
+    <view
+      class="bg-secondary my-3 margin-x-primary border-radius-primary px-3 w-[363px] h-8"
+    >
       <checkbox value="全选" :checked="selectedAll" @tap="checkChangeAll" />
-      <text class="text-gray-300">选择所有商品</text>
+      <text class="font-primary-smaller">选择所有商品</text>
     </view>
     <!-- 商品数量 -->
-    <view class="my-3 text-center text-slate-300"
-      >商品数量:<text class="font-semibold text-black">{{
-        cartList.length
-      }}</text></view
+    <view class="my-3 font-secondary text-center"
+      >商品数量:
+      <text class="font-primary-smaller">x{{ cartList.length }}</text></view
     >
     <!-- 购物车列表 -->
     <!-- 购物车 -->
@@ -18,54 +19,50 @@
         <uni-swipe-action-item
           v-for="item in cartList"
           :key="item.id"
-          class="m-1.5 w-[363px] h-36"
+          class="margin-x-primary my-1.5 w-[363px] h-36"
         >
           <view class="flex items-center w-[363px] h-36">
             <!-- 商品 -->
             <view
-              class="flex justify-between items-center relative shadow-lg rounded-xl border border-slate-300 border-solid mr-3 pl-3 w-[300px]"
+              class="bg-secondary flex justify-between items-center relative border-radius-primary mr-3 pl-3 w-[300px] h-36"
             >
+              <!-- checkbox -->
               <checkbox
                 value=""
                 :checked="item.selected"
                 class="mr-3"
                 @tap="checkChange(item)"
               />
+              <!-- 图片和desc -->
               <view class="flex flex-col mr-3">
                 <image
                   :src="item.picture"
-                  mode="scaleToFill"
-                  class="rounded-xl border border-slate-300 border-solid mb-3 w-20 h-20"
+                  mode="aspectFill"
+                  class="border-radius-primary mb-3 w-20 h-20"
                 />
-                <text class="text-gray-300">{{ item.attrsText }}</text>
+                <text class="font-secondary">{{ item.attrsText }}</text>
               </view>
+              <!-- 名称，价格 -->
               <view class="flex flex-col mr-3">
-                <text class="font-semibold">{{ item.name }}</text>
-                <text class="text-orange-300"
+                <text class="font-primary-smaller">{{ item.name }}</text>
+                <text class="font-secondary font-yellow"
                   >{{ item.price }} / {{ item.nowPrice }}</text
                 >
               </view>
+              <!-- threeDots -->
               <view class="absolute right-3 top-3 flex">
-                <text
-                  v-for="it in 3"
-                  :key="it"
-                  class="bg-black rounded m-0.5 h-2 w-2"
-                ></text>
+                <threeDots></threeDots>
               </view>
             </view>
             <!-- 数量 -->
             <view
-              class="flex flex-col justify-around items-center shadow-lg rounded-xl px-3 w-[50px] h-36 text-slate-300"
+              class="flex flex-col justify-around items-center bg-secondary border-radius-primary px-3 w-[50px] h-36"
             >
-              <text
-                class="font-semibold text-2xl"
-                @tap="changeGoodsNum('cut', item)"
+              <text class="font-primary" @tap="changeGoodsNum('cut', item)"
                 >-</text
               >
-              <text class="text-red-300">{{ item.count }}</text>
-              <text
-                class="font-semibold text-2xl"
-                @tap="changeGoodsNum('add', item)"
+              <text class="font-secondary font-yellow">{{ item.count }}</text>
+              <text class="font-primary" @tap="changeGoodsNum('add', item)"
                 >+</text
               >
             </view>
@@ -82,30 +79,39 @@
       </uni-swipe-action>
     </scroll-view>
     <!-- 总计 -->
-    <view class="flex justify-around w-[300px] text-sm">
+    <view class="flex justify-around margin-x-primary w-full">
       <view
-        ><text class="text-gray-300 font-semibold">总共</text>
-        <text class="font-semibold">{{ selectedCartListMoney }}</text></view
+        ><text class="font-secondary">总共：</text>
+        <text class="font-primary-smaller"
+          >￥{{ selectedCartListMoney }}</text
+        ></view
       >
       <view
-        ><text class="text-gray-300 font-semibold">购买数量</text
-        ><text class="font-semibold">{{ selectedCartListCount }}</text></view
+        ><text class="font-secondary">购买数量：</text
+        ><text class="font-primary-smaller"
+          >x{{ selectedCartListCount }}</text
+        ></view
       >
     </view>
     <!-- 结算 -->
-    <view class="flex justify-between mx-1.5 mt-6">
+    <view class="flex justify-between items-center margin-x-primary mt-6">
       <view class="flex">
-        <uni-icons type="left"></uni-icons>
-        <text class="font-semibold">继续购物</text>
+        <uni-icons type="left" size="20"></uni-icons>
+        <navigator
+          class="font-primary-smaller"
+          url="/pages/categoryPage/categoryPage"
+          open-type="switchTab"
+          >继续购物</navigator
+        >
       </view>
       <button
-        class="bg-blue-300 rounded-xl w-36 h-8 leading-8 font-semibold text-center text-sm"
+        class="bg-orange-800 border-radius-primary w-36 h-8 leading-8 font-semibold text-center text-sm text-white"
         @tap="gotoPayment"
       >
         去结算
       </button>
     </view>
-  </template>
+  </view>
   <template v-else>
     <text>登录后可查看您的购物车</text>
     <navigator
@@ -128,6 +134,7 @@ import {
   putMemberCartSelectedAPI,
 } from "./cartPageApi";
 import type { CartItem } from "./cartPage";
+import threeDots from "../../components/threeDots/threeDots.vue";
 
 // 获取会员Store
 const profileStore = useProfileStore();
@@ -180,7 +187,19 @@ const selectedAll = computed(() => {
 
 //商品数量修改
 const changeGoodsNum = (type: string, good: CartItem) => {
-  type === "add" ? good.count++ : good.count--;
+  let hander: {
+    [key: string]: () => void;
+  } = {
+    add: () => {
+      good.count <= good.stock
+        ? good.count++
+        : uni.showModal({ title: "不能再加啦，存货不够啦" });
+    },
+    cut: () => {
+      good.count > 1 ? good.count-- : uni.showModal({ title: "不能再减了噢" });
+    },
+  };
+  hander[type]();
   putMemberCartBySkuIdAPI(good.skuId, { count: good.count });
 };
 

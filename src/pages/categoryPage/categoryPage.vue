@@ -73,7 +73,7 @@ import { onMounted, ref, computed } from "vue";
 import { getCategoryTopAPI, getCatgorySwiperAPI } from "./categoryPageApi";
 import type { CategoryTopItem, SwiperItem } from "./categoryPageType";
 import skeletonPage from "./skeletonPage.vue";
-import threeDots from "../../components/threeDots/threeGots.vue";
+import threeDots from "../../components/threeDots/threeDots.vue";
 
 let isLoading = ref(true);
 
