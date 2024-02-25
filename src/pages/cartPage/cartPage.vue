@@ -125,7 +125,8 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, computed } from "vue";
+import { ref, computed } from "vue";
+import { onShow } from "@dcloudio/uni-app";
 import { useProfileStore } from "../../store/profile/index";
 import {
   getMemberCartAPI,
@@ -149,7 +150,7 @@ const getMemberCartData = async () => {
 };
 
 // 初始化调用: 页面显示触发
-onMounted(() => {
+onShow(() => {
   // 用户已登录才允许调用
   if (profileStore.profile) {
     getMemberCartData();
