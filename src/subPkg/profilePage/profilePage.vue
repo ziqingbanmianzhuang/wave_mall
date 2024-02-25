@@ -29,7 +29,7 @@
       <view class="p-3">
         <view class="flex my-3">
           <text class="mr-20 font-primary-smaller">账号</text>
-          <text class="font-secondary">ziqing</text>
+          <text class="font-primary-smaller">waveMall</text>
         </view>
         <view class="flex my-3">
           <text class="mr-20 font-primary-smaller">昵称</text>
@@ -51,7 +51,7 @@
                 :checked="profile?.gender === '男'"
                 style="transform: scale(0.7)"
               />
-              <text class="font-secondary mr-3">男</text>
+              <text class="font-primary-smaller mr-3">男</text>
             </label>
             <label>
               <radio
@@ -60,7 +60,7 @@
                 :checked="profile?.gender === '女'"
                 style="transform: scale(0.7)"
               />
-              <text class="font-secondary">女</text>
+              <text class="font-primary-smaller">女</text>
             </label>
           </radio-group>
         </view>
@@ -75,7 +75,9 @@
             @change="onBirthdayChange"
           >
             <view v-if="profile?.birthday">{{ profile?.birthday }}</view>
-            <view v-else class="font-secondary">请选择日期</view>
+            <view v-else class="font-primary-smaller input-secondary"
+              >请选择日期</view
+            >
           </picker>
         </view>
         <view class="flex my-3">
@@ -87,7 +89,9 @@
             @change="onFullLocationChange"
           >
             <view v-if="profile?.fullLocation">{{ profile.fullLocation }}</view>
-            <view v-else class="font-secondary">请选择城市</view>
+            <view v-else class="font-primary-smaller input-secondary"
+              >请选择城市</view
+            >
           </picker>
         </view>
         <view class="flex my-3">
@@ -96,8 +100,8 @@
             v-model="profile.profession"
             type="text"
             placeholder="请填写职业"
-            placeholder-style="color:#b4b5c5;font-size:12px;font-family: ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;  font-weight: 600"
             class="input-primary"
+            placeholder-style="color:#b4b5c5;font-size:12px;font-family: ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;  font-weight: 600"
           />
         </view>
         <view class="flex mt-12 justify-center">
@@ -120,7 +124,16 @@ import { ref, onMounted } from "vue";
 import { useProfileStore } from "../../store/profile/index";
 
 // 获取个人信息
-const profile = ref({} as ProfileDetail);
+const profile = ref({
+  id: 0,
+  avatar: "",
+  account: "",
+  nickname: "",
+  gender: "男",
+  birthday: "",
+  fullLocation: "",
+  profession: "",
+} as ProfileDetail);
 const getMemberProfileData = async () => {
   const res = await getMemberProfileAPI();
   profile.value = res.result;
@@ -218,5 +231,12 @@ onMounted(() => {
   font-family: "ui-sans-serif", "system-ui", "sans-serif", "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   color: #2b2d42;
+}
+.input-secondary {
+  color: #b4b5c5;
+  font-size: 12px;
+  font-family: "ui-sans-serif", "system-ui", "sans-serif", "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-weight: 600;
 }
 </style>
