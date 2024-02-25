@@ -1,96 +1,116 @@
 <template>
   <!-- 收货人 -->
   <view
-    class="relative rounded-xl border border-slate-300 border-solid m-1.5 mb-3 w-[363px] h-12"
+    class="relative border-radius-primary border border-slate-300 border-solid margin-x-primary my-1.5 mb-6 w-[363px] h-12"
   >
-    <text class="absolute top-[-8px] left-8 bg-white px-3 font-semibold"
+    <text
+      class="absolute top-[-8px] left-8 bg-white px-3 font-primary-smaller font-light"
       >收货人</text
     >
-    <view class="flex my-4 px-11">
+    <view class="flex my-4 pl-11">
       <input
         v-model="form.receiver"
         type="text"
         placeholder="请填写收货人姓名"
-        class="text-xs w-[340px]"
+        class="w-[340px] input-primary"
+        placeholder-style="color:#b4b5c5;font-size:12px;font-family: ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;  font-weight: 600"
       />
-      <uni-icons type="closeempty" color="" size="18" class="" />
+      <uni-icons
+        type="closeempty"
+        color=""
+        size="20"
+        class="pr-1.5 font-secondary"
+      />
     </view>
   </view>
 
   <!-- 手机号码 -->
   <view
-    class="relative rounded-xl border border-slate-300 border-solid m-1.5 mb-3 w-[363px] h-12"
+    class="relative border-radius-primary border border-slate-300 border-solid margin-x-primary my-1.5 mb-6 w-[363px] h-12"
   >
-    <text class="absolute top-[-8px] left-8 bg-white px-3 font-semibold"
+    <text
+      class="absolute top-[-8px] left-8 bg-white px-3 font-primary-smaller font-light"
       >电话</text
     >
-    <view class="flex my-4 px-11">
+    <view class="flex justify-between my-4 pl-11">
       <input
         v-model="form.contact"
         type="text"
         placeholder="请填写收货人手机号码"
-        class="text-xs w-[340px]"
+        class="w-[340px] input-primary"
+        placeholder-style="color:#b4b5c5;font-size:12px;font-family: ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;  font-weight: 600"
       />
-      <uni-icons type="closeempty" color="" size="18" class="" />
+      <uni-icons
+        type="closeempty"
+        color=""
+        size="20"
+        class="pr-1.5 font-secondary"
+      />
     </view>
   </view>
   <!-- 所在地区 -->
   <view
-    class="relative rounded-xl border border-slate-300 border-solid m-1.5 mb-3 w-[363px] h-12"
+    class="relative border-radius-primary border border-slate-300 border-solid margin-x-primary my-1.5 mb-6 w-[363px] h-12"
   >
-    <text class="absolute top-[-8px] left-8 bg-white px-3 font-semibold"
+    <text
+      class="absolute top-[-8px] left-8 bg-white px-3 font-primary-smaller font-light"
       >所在地区</text
     >
-    <view class="flex my-4 px-11">
-      <view>
-        <picker
-          class="text-xs w-[340px]"
-          mode="region"
-          value=""
-          @change="onRegionChange"
+    <view class="flex justify-between my-4 pl-11">
+      <picker class="w-[340px]" mode="region" value="" @change="onRegionChange">
+        <text v-if="!form.fullLocation" class="font-secondary w-[340px]"
+          >请选择省/市/区(县)</text
         >
-          <text v-if="!form.fullLocation" class="text-xs w-[340px]"
-            >请选择省/市/区(县)</text
-          >
-          <text v-else>{{ form.fullLocation }}</text>
-        </picker>
-      </view>
-      <uni-icons type="closeempty" color="" size="18" class="" />
+        <text v-else class="font-primary">{{ form.fullLocation }}</text>
+      </picker>
+      <uni-icons
+        type="closeempty"
+        color=""
+        size="20"
+        class="pr-1.5 font-secondary"
+      />
     </view>
   </view>
   <!-- 详细地址 -->
   <view
-    class="relative rounded-xl border border-slate-300 border-solid m-1.5 mb-3 w-[363px] h-12"
+    class="relative border-radius-primary border border-slate-300 border-solid margin-x-primary my-1.5 mb-6 w-[363px] h-12"
   >
-    <text class="absolute top-[-8px] left-8 bg-white px-3 font-semibold"
+    <text
+      class="absolute top-[-8px] left-8 bg-white px-3 font-primary-smaller font-light"
       >详细地址</text
     >
-    <view class="flex my-4 px-11">
+    <view class="flex justify-between my-4 pl-11">
       <input
         v-model="form.address"
         type="text"
         placeholder="请填写收货人详细地址"
-        class="text-xs w-[340px]"
+        class="w-[340px] input-primary"
+        placeholder-style="color:#b4b5c5;font-size:12px;font-family: ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;  font-weight: 600"
       />
-      <uni-icons type="closeempty" color="" size="18" class="" />
+      <uni-icons
+        type="closeempty"
+        color=""
+        size="20"
+        class="pr-1.5 font-secondary"
+      />
     </view>
   </view>
   <!-- 设置为默认地址 -->
   <button
-    class="rounded-xl bg-green-300 w-[363px] mx-1.5 h-12 leading-[48px] font-semibold"
+    class="border-radius-primary bg-orange-800 w-[200px] m-auto mb-3 h-12 leading-[48px] font-primary-smaller text-white"
     @tap="setDefaultAddress"
   >
     设置为默认地址
   </button>
   <!-- 保存地址 -->
   <button
-    class="rounded-xl bg-blue-300 w-[363px] mx-1.5 mb-3 h-12 leading-[48px] font-semibold"
+    class="border-radius-primary bg-orange-500 w-[200px] m-auto mb-3 h-12 leading-[48px] font-primary-smaller text-white"
     @tap="onSubmit"
   >
     保存地址
   </button>
   <button
-    class="rounded-xl bg-blue-300 w-[363px] mx-1.5 mb-3 h-12 leading-[48px] font-semibold"
+    class="border-radius-primary bg-[#22c55e] w-[200px] m-auto mb-3 h-12 leading-[48px] font-primary-smaller text-white"
     @tap="deleteAddress(query.id)"
   >
     删除地址
@@ -128,6 +148,8 @@ const form = ref<AddressParams & { fullLocation: string }>({
 // 收集是否默认收货地址
 const setDefaultAddress = () => {
   form.value.isDefault = 1;
+  // 成功提示
+  uni.showToast({ icon: "success", title: "设置成功" });
 };
 
 // 收集所在地区
@@ -194,4 +216,11 @@ onMounted(() => {
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+.input-primary {
+  font-size: 16px;
+  font-weight: 600;
+  font-family: "ui-sans-serif", "system-ui", "sans-serif", "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  color: #2b2d42;
+}
 </style>
