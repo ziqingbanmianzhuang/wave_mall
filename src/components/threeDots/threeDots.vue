@@ -1,5 +1,5 @@
 <template>
-  <view class="absolute top-0 right-0 flex">
+  <view class="absolute top-1.5 right-1.5 flex">
     <text
       v-for="item in dots"
       :key="item.id"
