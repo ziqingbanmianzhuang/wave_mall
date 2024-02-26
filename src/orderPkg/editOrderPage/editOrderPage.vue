@@ -10,7 +10,7 @@
         hover-class="navigator-hover"
       >
         <view v-if="selecteAddress" class="flex items-center">
-          <uni-icons type="home" color="#fdba74" size="20" />
+          <i class="iconfont icon-weizhi"></i>
           <view class="ml-1.5">
             <view class="font-primary-smaller">
               {{ selecteAddress?.receiver }} +{{ selecteAddress?.contact }}

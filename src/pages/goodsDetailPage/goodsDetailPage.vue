@@ -18,7 +18,7 @@
             <view
               class="flex justify-center items-center w-6 h-6 absolute right-2 top-2 bg-white border-radius-primary"
             >
-              <uni-icons type="arrow-right" color="#7f1d1d" size="20" />
+              <i class="iconfont icon-a-jiantou-you"></i>
             </view>
           </view>
         </navigator>
@@ -33,8 +33,8 @@
         <text class="font-primary-smaller font-yellow">{{ goods?.price }}</text>
       </view>
       <view class="flex flex-col border-b py-3" @click="openPopUpAddress">
-        <view>
-          <uni-icons type="flag" class="pr-3"></uni-icons>
+        <view class="flex">
+          <i class="iconfont icon-weizhi pr-3"></i>
           <text class="font-primary-smaller">地址选择</text>
         </view>
         <text class="font-secondary">{{
@@ -42,15 +42,15 @@
         }}</text>
       </view>
       <view class="flex flex-col border-b py-3" @tap="openPopUpSku(1)">
-        <view>
-          <uni-icons type="eye" class="pr-3"></uni-icons>
+        <view class="flex">
+          <i class="iconfont icon-a-042_wenben pr-3"></i>
           <text class="font-primary-smaller">商品规格</text>
         </view>
         <text class="font-secondary">{{ selectArrText }}</text>
       </view>
       <view class="flex flex-col border-b py-3" @tap="openPopUp">
-        <view>
-          <uni-icons type="hand-up" class="pr-3"></uni-icons>
+        <view class="flex">
+          <i class="iconfont icon-a-042_wode-09 pr-3"></i>
           <text class="font-primary-smaller">店家服务</text>
         </view>
         <text class="font-secondary">包退 快速退款 免费包邮</text>

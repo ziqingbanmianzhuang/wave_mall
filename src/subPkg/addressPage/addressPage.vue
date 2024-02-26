@@ -4,7 +4,7 @@
     <view
       class="box-border flex items-center bg-blue-100 border-radius-primary margin-x-primary my-1.5 mb-3 px-1.5 w-[363px] h-12 leading-[48px]"
     >
-      <uni-icons type="plusempty" class="mr-1.5" size="20"></uni-icons>
+      <i class="iconfont icon-jia"></i>
       <navigator
         url="/subPkg/addressFormPage/addressFormPage"
         open-type="navigate"
@@ -34,12 +34,7 @@
         hover-class="navigator-hover"
         class="flex absolute right-1.5 bottom-1.5"
       >
-        <uni-icons
-          type="compose"
-          color=""
-          size="20"
-          class="mt-3 font-primary-smaller"
-        />
+        <i class="iconfont icon-wentifankui"></i>
       </navigator>
     </view>
     <!-- 其他地址 -->

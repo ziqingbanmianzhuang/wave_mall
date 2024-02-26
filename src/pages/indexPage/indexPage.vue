@@ -69,8 +69,8 @@
         class="relative left-1/2 -translate-x-1/2 w-12 h-8 text-center"
         @tap="showCategory"
       >
-        <uni-icons v-if="isShowCategory" type="arrow-down" color="" size="20" />
-        <uni-icons v-else type="arrow-up" color="" size="20" />
+        <i v-if="isShowCategory" class="iconfont text-[#E0E0E0]">&#xe7a4;</i>
+        <i v-else class="iconfont text-[#E0E0E0]">&#xe7a2;</i>
       </view>
       <!-- 推荐组件 -->
       <text class="block margin-x-primary mt-3 font-primary-biger">推荐</text>
@@ -175,16 +175,16 @@ const getHomeSwiperData = async () => {
 let list = ref([] as CategoryItem[]);
 //首页分类图标数据
 let listIcon = ref<string[]>([
-  "home",
-  "star",
+  "person",
+  "vip",
   "gift",
-  "hand-up",
+  "shop",
   "medal",
-  "staff",
-  "headphones",
-  "spinner-cycle",
-  "loop",
-  "paperclip",
+  "folder-add",
+  "flag",
+  "images",
+  "more",
+  "fire",
 ]);
 
 //首页分类背景颜色
@@ -224,15 +224,15 @@ const getHomeCategoryData = async () => {
 //首页推荐数据
 let recommendList = ref<RecommendItem[]>([]);
 //首页分类图标数据
-let recommendListIcon = ref<string[]>(["home", "star", "gift", "hand-up"]);
+let recommendListIcon = ref<string[]>(["gift", "fire", "heart", "hand-up"]);
 
 //首页分类背景颜色
 //首页分类图标数据
 let recommendListBg = ref<string[]>([
-  "#fbcfe8",
-  "#fed7aa",
-  "#c7d2fe",
-  "#93c5fd",
+  "#587372",
+  "#9A3412",
+  "#FFB6C1",
+  "#f5be0b",
 ]);
 //获取首页推荐数据
 const getHomeRecommendData = async () => {

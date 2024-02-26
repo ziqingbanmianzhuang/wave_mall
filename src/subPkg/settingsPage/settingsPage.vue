@@ -4,7 +4,7 @@
     <view
       class="border-b border-[#22c55e] border-solid border-radius-primary mr-1.5 mb-3 w-6 h-6 leading-[24px] text-center"
     >
-      <uni-icons type="home" color="#22c55e" size="20" />
+      <i class="iconfont icon-shouye"></i>
     </view>
     <navigator
       class="ml-1.5 mb-3 font-primary-smaller"
@@ -19,7 +19,7 @@
     <view
       class="w-6 h-6 border-radius-primary mr-1.5 mb-3 text-center leading-[24px] border-b border-[#c2410c] border-solid w"
     >
-      <uni-icons type="info" color="#c2410c" size="20" />
+      <i class="iconfont icon-jiami"></i>
     </view>
     <text class="ml-1.5 mb-3 font-primary-smaller">授权管理</text>
   </view>
@@ -30,7 +30,7 @@
     <view
       class="w-6 h-6 6 border-radius-primary border-b border-[#F5C60B] border-solid mr-1.5 mb-1.5 text-center leading-[24px]"
     >
-      <uni-icons type="help" color="#F5C60B" size="20" />
+      <i class="iconfont icon-alert_circle_warning"></i>
     </view>
     <text class="ml-1.5 mb-1.5 font-primary-smaller">问题反馈</text>
   </view>
@@ -39,7 +39,7 @@
     <view
       class="w-6 h-6 border-radius-primary border-b border-[#637FF1] border-solid mr-1.5 mb-1.5 text-center leading-[24px]"
     >
-      <uni-icons type="phone" color="#637FF1" size="24" />
+      <i class="iconfont icon-a-042_biaoqing"></i>
     </view>
     <text class="ml-1.5 mb-1.5 font-primary">联系我们</text>
   </view>
@@ -48,7 +48,7 @@
     <view
       class="w-6 h-6 border-radius-primary border-b border-[#fdba74] border-solid mr-1.5 mb-1.5 text-center leading-[24px]"
     >
-      <uni-icons type="paperplane" color="#fdba74" size="24" />
+      <i class="iconfont icon-a-042_shoucang-10"></i>
     </view>
     <text class="ml-1.5 mb-1.5 font-primary-smaller">关于本产品</text>
   </view>

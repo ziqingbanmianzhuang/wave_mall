@@ -15,12 +15,7 @@
         class="w-[340px] input-primary"
         placeholder-style="color:#b4b5c5;font-size:12px;font-family: ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;  font-weight: 600"
       />
-      <uni-icons
-        type="closeempty"
-        color=""
-        size="20"
-        class="pr-1.5 font-secondary"
-      />
+      <i class="iconfont icon-chacha"></i>
     </view>
   </view>
 
@@ -40,12 +35,7 @@
         class="w-[340px] input-primary"
         placeholder-style="color:#b4b5c5;font-size:12px;font-family: ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;  font-weight: 600"
       />
-      <uni-icons
-        type="closeempty"
-        color=""
-        size="20"
-        class="pr-1.5 font-secondary"
-      />
+      <i class="iconfont icon-chacha"></i>
     </view>
   </view>
   <!-- 所在地区 -->
@@ -63,12 +53,7 @@
         >
         <text v-else class="font-primary">{{ form.fullLocation }}</text>
       </picker>
-      <uni-icons
-        type="closeempty"
-        color=""
-        size="20"
-        class="pr-1.5 font-secondary"
-      />
+      <i class="iconfont icon-chacha"></i>
     </view>
   </view>
   <!-- 详细地址 -->
@@ -87,12 +72,7 @@
         class="w-[340px] input-primary"
         placeholder-style="color:#b4b5c5;font-size:12px;font-family: ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;  font-weight: 600"
       />
-      <uni-icons
-        type="closeempty"
-        color=""
-        size="20"
-        class="pr-1.5 font-secondary"
-      />
+      <i class="iconfont icon-chacha"></i>
     </view>
   </view>
   <!-- 设置为默认地址 -->

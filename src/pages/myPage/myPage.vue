@@ -15,7 +15,7 @@
           <view class="flex">
             <text class="mr-1.5 font-primary"> {{ profile?.nickname }}</text>
             <navigator url="/subPkg/profilePage/profilePage">
-              <uni-icons type="compose" color="#b4b5c5" size="20" />
+              <i class="iconfont icon-wentifankui"></i>
             </navigator>
           </view>
           <view class="flex">
@@ -31,7 +31,7 @@
           class="absolute right-1.5 top-1.5"
           url="/subPkg/settingsPage/settingsPage"
         >
-          <uni-icons type="gear-filled" color="#c2410c" size="20" />
+          <i class="iconfont icon-a-042_shezhi"></i>
         </navigator>
       </view>
       <!-- 物流 -->
@@ -46,6 +46,7 @@
             class="bg-white h-6 w-6 border-radius-primary text-center leading-[24px]"
           >
             <uni-icons :type="dis.icon" :color="dis.color" size="20" />
+            <i :class="`iconfont ${dis.icon}`"></i>
           </view>
           <text class="font-primary-smaller">{{ dis.title }}</text>
         </navigator>
@@ -73,37 +74,33 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-import type { _UniIconsType, ProfileDetail } from "./myPageType";
+import type { ProfileDetail } from "./myPageType";
 import { getMemberProfileAPI } from "./myPageApi";
-interface distributionsType {
-  title: string;
-  icon: _UniIconsType;
-  color: string;
-}
-const distributions = ref<distributionsType[]>([
+
+const distributions = ref([
   {
     title: "待付款",
-    icon: "weixin",
+    icon: "icon-a-042_xinxi",
     color: "#22c55e",
   },
   {
     title: "待发货",
-    icon: "home-filled",
+    icon: "icon-a-042_faxian",
     color: "#637FF1",
   },
   {
     title: "待收货",
-    icon: "notification-filled",
+    icon: "icon-a-042_wenjian",
     color: "#fdba74",
   },
   {
     title: "待评价",
-    icon: "notification-filled",
+    icon: "icon-a-042_wenben",
     color: "#c2410c",
   },
   {
     title: "售后",
-    icon: "hand-up-filled",
+    icon: "icon-a-042_lianxiren",
     color: "#F5C60B",
   },
 ]);
