@@ -70,27 +70,27 @@
     <!-- 功能区 -->
     <view class="flex">
       <button
-        class="bg-orange-500 border-radius-primary m-1.5 w-[100px] h-12 text-white text-base font-sans font-semibold leading-[48px]"
-      >
-        客服
-      </button>
-      <button
         class="bg-orange-800 border-radius-primary m-1.5 w-[251px] h-12 text-white text-base font-sans font-semibold leading-[48px]"
         @tap="openPopUpSku(2)"
       >
         加入购入车
       </button>
+      <button
+        class="border border-solid border-orange-500 border-radius-primary m-1.5 w-[100px] h-12 text-base font-sans leading-[48px] text-orange-500"
+      >
+        客服
+      </button>
     </view>
     <!-- 购买区 -->
     <view
-      class="flex justify-between bg-teal-100 border-radius-primary m-1.5 p-3"
+      class="flex justify-between bg-[#ededed] border-radius-primary m-1.5 p-3"
     >
       <view class="flex flex-col">
         <text class="font-yellow font-primary-smaller">$68</text>
         <text class="font-secondary">128 码 四条</text>
       </view>
       <button
-        class="bg-backgroundGreen border-radius-primary w-[80px] h-10 font-semibold text-sm font-sans text-white leading-[40px]"
+        class="bg-[#363636] border-radius-primary w-[80px] h-10 font-semibold text-sm font-sans text-white leading-[40px]"
         @tap="openPopUpSku(3)"
       >
         立即购买
@@ -98,14 +98,14 @@
     </view>
     <!-- 查看购物车 -->
     <view class="flex justify-center items-center">
-      <uni-icons type="eye-filled" color="#22c55e"></uni-icons>
       <navigator
         url="/pages/cartPage/cartPage"
         class="font-primary-smaller m-1.5"
         open-type="switchTab"
         hover-class="navigator-hover"
-        >查看购物车</navigator
       >
+        <uni-icons type="cart" color="#9A3412" size="20" />
+      </navigator>
     </view>
     <!-- services popup -->
     <uni-popup ref="popup" type="bottom" background-color="#fff">
@@ -180,8 +180,10 @@
     <vk-data-goods-sku-popup
       ref="skuPopupRef"
       v-model="skuKey"
+      buy-now-background-color="#FB8A3C"
+      add-cart-background-color="#9A3412"
+      border-radius="6"
       :localdata="goodsInfo"
-      border-radius="20"
       :mode="skuMode"
       @add-cart="onAddCart"
       @buy-now="onBuyNow"

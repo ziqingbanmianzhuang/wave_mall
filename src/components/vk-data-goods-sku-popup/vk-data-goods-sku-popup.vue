@@ -114,7 +114,7 @@
       <view v-else-if="mode == 1" class="btn-wrapper">
         <view
           class="sure add-cart"
-          style="border-radius: 38rpx 0rpx 0rpx 38rpx"
+          style="border-radius: 12rpx 0rpx 0rpx 12rpx"
           :style="{
             color: themeColorFn('addCartColor'),
             backgroundColor: themeColorFn('addCartBackgroundColor'),
@@ -126,7 +126,7 @@
 
         <view
           class="sure"
-          style="border-radius: 0rpx 38rpx 38rpx 0rpx"
+          style="border-radius: 0rpx 12rpx 12rpx 0rpx"
           :style="{
             color: themeColorFn('buyNowColor'),
             backgroundColor: themeColorFn('buyNowBackgroundColor'),
@@ -1230,7 +1230,7 @@ export default {
     position: fixed;
     z-index: 99;
     bottom: 0;
-    border-radius: 10rpx 10rpx 0 0;
+    border-radius: 12rpx 12rpx 0 0;
     background-color: #fff;
 
     .specification-wrapper {
@@ -1329,7 +1329,7 @@ export default {
                 display: inline-block;
                 padding: 10rpx 35rpx;
                 font-size: 24rpx;
-                border-radius: 10rpx;
+                border-radius: 12rpx;
                 background-color: #ffffff;
                 color: #333333;
                 margin-right: 20rpx;
@@ -1381,7 +1381,7 @@ export default {
       .layer-btn {
         width: 335rpx;
         height: 76rpx;
-        border-radius: 38rpx;
+        border-radius: 12rpx;
         color: #fff;
         line-height: 76rpx;
         text-align: center;
@@ -1399,7 +1399,7 @@ export default {
       .sure {
         width: 698rpx;
         height: 68rpx;
-        border-radius: 38rpx;
+        border-radius: 12rpx;
         color: #fff;
         line-height: 68rpx;
         text-align: center;
