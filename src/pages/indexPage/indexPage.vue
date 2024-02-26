@@ -45,7 +45,7 @@
 
       <!-- 分类组件 -->
       <view
-        class="relative flex flex-wrap bg-secondary border-radius-primary max-h-32 overflow-hidden transition-all after:bg-gradient-to-b after:from-transparent after:to-white after:absolute after:bottom-0 after:h-16 after:w-full"
+        class="relative flex flex-wrap border-radius-primary max-h-32 overflow-hidden transition-all after:bg-gradient-to-b after:from-transparent after:to-white after:absolute after:bottom-0 after:h-16 after:w-full"
         :class="{ show: isShowCategory }"
       >
         <navigator
@@ -190,16 +190,16 @@ let listIcon = ref<string[]>([
 //首页分类背景颜色
 //首页分类图标数据
 let listBg = ref<string[]>([
-  "bg-cyan-200",
-  "bg-sky-300",
-  "bg-pink-200",
-  "bg-orange-200",
-  "bg-blue-300",
-  "bg-indigo-200",
-  "bg-orange-200",
-  "bg-emerald-200",
-  "bg-violet-200",
-  "bg-amber-200",
+  "bg-[#ffc3d4]",
+  "bg-[#ffd6a5]",
+  "bg-[#ffadad]",
+  "bg-[#e6dee4]",
+  "bg-[#98b5b4]",
+  "bg-[#fef1c7]",
+  "bg-[#FFB6C1]",
+  "bg-[#FAD9E6]",
+  "bg-[#ffecda]",
+  "bg-[#B5D3D2]",
 ]);
 
 //将首页分类图标数据存进首页分类数据
