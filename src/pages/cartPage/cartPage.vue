@@ -105,7 +105,7 @@
         >
       </view>
       <button
-        class="bg-orange-800 border-radius-primary w-36 h-8 leading-8 font-semibold text-center text-sm text-white"
+        class="bg-[#9A3412] border-radius-primary w-36 h-8 leading-8 font-semibold text-center text-sm text-white"
         @tap="gotoPayment"
       >
         去结算

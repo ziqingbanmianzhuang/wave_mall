@@ -106,7 +106,7 @@
         </view>
         <view class="flex mt-12 justify-center">
           <button
-            class="bg-orange-500 border-radius-primary w-24 h-8 leading-[32px] text-white font-primary-smaller"
+            class="bg-[#9A3412] border-radius-primary w-24 h-8 leading-[32px] text-white font-primary-smaller"
             @tap="onSubmit"
           >
             保存

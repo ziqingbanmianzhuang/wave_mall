@@ -2,7 +2,7 @@
   <view class="bg-primary w-full">
     <!-- 选择收货地址 -->
     <view
-      class="box-border flex items-center bg-sky-100 border-radius-primary margin-x-primary my-1.5 mb-3 px-3 w-[363px] h-12 leading-[32px]"
+      class="box-border flex items-center bg-[#E0E0E0] border-radius-primary margin-x-primary my-1.5 mb-3 px-3 w-[363px] h-12 leading-[32px]"
     >
       <navigator
         url="/subPkg/addressPage/addressPage"
@@ -100,7 +100,7 @@
     </view>
     <!--提交订单 -->
     <view
-      class="flex justify-between items-center bg-sky-100 border-radius-primary margin-x-primary px-1.5 w-[363px] h-16"
+      class="flex justify-between items-center bg-[#E0E0E0] border-radius-primary margin-x-primary px-1.5 w-[363px] h-16"
     >
       <view class="flex flex-col justify-around h-full">
         <text class="font-primary font-yellow"
@@ -109,7 +109,7 @@
         <text class="font-secondary">黄色小象</text>
       </view>
       <button
-        class="bg-[#266972] border-radius-primary text-white w-16 h-8 leading-8 font-primary-smaller"
+        class="bg-[#9A3412] border-radius-primary text-white w-16 h-8 leading-8 font-primary-smaller"
         @tap="orderSubmit"
       >
         提交订单

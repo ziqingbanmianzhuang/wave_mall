@@ -97,17 +97,17 @@
   </view>
   <!-- 设置为默认地址 -->
   <button
-    class="border-radius-primary bg-orange-800 w-[200px] m-auto mb-3 h-12 leading-[48px] font-primary-smaller text-white"
+    class="border-radius-primary bg-[#9a3412] w-[200px] m-auto mb-3 h-12 leading-[48px] font-primary-smaller text-white"
     @tap="setDefaultAddress"
   >
-    设置为默认地址
+    设为默认
   </button>
   <!-- 保存地址 -->
   <button
-    class="border-radius-primary bg-orange-500 w-[200px] m-auto mb-3 h-12 leading-[48px] font-primary-smaller text-white"
+    class="border-radius-primary border border-[#fb8a3c] border-solid w-[200px] m-auto mb-3 h-12 leading-[48px] font-primary-smaller text-[#fb8a3c]"
     @tap="onSubmit"
   >
-    保存地址
+    保存
   </button>
   <button
     class="border-radius-primary bg-[#22c55e] w-[200px] m-auto mb-3 h-12 leading-[48px] font-primary-smaller text-white"

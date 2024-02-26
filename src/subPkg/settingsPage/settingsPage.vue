@@ -53,7 +53,7 @@
     <text class="ml-1.5 mb-1.5 font-primary-smaller">关于本产品</text>
   </view>
   <button
-    class="bg-orange-800 border-radius-primary m-1.5 mt-9 w-[363px] h-12 leading-[48px] font-base font-semibold text-white"
+    class="bg-[#9A3412] border-radius-primary m-1.5 mt-9 w-[363px] h-12 leading-[48px] font-base font-semibold text-white"
   >
     退出登录
   </button>

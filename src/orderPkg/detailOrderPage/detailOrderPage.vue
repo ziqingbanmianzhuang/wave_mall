@@ -49,14 +49,14 @@
     <!-- 评价,售后 -->
     <view class="flex justify-center my-3 w-full">
       <button
-        class="border-radius-primary border border-slate-300 border-solid mr-3 w-16 h-8 leading-8"
-      >
-        去评价
-      </button>
-      <button
-        class="border-radius-primary border border-slate-300 border-solid w-16 h-8 leading-8"
+        class="border-radius-primary border border-[#FB8A3C] border-solid mr-3 w-16 h-8 leading-8 text-[#FB8A3C]"
       >
         去售后
+      </button>
+      <button
+        class="bg-[#FB8A3C] border-radius-primary w-16 h-8 leading-8 text-white"
+      >
+        去评价
       </button>
     </view>
 
@@ -132,13 +132,13 @@
     <!-- 取消 or 支付订单 -->
     <view class="flex justify-between margin-x-primary mb-3 text-white">
       <button
-        class="bg-[#266972] border-radius-primary w-28 h-8 leading-8"
+        class="border border-[#363636] border-solid border-radius-primary w-28 h-8 leading-8 text-[#363636]"
         @tap="cancelOrder"
       >
         取消订单
       </button>
       <button
-        class="bg-orange-800 border-radius-primary w-36 h-8 leading-8"
+        class="bg-[#9A3412] border-radius-primary w-36 h-8 leading-8"
         @tap="payOrder"
       >
         去支付
