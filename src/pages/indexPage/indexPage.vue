@@ -69,9 +69,8 @@
         class="relative left-1/2 -translate-x-1/2 w-12 h-8 text-center"
         @tap="showCategory"
       >
-        <text class="font-secondary">{{
-          isShowCategory ? "收起" : "展开"
-        }}</text>
+        <uni-icons v-if="isShowCategory" type="arrow-down" color="" size="20" />
+        <uni-icons v-else type="arrow-up" color="" size="20" />
       </view>
       <!-- 推荐组件 -->
       <text class="block margin-x-primary mt-3 font-primary-biger">推荐</text>
