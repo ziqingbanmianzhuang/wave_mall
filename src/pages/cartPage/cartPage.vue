@@ -2,7 +2,7 @@
   <view v-if="profileStore.profile" class="bg-primary">
     <!-- 选择所有商品 -->
     <view
-      class="bg-secondary my-3 margin-x-primary border-radius-primary px-3 w-[363px] h-8"
+      class="box-border flex items-center bg-secondary mb-3 border-radius-primary px-3 w-full h-8"
     >
       <checkbox value="全选" :checked="selectedAll" @tap="checkChangeAll" />
       <text class="font-primary-smaller">选择所有商品</text>
@@ -19,28 +19,30 @@
         <uni-swipe-action-item
           v-for="item in cartList"
           :key="item.id"
-          class="margin-x-primary my-1.5 w-[363px] h-36"
+          class="my-3 w-full h-36"
         >
-          <view class="flex items-center w-[363px] h-36">
+          <view class="flex items-center w-full h-36">
             <!-- 商品 -->
             <view
-              class="bg-secondary flex justify-between items-center relative border-radius-primary mr-3 pl-3 w-[300px] h-36"
+              class="bg-secondary flex justify-between items-center relative border-radius-primary mr-3 pl-3 w-[300px] grow h-36"
             >
-              <!-- checkbox -->
-              <checkbox
-                value=""
-                :checked="item.selected"
-                class="mr-3"
-                @tap="checkChange(item)"
-              />
-              <!-- 图片和desc -->
-              <view class="flex flex-col mr-3">
-                <image
-                  :src="item.picture"
-                  mode="aspectFill"
-                  class="border-radius-primary mb-3 w-20 h-20"
+              <view class="flex items-center">
+                <!-- checkbox -->
+                <checkbox
+                  value=""
+                  :checked="item.selected"
+                  class="mr-3"
+                  @tap="checkChange(item)"
                 />
-                <text class="font-secondary">{{ item.attrsText }}</text>
+                <!-- 图片和desc -->
+                <view class="flex flex-col mr-3">
+                  <image
+                    :src="item.picture"
+                    mode="aspectFill"
+                    class="border-radius-primary mb-3 w-20 h-20"
+                  />
+                  <text class="font-secondary">{{ item.attrsText }}</text>
+                </view>
               </view>
               <!-- 名称，价格 -->
               <view class="flex flex-col mr-3">
@@ -79,7 +81,7 @@
       </uni-swipe-action>
     </scroll-view>
     <!-- 总计 -->
-    <view class="flex justify-around margin-x-primary w-full">
+    <view class="flex justify-around px-1.5 w-full">
       <view
         ><text class="font-secondary">总共：</text>
         <text class="font-primary-smaller"
@@ -94,8 +96,8 @@
       >
     </view>
     <!-- 结算 -->
-    <view class="flex justify-between items-center margin-x-primary mt-6">
-      <view class="flex">
+    <view class="flex justify-between items-center px-1.5 mt-3">
+      <view class="flex items-center">
         <uni-icons type="left" size="20"></uni-icons>
         <navigator
           class="font-primary-smaller"
