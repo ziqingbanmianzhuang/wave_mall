@@ -105,7 +105,7 @@
         :url="`/pages/goodsDetailPage/goodsDetailPage?id=${item.id}`"
         open-type="navigate"
         hover-class="navigator-hover"
-        class="grid grid-cols-7 items-center bg-secondary border-radius-primary m-1.5"
+        class="grid grid-cols-7 items-center bg-secondary border-radius-primary mt-3 px-1.5 margin-x-primary"
       >
         <text
           class="col-span-1 h-2 w-2 bg-orange-800 rounded justify-self-start"
@@ -114,11 +114,11 @@
         <text class="col-span-1 justify-self-end font-secondary font-yellow">{{
           item.price
         }}</text>
-        <view class="col-start-1 col-end-8 flex justify-center m-1.5">
+        <view class="col-start-1 col-end-8 flex justify-center my-1.5">
           <image
-            class="border-radius-primary w-full h-32"
+            class="border-radius-primary w-full h-32 min-[960px]:h-[30rem]"
             :src="item.picture"
-            mode="center"
+            mode="aspectFill"
           ></image>
         </view>
       </navigator>
