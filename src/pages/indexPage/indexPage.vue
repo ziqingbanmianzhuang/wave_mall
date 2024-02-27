@@ -46,7 +46,7 @@
 
       <!-- 分类组件 -->
       <view
-        class="box-border relative flex flex-wrap justify-around w-full border-radius-primary max-h-32 overflow-hidden transition-all after:bg-gradient-to-b after:from-transparent after:to-white after:absolute after:bottom-0 after:h-16 after:w-full min-[960px]:after:hidden"
+        class="box-border relative flex flex-wrap justify-around w-full border-radius-primary my-3 max-h-32 overflow-hidden transition-all after:bg-gradient-to-b after:from-transparent after:to-white after:absolute after:bottom-0 after:h-16 after:w-full min-[960px]:after:hidden"
         :class="{ show: isShowCategory }"
       >
         <navigator
@@ -74,9 +74,11 @@
         <i v-else class="iconfont text-[#E0E0E0]">&#xe7a2;</i>
       </view>
       <!-- 推荐组件 -->
-      <text class="block margin-x-primary mt-3 font-primary-biger">推荐</text>
-      <view class="bg-secondary border-radius-primary mb-3 py-3">
-        <view class="flex justify-between items-center m-1.5">
+      <text class="block margin-x-primary mb-1.5 font-primary-biger">推荐</text>
+      <view
+        class="bg-secondary border-radius-primary margin-x-primary mb-3 py-3"
+      >
+        <view class="flex justify-between items-center">
           <navigator
             v-for="item in recommendList"
             :key="item.id"
