@@ -28,31 +28,34 @@
           <text class="margin-x-primary my-1.5 font-primary">{{
             item.name
           }}</text>
-          <view class="flex flex-wrap">
-            <navigator
+          <view class="flex flex-wrap justify-between">
+            <view
               v-for="goods in item.goods"
               :key="goods.id"
-              :url="`/pages/goodsDetailPage/goodsDetailPage?id=${goods.id}`"
-              open-type="navigate"
-              hover-class="navigator-hover"
-              class="relative block border-radius-primary m-1.5 w-[148px] h-48"
+              class="relative block border-radius-primary mx-1.5 my-3 grow w-[148px] min-[633px]:w-[300px] min-[960px]:h-96 h-48"
             >
-              <image
-                :src="goods.picture"
-                mode="aspectFill"
-                class="border-radius-primary w-[148px] h-48"
-              />
-              <view
-                class="absolute bottom-0 left-0 flex flex-col bg-white shadow-lg border-radius-b-primary w-full"
+              <navigator
+                :url="`/pages/goodsDetailPage/goodsDetailPage?id=${goods.id}`"
+                open-type="navigate"
+                hover-class="navigator-hover"
               >
-                <text class="font-primary-smaller">{{ goods.name }}</text>
-                <text class="font-secondary font-yellow"
-                  >$ {{ goods.price }}
-                </text>
-              </view>
+                <image
+                  :src="goods.picture"
+                  mode="aspectFill"
+                  class="border-radius-primary w-full min-[960px]:h-96 h-48"
+                />
+                <view
+                  class="absolute bottom-0 left-0 flex flex-col bg-white shadow-lg border-radius-b-primary w-full"
+                >
+                  <text class="font-primary-smaller">{{ goods.name }}</text>
+                  <text class="font-secondary font-yellow"
+                    >$ {{ goods.price }}
+                  </text>
+                </view>
 
-              <threeDots></threeDots>
-            </navigator>
+                <threeDots></threeDots>
+              </navigator>
+            </view>
           </view>
         </view>
       </scroll-view>
