@@ -9,49 +9,36 @@
   >
     <view v-if="!isLoading"
       ><!-- 轮播图组件 -->
-      <uni-swiper-dot
-        mode="round"
-        :info="swiperList"
-        color="#ccc"
-        :current="current"
-        :dots-styles="{
-          backgroundColor: '#f97316',
-          border: '0px solid #000',
-          selectedBackgroundColor: '#9a3412',
-          selectedBorder: '0px solid #000',
-        }"
+      <swiper
+        circular
+        class="h-20 min-[710px]:h-28 min-[976px]:h-80"
+        @change="change"
       >
-        <swiper
-          circular
-          class="mb-6 min-[710px]:h-28 min-[976px]:h-80"
-          @change="change"
-        >
-          <swiper-item v-for="item in swiperList" :key="item.id">
-            <navigator
-              url="/pages/hotItem/hotItem"
-              open-type="navigate"
-              hover-class="navigator-hover"
+        <swiper-item v-for="item in swiperList" :key="item.id">
+          <navigator
+            url="/pages/hotItem/hotItem"
+            open-type="navigate"
+            hover-class="navigator-hover"
+          >
+            <view
+              class="grid grid-cols-7 bg-secondary font-secondary border-radius-primary"
             >
-              <view
-                class="grid grid-cols-7 bg-secondary font-secondary border-radius-primary"
+              <view class="col-start-1 col-end-3 place-self-center"
+                >click here -></view
               >
-                <view class="col-start-1 col-end-3 place-self-center"
-                  >click here -></view
-                >
-                <view
-                  class="col-start-3 col-end-8 h-20 min-[710px]:h-28 min-[970px]:h-80 bg-orange-50"
-                >
-                  <image
-                    :src="item.imgUrl"
-                    mode="aspectFill"
-                    class="border-radius-primary w-full h-full"
-                  />
-                </view>
+              <view
+                class="col-start-3 col-end-8 h-20 min-[710px]:h-28 min-[970px]:h-80 bg-orange-50"
+              >
+                <image
+                  :src="item.imgUrl"
+                  mode="aspectFill"
+                  class="border-radius-primary w-full h-full"
+                />
               </view>
-            </navigator>
-          </swiper-item>
-        </swiper>
-      </uni-swiper-dot>
+            </view>
+          </navigator>
+        </swiper-item>
+      </swiper>
 
       <!-- 分类组件 -->
       <view
