@@ -1,13 +1,13 @@
 <template>
   <scroll-view
     scroll-y
-    class="h-[500px] w-full my-1.5"
+    class="box-border bg-primary h-full w-full my-1.5 p-1.5"
     refresher-enabled
     :refresher-triggered="isTriggered"
     @refresherrefresh="onRefresherrefresh"
     @scrolltolower="onScrolltolower"
   >
-    <view v-if="!isLoading" class="bg-primary"
+    <view v-if="!isLoading"
       ><!-- 轮播图组件 -->
       <uni-swiper-dot
         mode="round"
@@ -21,7 +21,11 @@
           selectedBorder: '0px solid #000',
         }"
       >
-        <swiper circular autoplay class="h-28 mb-6" @change="change">
+        <swiper
+          circular
+          class="mb-6 min-[710px]:h-28 min-[976px]:h-80"
+          @change="change"
+        >
           <swiper-item v-for="item in swiperList" :key="item.id">
             <navigator
               url="/pages/hotItem/hotItem"
@@ -29,14 +33,20 @@
               hover-class="navigator-hover"
             >
               <view
-                class="flex justify-between items-center box-border margin-x-primary p-3 w-[363px] h-28 bg-secondary font-secondary border-radius-primary"
+                class="grid grid-cols-7 bg-secondary font-secondary border-radius-primary"
               >
-                <text>click here -></text>
-                <image
-                  :src="item.imgUrl"
-                  mode="aspectFill"
-                  class="w-[250px] h-20 border-8 border-white border-solid border-radius-primary"
-                />
+                <view class="col-start-1 col-end-3 place-self-center"
+                  >click here -></view
+                >
+                <view
+                  class="col-start-3 col-end-8 h-20 min-[710px]:h-28 min-[970px]:h-80 bg-orange-50"
+                >
+                  <image
+                    :src="item.imgUrl"
+                    mode="aspectFill"
+                    class="border-radius-primary w-full h-full"
+                  />
+                </view>
               </view>
             </navigator>
           </swiper-item>
