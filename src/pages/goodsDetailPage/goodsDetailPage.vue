@@ -1,18 +1,18 @@
 <template>
   <view class="bg-primary w-full">
     <!-- 商品轮播 -->
-    <swiper circular autoplay class="h-32" @change="onChange">
+    <swiper circular class="h-32 min-[960px]:h-96" @change="onChange">
       <swiper-item v-for="item in goods!.mainPictures" :key="item">
         <navigator
           url="/pages/hotItem/hotItem"
           open-type="navigate"
           hover-class="navigator-hover"
         >
-          <view class="relative h-32">
+          <view class="relative h-32 min-[960px]:h-96">
             <image
               :src="item"
               mode="aspectFill"
-              class="w-[375px] h-32"
+              class="w-full h-full"
               @tap="onTapImage(item)"
             />
             <view
@@ -26,7 +26,7 @@
     </swiper>
     <!-- 商品服务 -->
     <view
-      class="relative top-[-20px] margin-x-primary my-1.5 px-3 bg-secondary w-[363px] border-radius-primary"
+      class="relative top-[-20px] min-[960px]:top-[-100px] left-1/2 -translate-x-1/2 mb-1.5 min-[960px]:mb-3 px-3 bg-secondary w-4/5 border-radius-primary"
     >
       <view class="flex flex-col border-b py-3">
         <text class="font-primary">{{ goods?.name }}</text>
@@ -59,7 +59,7 @@
 
     <!-- 商品详情 -->
     <view
-      class="flex flex-col bg-secondary margin-x-primary my-1.5 p-3 w-[363px] border-radius-primary"
+      class="flex flex-col bg-secondary mx-auto -mt-5 min-[960px]:-mt-24 mb-1.5 min-[960px]:mb-3 p-3 w-4/5 border-radius-primary"
     >
       <text class="font-primary">描述</text>
       <text class="font-secondary">{{
@@ -68,29 +68,29 @@
     </view>
 
     <!-- 功能区 -->
-    <view class="flex">
+    <view class="flex mb-1.5 min-[960px]:mb-3 mx-auto w-4/5">
       <button
-        class="bg-orange-800 border-radius-primary m-1.5 w-[251px] h-12 text-white text-base font-sans font-semibold leading-[48px]"
+        class="bg-orange-800 border-radius-primary m-1.5 w-[250px] grow h-10 text-white text-base font-sans font-semibold leading-10"
         @tap="openPopUpSku(2)"
       >
         加入购入车
       </button>
       <button
-        class="border border-solid border-orange-500 border-radius-primary m-1.5 w-[100px] h-12 text-base font-sans leading-[48px] text-orange-500"
+        class="border border-solid border-orange-500 border-radius-primary m-1.5 w-[100px] grow h-10 text-base font-sans leading-10 text-orange-500"
       >
         客服
       </button>
     </view>
     <!-- 购买区 -->
     <view
-      class="flex justify-between bg-[#ededed] border-radius-primary m-1.5 p-3"
+      class="flex justify-between bg-[#ededed] border-radius-primary margin-x-primary mb-1.5 min-[960px]:mb-3 p-3"
     >
       <view class="flex flex-col">
         <text class="font-yellow font-primary-smaller">$68</text>
         <text class="font-secondary">128 码 四条</text>
       </view>
       <button
-        class="bg-[#363636] border-radius-primary w-[80px] h-10 font-semibold text-sm font-sans text-white leading-[40px]"
+        class="bg-[#363636] border-radius-primary px-3 w-fit h-10 font-semibold text-sm font-sans text-white leading-10"
         @tap="openPopUpSku(3)"
       >
         立即购买

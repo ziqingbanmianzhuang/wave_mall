@@ -45,7 +45,7 @@
                   class="border-radius-primary w-full min-[960px]:h-96 h-48"
                 />
                 <view
-                  class="absolute bottom-0 left-0 flex flex-col bg-white shadow-lg border-radius-b-primary w-full"
+                  class="absolute bottom-0 left-0 flex flex-col bg-white shadow-lg border-radius-b-primary p-1.5 w-full"
                 >
                   <text class="font-primary-smaller">{{ goods.name }}</text>
                   <text class="font-secondary font-yellow"
