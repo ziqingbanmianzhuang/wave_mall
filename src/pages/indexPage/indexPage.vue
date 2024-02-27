@@ -1,7 +1,7 @@
 <template>
   <scroll-view
     scroll-y
-    class="box-border bg-primary h-full w-full my-1.5 p-1.5"
+    class="bg-primary h-full w-full mb-1.5"
     refresher-enabled
     :refresher-triggered="isTriggered"
     @refresherrefresh="onRefresherrefresh"
@@ -14,7 +14,11 @@
         class="h-20 min-[710px]:h-28 min-[976px]:h-80"
         @change="change"
       >
-        <swiper-item v-for="item in swiperList" :key="item.id">
+        <swiper-item
+          v-for="item in swiperList"
+          :key="item.id"
+          class="box-border px-1.5"
+        >
           <navigator
             url="/pages/hotItem/hotItem"
             open-type="navigate"
@@ -42,7 +46,7 @@
 
       <!-- 分类组件 -->
       <view
-        class="relative flex flex-wrap border-radius-primary max-h-32 overflow-hidden transition-all after:bg-gradient-to-b after:from-transparent after:to-white after:absolute after:bottom-0 after:h-16 after:w-full"
+        class="box-border relative flex flex-wrap justify-around w-full border-radius-primary max-h-32 overflow-hidden transition-all after:bg-gradient-to-b after:from-transparent after:to-white after:absolute after:bottom-0 after:h-16 after:w-full min-[960px]:after:hidden"
         :class="{ show: isShowCategory }"
       >
         <navigator
@@ -51,19 +55,19 @@
           url="/pages/categoryPage/categoryPage"
           open-type="switchTab"
           hover-class="none"
-          :class="`flex justify-start items-center box-border margin-x-primary my-1.5 p-3 w-[175.5px] h-12 font-primary ${item.bg} border-radius-primary`"
+          :class="`flex justify-start items-center box-border margin-x-primary my-1.5 p-3 flex-1 h-12  min-[470px]:h-8 font-primary min-[470px]:text-sm min-[470px]:p-1.5 min-[960px]:text-base min-[960px]:h-12 ${item.bg} border-radius-primary`"
         >
           <view
             class="flex justify-center items-center mx-3 w-6 h-6 bg-white border-radius-primary"
           >
             <uni-icons :type="item.icon" size="20" color="#000"></uni-icons>
           </view>
-          <text>{{ item.name }}</text>
+          <text class="text-nowrap">{{ item.name }}</text>
         </navigator>
       </view>
       <!-- 展开 -->
       <view
-        class="relative left-1/2 -translate-x-1/2 w-12 h-8 text-center"
+        class="relative left-1/2 -translate-x-1/2 w-12 h-8 min-[960px]:hidden text-center"
         @tap="showCategory"
       >
         <i v-if="isShowCategory" class="iconfont text-[#E0E0E0]">&#xe7a4;</i>
@@ -321,14 +325,27 @@ onMounted(async () => {
 });
 </script>
 
-<style>
+<style scoped>
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 .show {
   max-height: 300px;
 }
+@media (min-width: 470px) {
+  .show {
+    max-height: 500px;
+  }
+}
 .show::after {
   background-image: none !important;
 }
+a {
+  flex: 1;
+}
+/* #ifdef H5 */
+/* .navigator-wrap {
+	flex: 1;
+} */
+/* #endif */
 </style>

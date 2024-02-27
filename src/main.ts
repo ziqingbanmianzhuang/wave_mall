@@ -2,6 +2,7 @@ import { createSSRApp } from "vue";
 import App from "./App.vue";
 import pinia from "./store/index";
 import "./static/styles/tailwind.css";
+import "./static/styles/base.css";
 import "./static/iconfont/iconfont.css";
 
 export function createApp() {
