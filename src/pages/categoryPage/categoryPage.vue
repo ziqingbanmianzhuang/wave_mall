@@ -1,10 +1,14 @@
 <template>
   <view v-if="!isLoading" class="flex justify-between bg-primary">
     <!-- 二级分类 -->
-    <view class="w-[327px]">
+    <view class="flex-1">
       <!-- 轮播图 -->
-      <swiper circulars autoplay class="mb-3 h-24">
-        <swiper-item v-for="item in swiperList" :key="item.id">
+      <swiper circulars class="mb-3 h-24 min-[960px]:h-80">
+        <swiper-item
+          v-for="item in swiperList"
+          :key="item.id"
+          class="box-border px-1.5"
+        >
           <navigator
             url="/pages/hotItem/hotItem"
             open-type="navigate"
@@ -13,7 +17,7 @@
             <image
               :src="item.imgUrl"
               mode="aspectFill"
-              class="w-[309px] h-24 rounded-xl margin-x-primary"
+              class="border-radius-primary w-full h-24 min-[960px]:h-80"
             />
           </navigator>
         </swiper-item>
@@ -54,7 +58,7 @@
       </scroll-view>
     </view>
     <!-- 一级分类 -->
-    <view class="flex flex-col justify-between m-1.5">
+    <view class="flex flex-col justify-between margin-x-primary w-16">
       <text
         v-for="(item, index) in categoryList"
         :key="item.id"
