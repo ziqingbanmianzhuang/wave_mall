@@ -1,9 +1,7 @@
 <template>
-  <view class="bg-primary">
+  <view class="bg-primary w-full px-1.5">
     <!-- 买家信息 -->
-    <view
-      class="bg-secondary border-radius-primary margin-x-primary px-3 mb-3 w-[363px] h-32"
-    >
+    <view class="bg-secondary border-radius-primary px-3 mb-3 w-full h-32">
       <view
         class="flex items-center justify-start border-b border-slate-300 border-solid w-full"
       >
@@ -30,7 +28,7 @@
       <view
         v-for="item in orderDetail?.skus"
         :key="item.id"
-        class="relative flex justify-start items-center bg-secondary border-radius-primary margin-x-primary mb-3 px-3 w-[363px] h-20"
+        class="relative flex justify-start items-center bg-secondary border-radius-primary mb-3 px-3 py-3 w-full h-fit"
       >
         <image
           :src="item.image"
@@ -47,14 +45,14 @@
     </view>
 
     <!-- 评价,售后 -->
-    <view class="flex justify-center my-3 w-full">
+    <view class="flex justify-center mb-3 w-full">
       <button
-        class="border-radius-primary border border-[#FB8A3C] border-solid mr-3 w-16 h-8 leading-8 text-[#FB8A3C]"
+        class="border-radius-primary border border-[#FB8A3C] border-solid mr-3 px-6 w-fit h-10 leading-10 text-[#FB8A3C]"
       >
         去售后
       </button>
       <button
-        class="bg-[#FB8A3C] border-radius-primary w-16 h-8 leading-8 text-white"
+        class="bg-[#FB8A3C] border-radius-primary px-6 w-fit h-10 leading-10 text-white"
       >
         去评价
       </button>
@@ -62,7 +60,7 @@
 
     <!-- 账目 -->
     <view
-      class="flex flex-col justify-around border-radius-primary bg-secondary margin-x-primary w-[363px] h-16 px-3"
+      class="flex flex-col justify-around border-radius-primary bg-secondary px-3 mb-3 w-full h-16"
     >
       <view class="flex justify-between items-center">
         <text class="font-secondary">商品总价</text>
@@ -87,7 +85,7 @@
     <!-- 支付剩余 -->
     <view
       v-if="orderDetail?.orderState === OrderState.DaiFuKuan"
-      class="flex text-center font-primary-smaller"
+      class="flex justify-center mb-3 w-full font-primary-smaller"
     >
       <text class="mr-3">应付金额:{{ orderDetail?.payMoney }}</text>
       <!-- 倒计时组件 -->
@@ -130,15 +128,15 @@
     </view>
 
     <!-- 取消 or 支付订单 -->
-    <view class="flex justify-between margin-x-primary mb-3 text-white">
+    <view class="flex justify-between text-white">
       <button
-        class="border border-[#363636] border-solid border-radius-primary w-28 h-8 leading-8 text-[#363636]"
+        class="border border-[#363636] border-solid border-radius-primary px-3 w-fit h-10 leading-10 text-[#363636]"
         @tap="cancelOrder"
       >
         取消订单
       </button>
       <button
-        class="bg-[#9A3412] border-radius-primary w-36 h-8 leading-8"
+        class="bg-[#9A3412] border-radius-primary px-3 w-fit h-10 leading-10"
         @tap="payOrder"
       >
         去支付
