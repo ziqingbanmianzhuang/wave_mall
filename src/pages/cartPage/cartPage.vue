@@ -1,5 +1,5 @@
 <template>
-  <view v-if="profileStore.profile" class="bg-primary">
+  <view v-if="profileStore.profile" class="bg-primary h-container">
     <!-- 选择所有商品 -->
     <view
       class="box-border flex items-center bg-secondary mb-3 border-radius-primary px-3 w-full h-8"
@@ -252,4 +252,15 @@ const gotoPayment = () => {
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+// #ifdef H5
+.h-container {
+  height: calc(100vh - 94px);
+}
+// #endif
+
+// #ifdef MP-WEIXIN
+.h-container {
+  height: calc(100vh);
+}
+// #endif
 </style>

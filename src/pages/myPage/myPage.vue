@@ -1,14 +1,13 @@
 <template>
-  <view class="bg-primary w-full h-full">
+  <view class="bg-primary px-1.5 w-full h-container">
     <!-- 用户信息 -->
-    <view
-      class="bg-secondary border-radius-primary margin-x-primary mt-1.5 mb-9 w-[363px] h-36"
-    >
+    <view class="bg-secondary border-radius-primary mb-3 w-full h-36">
       <!-- 用户信息 -->
       <view class="flex relative p-3">
         <image
           class="bg-primary border-radius-primary w-14 h-14"
           :src="profile?.avatar"
+          mode="aspectFill"
         >
         </image>
         <view class="flex flex-col justify-around ml-3">
@@ -54,7 +53,7 @@
     </view>
     <!-- 订单 -->
     <view
-      class="flex justify-around items-center bg-secondary border-radius-primary margin-x-primary my-1.5 p-3 h-16 leading-[64px] w-[363px] font-primary-smaller"
+      class="flex justify-around items-center bg-secondary border-radius-primary my-3 p-3 h-16 w-full font-primary-smaller"
     >
       <text>我的订单</text>
       <navigator url="/pages/orderListPage/orderListPage?type='0'"
@@ -122,4 +121,15 @@ onMounted(() => {
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+// #ifdef H5
+.h-container {
+  height: calc(100vh - 94px);
+}
+// #endif
+
+// #ifdef MP-WEIXIN
+.h-container {
+  height: calc(100vh);
+}
+// #endif
 </style>
