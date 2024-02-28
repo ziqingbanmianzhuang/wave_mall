@@ -1,23 +1,23 @@
 <template>
-  <view class="bg-primary w-full">
+  <view class="bg-primary w-full px-1.5">
     <!-- 新建地址 -->
     <view
-      class="box-border flex items-center bg-blue-100 border-radius-primary margin-x-primary my-1.5 mb-3 px-1.5 w-[363px] h-12 leading-[48px]"
+      class="box-border flex items-center bg-[#e0e0e0] border-radius-primary mb-3 px-1.5 w-full h-10"
     >
-      <i class="iconfont icon-jia"></i>
+      <i class="iconfont icon-jia font-primary-smaller"></i>
       <navigator
         url="/subPkg/addressFormPage/addressFormPage"
         open-type="navigate"
         hover-class="navigator-hover"
-        class="font-primary"
+        class="font-primary-smaller"
       >
         新建地址
       </navigator>
     </view>
     <!-- 默认地址 -->
-    <text class="margin-x-primary my-1.5 font-primary">默认地址</text>
+    <text class="mb-3 font-primary">默认地址</text>
     <view
-      class="relative flex flex-col bg-secondary border-radius-primary margin-x-primary my-1.5 mb-3 p-1.5 w-[363px] h-32 leading-[32px]"
+      class="relative flex flex-col bg-secondary border-radius-primary mb-3 p-1.5 w-full h-28"
     >
       <text class="mb-3 font-primary-smaller"
         >+{{ defaultAddress?.contact }}</text
@@ -34,14 +34,14 @@
         hover-class="navigator-hover"
         class="flex absolute right-1.5 bottom-1.5"
       >
-        <i class="iconfont icon-wentifankui"></i>
+        <i class="iconfont icon-wentifankui font-primary-smaller"></i>
       </navigator>
     </view>
     <!-- 其他地址 -->
-    <text class="margin-x-priamry my-1.5 font-primary">其他地址</text>
+    <text class="mb-3 font-primary">其他地址</text>
     <view
       v-if="addressList.length"
-      class="bg-secondary border-radius-primary margin-x-primary my-1.5 mb-3 p-1.5 w-[363px]"
+      class="bg-secondary border-radius-primary mb-3 p-1.5 w-full"
     >
       <view
         v-for="item in addressList"
