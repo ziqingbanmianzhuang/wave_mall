@@ -1,8 +1,8 @@
 <template>
-  <view class="bg-primary w-full">
+  <view class="bg-primary w-full px-1.5">
     <!-- 选择收货地址 -->
     <view
-      class="box-border flex items-center bg-[#E0E0E0] border-radius-primary margin-x-primary my-1.5 mb-3 px-3 w-[363px] h-12 leading-[32px]"
+      class="box-border flex items-center bg-[#E0E0E0] border-radius-primary mb-3 px-3 w-full h-12"
     >
       <navigator
         url="/subPkg/addressPage/addressPage"
@@ -32,7 +32,7 @@
     <view
       v-for="good in orderData?.goods"
       :key="good.id"
-      class="flex justify-between items-center bg-secondary border-radius-primary margin-x-primary mb-3 px-1.5 w-[363px] h-32"
+      class="flex justify-between items-center bg-secondary border-radius-primary mb-3 px-1.5 w-full h-32"
     >
       <view class="bg-orange-500 rounded-[8px] mr-3 h-2 w-2"></view>
       <image
@@ -51,9 +51,7 @@
     </view>
 
     <!-- 商品订单信息 -->
-    <view
-      class="bg-secondary border-radius-primary margin-x-primary mb-3 px-1.5 w-[363px] h-40"
-    >
+    <view class="bg-secondary border-radius-primary mb-3 px-1.5 w-full h-40">
       <view
         class="flex justify-between items-center border-b border-slate-300 border-solid pb-3"
       >
@@ -89,7 +87,6 @@
             style="width: 170px"
             placeholder="时间不限"
             :localdata="deliveryList"
-            :label="activeDelivery"
             class="w-20 font-secondary"
             @change="changeDelivery"
           >
@@ -100,7 +97,7 @@
     </view>
     <!--提交订单 -->
     <view
-      class="flex justify-between items-center bg-[#E0E0E0] border-radius-primary margin-x-primary px-1.5 w-[363px] h-16"
+      class="flex justify-between items-center bg-[#E0E0E0] border-radius-primary px-1.5 w-full h-16"
     >
       <view class="flex flex-col justify-around h-full">
         <text class="font-primary font-yellow"
@@ -109,7 +106,7 @@
         <text class="font-secondary">黄色小象</text>
       </view>
       <button
-        class="bg-[#9A3412] border-radius-primary text-white w-16 h-8 leading-8 font-primary-smaller"
+        class="bg-[#9A3412] border-radius-primary text-white px-6 h-10 leading-10 font-primary-smaller"
         @tap="orderSubmit"
       >
         提交订单
