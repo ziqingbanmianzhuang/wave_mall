@@ -1,23 +1,26 @@
 <template>
-  <view class="bg-primary w-full h-full">
-    <view class="bg-slate-200 w-full h-24">
+  <view class="bg-primary w-full h-container">
+    <!-- 背景图 -->
+    <view class="bg-slate-200 w-full h-48 min-[440px]:h-32 min-[960px]:h-72">
       <image
         :src="profile?.avatar"
         mode="aspectFill"
-        class="w-full h-24"
+        class="w-full h-48 min-[440px]:h-32 min-[960px]:h-72"
         @tap="onAvatarChange"
       />
     </view>
 
     <view
-      class="relative top-[-30px] left-0 bg-white border-radius-primary m-1.5"
+      class="relative top-[-30px] left-0 bg-white border-radius-primary mx-1.5"
     >
       <!-- 头像昵称 -->
-      <view class="flex flex-col justify-center items-center text-center">
+      <view
+        class="relative top-[-40px] left-1/2 -translate-x-1/2 flex flex-col justify-center items-center text-center"
+      >
         <image
           :src="profile?.avatar"
           mode="aspectFill"
-          class="absolute top-[-40px] border-radius-primary h-12 w-12"
+          class="border-radius-primary h-12 w-12 min-[960px]:h-32 min-[960px]:w-32"
           @tap="onAvatarChange"
         />
         <text
@@ -26,92 +29,106 @@
         >
       </view>
       <!-- 表单 -->
-      <view class="p-3">
-        <view class="flex my-3">
-          <text class="mr-20 font-primary-smaller">账号</text>
-          <text class="font-primary-smaller">waveMall</text>
-        </view>
-        <view class="flex my-3">
-          <text class="mr-20 font-primary-smaller">昵称</text>
-          <input
-            v-model="profile.nickname"
-            type="text"
-            placeholder="请填写昵称"
-            placeholder-style="color:#b4b5c5;font-size:12px;font-family: ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;  font-weight: 600"
-            class="input-primary"
-          />
-        </view>
-        <view class="flex my-3">
-          <text class="mr-20 font-primary-smaller">性别</text>
-          <radio-group @change="onGenderChange">
-            <label>
-              <radio
-                value="男"
-                color="#27ba9b"
-                :checked="profile?.gender === '男'"
-                style="transform: scale(0.7)"
-              />
-              <text class="font-primary-smaller mr-3">男</text>
-            </label>
-            <label>
-              <radio
-                value="女"
-                color="#27ba9b"
-                :checked="profile?.gender === '女'"
-                style="transform: scale(0.7)"
-              />
-              <text class="font-primary-smaller">女</text>
-            </label>
-          </radio-group>
-        </view>
-        <view class="flex my-3">
-          <text class="mr-20 font-primary-smaller">生日</text>
-          <picker
-            mode="date"
-            :value="profile?.birthday"
-            start="1900-01-01"
-            :end="new Date()"
-            class="input-primary"
-            @change="onBirthdayChange"
+      <view
+        class="grid grid-cols-5 auto-rows-[50px] min-[960px]:grid-cols-6 justify-items-end px-1.5"
+      >
+        <text
+          class="mr-20 font-primary-smaller col-span-2 min-[960px]:col-span-3 text-nowrap"
+          >账号</text
+        >
+        <text class="font-primary-smaller col-span-3 justify-self-start"
+          >waveMall</text
+        >
+        <text
+          class="mr-20 font-primary-smaller col-span-2 min-[960px]:col-span-3 text-nowrap"
+          >昵称</text
+        >
+        <input
+          v-model="profile.nickname"
+          type="text"
+          placeholder="请填写昵称"
+          placeholder-style="color:#b4b5c5;font-size:12px;font-family: ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;  font-weight: 600"
+          class="input-primary col-span-3 justify-self-start"
+        />
+        <text
+          class="mr-20 font-primary-smaller col-span-2 min-[960px]:col-span-3 text-nowrap"
+          >性别</text
+        >
+        <radio-group
+          class="col-span-3 justify-self-start"
+          @change="onGenderChange"
+        >
+          <label>
+            <radio
+              value="男"
+              color="#27ba9b"
+              :checked="profile?.gender === '男'"
+              style="transform: scale(0.7)"
+            />
+            <text class="font-primary-smaller mr-3">男</text>
+          </label>
+          <label>
+            <radio
+              value="女"
+              color="#27ba9b"
+              :checked="profile?.gender === '女'"
+              style="transform: scale(0.7)"
+            />
+            <text class="font-primary-smaller">女</text>
+          </label>
+        </radio-group>
+        <text
+          class="mr-20 font-primary-smaller col-span-2 min-[960px]:col-span-3 text-nowrap"
+          >生日</text
+        >
+        <picker
+          mode="date"
+          :value="profile?.birthday"
+          start="1900-01-01"
+          :end="new Date()"
+          class="input-primary col-span-3 justify-self-start"
+          @change="onBirthdayChange"
+        >
+          <view v-if="profile?.birthday">{{ profile?.birthday }}</view>
+          <view v-else class="font-primary-smaller input-secondary"
+            >请选择日期</view
           >
-            <view v-if="profile?.birthday">{{ profile?.birthday }}</view>
-            <view v-else class="font-primary-smaller input-secondary"
-              >请选择日期</view
-            >
-          </picker>
-        </view>
-        <view class="flex my-3">
-          <text class="mr-20 font-primary-smaller">城市</text>
-          <picker
-            class="picker input-primary"
-            :value="profile?.fullLocation?.split(' ')"
-            mode="region"
-            @change="onFullLocationChange"
+        </picker>
+
+        <text
+          class="mr-20 font-primary-smaller col-span-2 min-[960px]:col-span-3 text-nowrap"
+          >城市</text
+        >
+        <picker
+          class="picker input-primary col-span-3 justify-self-start"
+          :value="profile?.fullLocation?.split(' ')"
+          mode="region"
+          @change="onFullLocationChange"
+        >
+          <view v-if="profile?.fullLocation">{{ profile.fullLocation }}</view>
+          <view v-else class="font-primary-smaller input-secondary"
+            >请选择城市</view
           >
-            <view v-if="profile?.fullLocation">{{ profile.fullLocation }}</view>
-            <view v-else class="font-primary-smaller input-secondary"
-              >请选择城市</view
-            >
-          </picker>
-        </view>
-        <view class="flex my-3">
-          <text class="mr-20 font-primary-smaller">职业</text>
-          <input
-            v-model="profile.profession"
-            type="text"
-            placeholder="请填写职业"
-            class="input-primary"
-            placeholder-style="color:#b4b5c5;font-size:12px;font-family: ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;  font-weight: 600"
-          />
-        </view>
-        <view class="flex mt-12 justify-center">
-          <button
-            class="bg-[#9A3412] border-radius-primary w-24 h-8 leading-[32px] text-white font-primary-smaller"
-            @tap="onSubmit"
-          >
-            保存
-          </button>
-        </view>
+        </picker>
+        <text
+          class="mr-20 font-primary-smaller col-span-2 min-[960px]:col-span-3 text-nowrap"
+          >职业</text
+        >
+        <input
+          v-model="profile.profession"
+          type="text"
+          placeholder="请填写职业"
+          class="input-primary col-span-3 justify-self-start"
+          placeholder-style="color:#b4b5c5;font-size:12px;font-family: ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;  font-weight: 600"
+        />
+      </view>
+      <view class="flex mb-3 justify-center">
+        <button
+          class="bg-[#9A3412] border-radius-primary py-3 px-6 text-white font-sm font-semibold"
+          @tap="onSubmit"
+        >
+          保存
+        </button>
       </view>
     </view>
   </view>
@@ -239,4 +256,15 @@ onMounted(() => {
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-weight: 600;
 }
+// #ifdef H5
+.h-container {
+  height: calc(100vh - 44px);
+}
+// #endif
+
+// #ifdef MP-WEIXIN
+.h-container {
+  height: calc(100vh);
+}
+// #endif
 </style>
