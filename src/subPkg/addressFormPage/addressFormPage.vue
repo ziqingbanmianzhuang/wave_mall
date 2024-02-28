@@ -1,100 +1,110 @@
 <template>
-  <!-- 收货人 -->
-  <view
-    class="relative border-radius-primary border border-slate-300 border-solid margin-x-primary my-1.5 mb-6 w-[363px] h-12"
-  >
-    <text
-      class="absolute top-[-8px] left-8 bg-white px-3 font-primary-smaller font-light"
-      >收货人</text
+  <view class="flex flex-wrap pt-3 w-full">
+    <!-- 收货人 -->
+    <view
+      class="relative border-radius-primary border border-slate-300 border-solid margin-x-primary mb-3 min-[670px]:mb-6 min-[960px]:mb-3 w-[260px] grow h-12"
     >
-    <view class="flex my-4 pl-11">
-      <input
-        v-model="form.receiver"
-        type="text"
-        placeholder="请填写收货人姓名"
-        class="w-[340px] input-primary"
-        placeholder-style="color:#b4b5c5;font-size:12px;font-family: ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;  font-weight: 600"
-      />
-      <i class="iconfont icon-chacha"></i>
+      <text
+        class="absolute top-[-8px] left-8 bg-white px-3 font-primary-smaller font-light"
+        >收货人</text
+      >
+      <view class="flex justify-between items-center my-4 pl-11 pr-3">
+        <input
+          v-model="form.receiver"
+          type="text"
+          placeholder="请填写收货人姓名"
+          class="w-[340px] input-primary"
+          placeholder-style="color:#b4b5c5;font-size:12px;font-family: ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;  font-weight: 600"
+        />
+        <i class="iconfont icon-chacha"></i>
+      </view>
     </view>
-  </view>
 
-  <!-- 手机号码 -->
-  <view
-    class="relative border-radius-primary border border-slate-300 border-solid margin-x-primary my-1.5 mb-6 w-[363px] h-12"
-  >
-    <text
-      class="absolute top-[-8px] left-8 bg-white px-3 font-primary-smaller font-light"
-      >电话</text
+    <!-- 手机号码 -->
+    <view
+      class="relative border-radius-primary border border-slate-300 border-solid margin-x-primary mb-3 min-[670px]:mb-6 min-[960px]:mb-3 w-[280px] grow h-12"
     >
-    <view class="flex justify-between my-4 pl-11">
-      <input
-        v-model="form.contact"
-        type="text"
-        placeholder="请填写收货人手机号码"
-        class="w-[340px] input-primary"
-        placeholder-style="color:#b4b5c5;font-size:12px;font-family: ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;  font-weight: 600"
-      />
-      <i class="iconfont icon-chacha"></i>
+      <text
+        class="absolute top-[-8px] left-8 bg-white px-3 font-primary-smaller font-light"
+        >电话</text
+      >
+      <view class="flex justify-between my-4 pl-11 pr-3">
+        <input
+          v-model="form.contact"
+          type="text"
+          placeholder="请填写收货人手机号码"
+          class="w-[340px] input-primary"
+          placeholder-style="color:#b4b5c5;font-size:12px;font-family: ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;  font-weight: 600"
+        />
+        <i class="iconfont icon-chacha"></i>
+      </view>
     </view>
-  </view>
-  <!-- 所在地区 -->
-  <view
-    class="relative border-radius-primary border border-slate-300 border-solid margin-x-primary my-1.5 mb-6 w-[363px] h-12"
-  >
-    <text
-      class="absolute top-[-8px] left-8 bg-white px-3 font-primary-smaller font-light"
-      >所在地区</text
+    <!-- 所在地区 -->
+    <view
+      class="relative border-radius-primary border border-slate-300 border-solid margin-x-primary min-[670px]:mb-6 min-[960px]:mb-3 mb-3 w-[330px] grow h-12"
     >
-    <view class="flex justify-between my-4 pl-11">
-      <picker class="w-[340px]" mode="region" value="" @change="onRegionChange">
-        <text v-if="!form.fullLocation" class="font-secondary w-[340px]"
-          >请选择省/市/区(县)</text
+      <text
+        class="absolute top-[-8px] left-8 bg-white px-3 font-primary-smaller font-light"
+        >所在地区</text
+      >
+      <view class="flex justify-between my-4 pl-11 pr-3">
+        <picker
+          class="w-[340px]"
+          mode="region"
+          value=""
+          @change="onRegionChange"
         >
-        <text v-else class="font-primary">{{ form.fullLocation }}</text>
-      </picker>
-      <i class="iconfont icon-chacha"></i>
+          <text v-if="!form.fullLocation" class="font-secondary w-[340px]"
+            >请选择省/市/区(县)</text
+          >
+          <text v-else class="font-primary">{{ form.fullLocation }}</text>
+        </picker>
+        <i class="iconfont icon-chacha"></i>
+      </view>
     </view>
-  </view>
-  <!-- 详细地址 -->
-  <view
-    class="relative border-radius-primary border border-slate-300 border-solid margin-x-primary my-1.5 mb-6 w-[363px] h-12"
-  >
-    <text
-      class="absolute top-[-8px] left-8 bg-white px-3 font-primary-smaller font-light"
-      >详细地址</text
+    <!-- 详细地址 -->
+    <view
+      class="relative border-radius-primary border border-slate-300 border-solid margin-x-primary min-[670px]:mb-6 min-[960px]:mb-3 mb-3 w-[350px] grow h-12"
     >
-    <view class="flex justify-between my-4 pl-11">
-      <input
-        v-model="form.address"
-        type="text"
-        placeholder="请填写收货人详细地址"
-        class="w-[340px] input-primary"
-        placeholder-style="color:#b4b5c5;font-size:12px;font-family: ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;  font-weight: 600"
-      />
-      <i class="iconfont icon-chacha"></i>
+      <text
+        class="absolute top-[-8px] left-8 bg-white px-3 font-primary-smaller font-light"
+        >详细地址</text
+      >
+      <view class="flex justify-between my-4 pl-11 pr-3">
+        <input
+          v-model="form.address"
+          type="text"
+          placeholder="请填写收货人详细地址"
+          class="w-[340px] input-primary"
+          placeholder-style="color:#b4b5c5;font-size:12px;font-family: ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;  font-weight: 600"
+        />
+        <i class="iconfont icon-chacha"></i>
+      </view>
     </view>
   </view>
-  <!-- 设置为默认地址 -->
-  <button
-    class="border-radius-primary bg-[#9a3412] w-[200px] m-auto mb-3 h-12 leading-[48px] font-primary-smaller text-white"
-    @tap="setDefaultAddress"
-  >
-    设为默认
-  </button>
-  <!-- 保存地址 -->
-  <button
-    class="border-radius-primary border border-[#fb8a3c] border-solid w-[200px] m-auto mb-3 h-12 leading-[48px] font-primary-smaller text-[#fb8a3c]"
-    @tap="onSubmit"
-  >
-    保存
-  </button>
-  <button
-    class="border-radius-primary bg-[#22c55e] w-[200px] m-auto mb-3 h-12 leading-[48px] font-primary-smaller text-white"
-    @tap="deleteAddress(query.id)"
-  >
-    删除地址
-  </button>
+  <!-- 按钮区 -->
+  <view class="text-center min-[960px]:mt-6">
+    <!-- 设置为默认地址 -->
+    <button
+      class="border-radius-primary bg-[#9a3412] mx-auto mb-3 px-6 h-10 leading-10 w-fit font-primary-smaller text-white"
+      @tap="setDefaultAddress"
+    >
+      设为默认
+    </button>
+    <!-- 保存地址 -->
+    <button
+      class="border-radius-primary border border-[#fb8a3c] border-solid mx-auto mb-3 px-6 w-fit h-10 leading-10 font-primary-smaller text-[#fb8a3c]"
+      @tap="onSubmit"
+    >
+      保存
+    </button>
+    <button
+      class="border-radius-primary bg-[#22c55e] mx-auto mb-3 px-6 h-10 leading-10 w-fit font-primary-smaller text-white"
+      @tap="deleteAddress(query.id)"
+    >
+      删除地址
+    </button>
+  </view>
 </template>
 
 <script lang="ts" setup>
@@ -203,4 +213,15 @@ onMounted(() => {
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   color: #2b2d42;
 }
+// #ifdef H5
+.h-container {
+  height: calc(100vh - 94px);
+}
+// #endif
+
+// #ifdef MP-WEIXIN
+.h-container {
+  height: calc(100vh);
+}
+// #endif
 </style>
