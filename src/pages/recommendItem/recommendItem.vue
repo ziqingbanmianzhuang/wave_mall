@@ -1,9 +1,9 @@
 <template>
-  <view class="bg-primary">
+  <view class="bg-primary px-1.5 w-full h-container">
     <!-- 数据列表 -->
     <scroll-view
       scroll-y
-      class="h-[667px] w-full my-1.5"
+      class="w-full h-container"
       @scrolltolower="onScrolltolower"
     >
       <!-- 轮播图 -->
@@ -21,7 +21,12 @@
         }"
       >
         <!-- 轮播图 -->
-        <swiper circular autoplay class="mb-3 h-28" @change="change">
+        <swiper
+          circular
+          autoplay
+          class="mb-3 h-28 min-[960px]:h-80 w-full"
+          @change="change"
+        >
           <swiper-item v-for="item in swiperList" :key="item.id">
             <navigator
               url="/pages/hotItem/hotItem"
@@ -29,11 +34,11 @@
               hover-class="navigator-hover"
               class="block"
             >
-              <view class="relative h-28">
+              <view class="relative h-28 min-[960px]:h-80">
                 <image
                   :src="item.imgUrl"
                   mode="aspectFill"
-                  class="border-radius-primary margin-x-primary w-[363px] h-28"
+                  class="border-radius-primary w-full h-full"
                 />
                 <view
                   class="flex justify-center items-center w-6 h-6 absolute right-4 top-2 bg-white border-radius-primary"
@@ -47,7 +52,7 @@
       </uni-swiper-dot>
       <!-- tab页 -->
       <view
-        class="flex justify-around items-center bg-secondary border-radius-primary m-5 mb-7 w-[335px] h-24 font-primary"
+        class="flex justify-around items-center bg-secondary border-radius-primary m-5 mb-7 w-full h-24 font-primary"
       >
         <view
           v-for="(item, index) in subTypes"
@@ -70,7 +75,7 @@
           v-for="goods in subType.goodsItems.items"
           :key="goods.id"
           :url="`/pages/goodsDetailPage/goodsDetailPage?id=${goods.id}`"
-          class="grid grid-cols-7 items-center margin-x-primary my-1.5 bg-secondary border-radius-primary"
+          class="grid grid-cols-7 items-center mb-3 bg-secondary border-radius-primary"
         >
           <text
             class="col-span-1 justify-self-start h-2 w-2 bg-orange-800 rounded"
@@ -84,7 +89,7 @@
           >
           <view class="col-start-1 col-end-8 flex justify-center m-1.5">
             <image
-              class="w-full h-32 border-radius-primary"
+              class="w-full h-32 min-[960px]:h-[30rem] border-radius-primary"
               :src="goods.picture"
               mode="aspectFill"
             />
@@ -195,4 +200,15 @@ onMounted(() => {
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+// #ifdef H5
+.h-container {
+  height: calc(100vh - 94px);
+}
+// #endif
+
+// #ifdef MP-WEIXIN
+.h-container {
+  height: calc(100vh);
+}
+// #endif
 </style>
