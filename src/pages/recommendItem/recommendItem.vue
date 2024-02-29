@@ -1,5 +1,5 @@
 <template>
-  <view class="bg-primary px-1.5 w-full h-container">
+  <view v-if="false" class="bg-primary px-1.5 w-full h-container">
     <!-- 数据列表 -->
     <scroll-view
       scroll-y
@@ -101,6 +101,7 @@
       </view>
     </scroll-view>
   </view>
+  <skeletonPage></skeletonPage>
 </template>
 
 <script lang="ts" setup>
@@ -110,6 +111,10 @@ import { getHomeSwiperAPI } from "../indexPage/indexPageApi";
 import { getRecommendAPI } from "./recommendItemApi";
 import type { SubTypeItem } from "./recommendItemType";
 import { onMounted } from "vue";
+import skeletonPage from "./skeletonPage.vue";
+
+//标识是否加载成功
+const isLoading = ref(true);
 
 //轮播图当前序号
 let current = ref(0);
@@ -127,6 +132,7 @@ const change: UniHelper.SwiperOnChange = (e) => {
 const getHomeSwiperData = async () => {
   let res = await getHomeSwiperAPI();
   swiperList.value = res.result;
+  isLoading.value = false;
   console.log("首页", swiperList.value);
 };
 
@@ -148,6 +154,7 @@ const currentRecommentObj:
   | undefined = recommentMap.find((item) => item.type === query.type);
 uni.setNavigationBarTitle({ title: currentRecommentObj!.title });
 onMounted(() => {
+  isLoading.value = true;
   getHomeSwiperData();
 });
 
