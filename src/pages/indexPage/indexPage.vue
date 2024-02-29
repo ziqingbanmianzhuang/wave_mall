@@ -7,7 +7,7 @@
     @refresherrefresh="onRefresherrefresh"
     @scrolltolower="onScrolltolower"
   >
-    <view v-if="false"
+    <view v-if="!isLoading"
       ><!-- 轮播图组件 -->
       <swiper
         circular
