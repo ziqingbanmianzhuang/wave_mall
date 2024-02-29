@@ -1,13 +1,13 @@
 <template>
   <scroll-view
     scroll-y
-    class="bg-primary h-full w-full mb-1.5"
+    class="bg-primary h-screen w-screen mb-1.5"
     refresher-enabled
     :refresher-triggered="isTriggered"
     @refresherrefresh="onRefresherrefresh"
     @scrolltolower="onScrolltolower"
   >
-    <view v-if="!isLoading"
+    <view v-if="false"
       ><!-- 轮播图组件 -->
       <swiper
         circular

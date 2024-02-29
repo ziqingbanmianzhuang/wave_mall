@@ -143,6 +143,12 @@
       </button>
     </view>
   </view>
+  <navigator
+    :url="`/pages/orderListPage/orderListPage?orderState=${orderDetail?.orderState}`"
+    open-type="navigate"
+    hover-class="navigator-hover"
+    >查看订单
+  </navigator>
 </template>
 
 <script lang="ts" setup>
