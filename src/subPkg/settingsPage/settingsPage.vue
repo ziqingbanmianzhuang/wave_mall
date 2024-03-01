@@ -56,6 +56,7 @@
   <button
     v-if="profileStore.profile"
     class="bg-[#9A3412] border-radius-primary mt-9 mx-auto px-6 py-3 w-fit font-base font-semibold text-white"
+    @tap="exitLogin"
   >
     退出登录
   </button>
@@ -66,6 +67,21 @@ import { useProfileStore } from "../../store/profile/index";
 
 // 获取会员Store
 const profileStore = useProfileStore();
+
+const exitLogin = () => {
+  // 模态弹窗
+  uni.showModal({
+    content: "是否退出登录？",
+    success: (res) => {
+      if (res.confirm) {
+        // 清理用户信息
+        profileStore.clearProfile();
+        // 返回上一页
+        uni.navigateBack();
+      }
+    },
+  });
+};
 </script>
 
 <style lang="scss" scoped>

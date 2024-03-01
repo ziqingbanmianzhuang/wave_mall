@@ -155,6 +155,7 @@ import { getMemberProfileAPI, putMemberProfileAPI } from "./profileApi";
 import type { ProfileDetail, Gender, ProfileParams } from "./profileType";
 import { ref, onMounted } from "vue";
 import { useProfileStore } from "../../store/profile/index";
+import { onShow } from "@dcloudio/uni-app";
 
 // 获取会员Store
 const profileStore = useProfileStore();
@@ -250,7 +251,7 @@ const onSubmit = async () => {
     uni.navigateBack();
   }, 400);
 };
-onMounted(() => {
+onShow(() => {
   // 用户已登录才允许调用
   if (profileStore.profile) {
     getMemberProfileData();

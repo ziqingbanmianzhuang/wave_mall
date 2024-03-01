@@ -60,14 +60,6 @@
         >查看全部订单</navigator
       >
     </view>
-    <!-- 登录 -->
-    <navigator
-      url="/pages/loginPage/loginPage"
-      open-type="navigate"
-      hover-class="navigator-hover"
-    >
-      登录
-    </navigator>
   </view>
 </template>
 
