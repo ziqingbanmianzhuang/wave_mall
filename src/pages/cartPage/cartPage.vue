@@ -146,6 +146,7 @@
         >
           这就去登录
         </button>
+        <image src="../../static/lotties/cartLogin.gif" mode="aspectFill" />
       </navigator>
     </view>
   </template>

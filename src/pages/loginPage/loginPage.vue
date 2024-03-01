@@ -1,19 +1,21 @@
 <template>
-  <view class="w-[375px] h-[530px] bg-slate-100">
+  <view class="w-full h-container px-1.5 bg-primary">
     <!-- 欢迎页 -->
-    <view class="flex m-1.5 mb-16 pt-4">
+    <view class="flex mb-16 pt-4">
       <view>
-        <text class="block mr-3 h-12 w-12 bg-white rounded-xl"></text>
+        <text
+          class="block mr-3 h-12 w-12 bg-secondary border-radius-primary"
+        ></text>
       </view>
-      <view class="flex flex-col font-semibold">
-        <text class="text-lg">Wave Mall</text>
-        <text class="text-base">欢迎你来到购物天堂</text>
+      <view class="flex flex-col">
+        <text class="font-primary">Wave Mall</text>
+        <text class="font-primary-smaller">欢迎你来到购物天堂</text>
       </view>
     </view>
     <!-- 表单 -->
-    <view class="relative shadow-lg bg-white rounded-xl m-1.5 w-[363px] h-32">
-      <view class="flex flex-col border-b p-3 font-semibold">
-        <text class="text-base">your phone</text>
+    <view class="relative bg-secondaryborder-radius bg-secondary w-full h-32">
+      <view class="flex flex-col border-b p-3">
+        <text class="font-primary-smaller">your phone</text>
         <input
           v-model="phone"
           class="text-xs text-gray-400"
@@ -21,19 +23,10 @@
           placeholder-class="input-placeholder"
         />
       </view>
-      <view
-        class="flex flex-col p-3 font-semibold"
-        @tap="onGetphonenumberSimple"
-      >
-        <text class="text-base">登录</text>
+      <view class="flex flex-col p-3" @tap="onGetphonenumberSimple">
+        <text class="font-primary-smaller">登录</text>
       </view>
-      <view class="absolute right-1 top-1 flex">
-        <text
-          v-for="item in 3"
-          :key="item"
-          class="block m-0.5 h-2 w-2 bg-black rounded"
-        ></text>
-      </view>
+      <threeDots></threeDots>
     </view>
   </view>
 </template>
@@ -43,6 +36,7 @@ import type { LoginResult } from "./loginPageType";
 import { postLoginWxMinSimpleAPI } from "./loginPageApi";
 import { ref } from "vue";
 import { useProfileStore } from "../../store/profile/index";
+import threeDots from "../../components/threeDots/threeDots.vue";
 
 // 用户登录数据
 const profile = ref<LoginResult>();
@@ -72,4 +66,15 @@ const onGetphonenumberSimple = async () => {
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+// #ifdef H5
+.h-container {
+  height: calc(100vh - 94px);
+}
+// #endif
+
+// #ifdef MP-WEIXIN
+.h-container {
+  height: calc(100vh);
+}
+// #endif
 </style>
