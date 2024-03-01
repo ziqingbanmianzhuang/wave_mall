@@ -1,6 +1,9 @@
 <template>
   <!-- 我的收货地址 -->
-  <view class="flex items-center w-full px-1.5 my-1.5">
+  <view
+    v-if="profileStore.profile"
+    class="flex items-center w-full px-1.5 my-1.5"
+  >
     <view
       class="border-b border-[#22c55e] border-solid border-radius-primary mr-1.5 mb-3 w-6 h-6 leading-[24px] text-center"
     >
@@ -51,13 +54,19 @@
     <text class="ml-1.5 mb-1.5 font-primary-smaller">关于本产品</text>
   </view>
   <button
+    v-if="profileStore.profile"
     class="bg-[#9A3412] border-radius-primary mt-9 mx-auto px-6 py-3 w-fit font-base font-semibold text-white"
   >
     退出登录
   </button>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { useProfileStore } from "../../store/profile/index";
+
+// 获取会员Store
+const profileStore = useProfileStore();
+</script>
 
 <style lang="scss" scoped>
 @import "tailwindcss/base";

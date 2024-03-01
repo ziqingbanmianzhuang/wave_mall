@@ -75,6 +75,10 @@
 import { ref, onMounted } from "vue";
 import type { ProfileDetail } from "./myPageType";
 import { getMemberProfileAPI } from "./myPageApi";
+import { useProfileStore } from "../../store/profile/index";
+
+// 获取会员Store
+const profileStore = useProfileStore();
 
 const distributions = ref([
   {
@@ -113,7 +117,10 @@ const getMemberProfileData = async () => {
 };
 
 onMounted(() => {
-  getMemberProfileData();
+  // 用户已登录才允许调用
+  if (profileStore.profile) {
+    getMemberProfileData();
+  }
 });
 </script>
 

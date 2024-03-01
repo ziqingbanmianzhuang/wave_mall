@@ -1,5 +1,5 @@
 <template>
-  <view class="bg-primary w-full h-container">
+  <view v-if="profileStore.profile" class="bg-primary w-full h-container">
     <!-- 背景图 -->
     <view class="bg-slate-200 w-full h-48 min-[440px]:h-32 min-[960px]:h-72">
       <image
@@ -132,6 +132,22 @@
       </view>
     </view>
   </view>
+  <view v-else>
+    <view class="w-full text-center">
+      <text class="font-primary">你还没有登录嗷</text>
+      <navigator
+        url="/pages/loginPage/loginPage"
+        open-type="navigate"
+        hover-class="navigator-hover"
+      >
+        <button
+          class="bg-[#9A3412] border-radius-primary mx-auto my-3 px-6 py-3 w-fit font-primary-smaller text-white font-semibold"
+        >
+          去登录
+        </button>
+      </navigator>
+    </view>
+  </view>
 </template>
 
 <script lang="ts" setup>
@@ -139,6 +155,9 @@ import { getMemberProfileAPI, putMemberProfileAPI } from "./profileApi";
 import type { ProfileDetail, Gender, ProfileParams } from "./profileType";
 import { ref, onMounted } from "vue";
 import { useProfileStore } from "../../store/profile/index";
+
+// 获取会员Store
+const profileStore = useProfileStore();
 
 // 获取个人信息
 const profile = ref({
@@ -174,8 +193,6 @@ const onFullLocationChange: UniHelper.RegionPickerOnChange = (ev) => {
   // 提交后端更新
   fullLocationCode = ev.detail.code!;
 };
-
-const profileStore = useProfileStore();
 
 // 修改头像
 const onAvatarChange = () => {
@@ -234,7 +251,10 @@ const onSubmit = async () => {
   }, 400);
 };
 onMounted(() => {
-  getMemberProfileData();
+  // 用户已登录才允许调用
+  if (profileStore.profile) {
+    getMemberProfileData();
+  }
 });
 </script>
 

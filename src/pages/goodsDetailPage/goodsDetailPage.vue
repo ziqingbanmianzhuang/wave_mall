@@ -371,9 +371,11 @@ const onAddCart = async (ev: SkuPopupEvent) => {
     uni.showToast({ title: "添加成功" });
     skuKey.value = false;
   } else {
-    uni.showModal({ title: "你还没有登录嗷" });
-    setTimeout(() => {
-      uni.navigateTo({ url: "/pages/login/login" });
+    uni.showModal({
+      title: "你还没有登录嗷",
+      success: () => {
+        uni.navigateTo({ url: "/pages/loginPage/loginPage" });
+      },
     });
   }
 };
