@@ -1,5 +1,5 @@
 <template>
-  <view class="w-full h-container px-1.5 bg-primary">
+  <view class="relative w-full h-container px-1.5 bg-primary">
     <!-- 欢迎页 -->
     <view class="flex mb-16 pt-4">
       <view>
@@ -28,6 +28,10 @@
       </view>
       <threeDots></threeDots>
     </view>
+    <!-- 登录成功的动画 -->
+    <view v-if="isLogin" class="absolute right-0 top-1/2 -translate-y-1/2">
+      <image src="../../static/lotties/successLogin.gif" mode="aspectFill" />
+    </view>
   </view>
 </template>
 
@@ -37,6 +41,9 @@ import { postLoginWxMinSimpleAPI } from "./loginPageApi";
 import { ref } from "vue";
 import { useProfileStore } from "../../store/profile/index";
 import threeDots from "../../components/threeDots/threeDots.vue";
+
+//标识是否登录成功
+const isLogin = ref(false);
 
 // 用户登录数据
 const profile = ref<LoginResult>();
@@ -53,10 +60,11 @@ const onGetphonenumberSimple = async () => {
   const profileStore = useProfileStore();
   profileStore.setProfile(profile.value);
   console.log("profilelogin", profileStore.profile);
-
+  isLogin.value = true;
   uni.showToast({ icon: "success", title: "登录成功" });
   setTimeout(() => {
     // 页面跳转
+    isLogin.value = false;
     uni.navigateBack();
   }, 500);
 };
