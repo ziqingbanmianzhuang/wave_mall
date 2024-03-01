@@ -1,7 +1,7 @@
 <template>
   <view v-if="!isLoading" class="flex justify-between bg-primary">
     <!-- 二级分类 -->
-    <view class="flex-1">
+    <view class="flex-1 h-container flex flex-col">
       <!-- 轮播图 -->
       <swiper circulars class="mb-3 h-24 min-[960px]:h-80">
         <swiper-item
@@ -23,7 +23,7 @@
         </swiper-item>
       </swiper>
       <!-- 商品列表 -->
-      <scroll-view scroll-y class="h-[400px]">
+      <scroll-view scroll-y class="h-[400px] grow">
         <view v-for="item in subCategoryList" :key="item.id" class="bg-primary">
           <text class="margin-x-primary my-1.5 font-primary">{{
             item.name
@@ -120,4 +120,16 @@ onMounted(async () => {
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+// #ifdef H5
+.h-container {
+  height: calc(100vh - 94px);
+}
+// #endif
+
+// #ifdef MP-WEIXIN
+.h-container {
+  height: calc(100vh);
+}
+// #endif
 </style>
