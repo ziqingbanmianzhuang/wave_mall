@@ -205,6 +205,10 @@ import type {
 import type { GoodsResult } from "./goodsDetailType";
 import type { SkuPopupLocaldata } from "../../components/vk-data-goods-sku-popup/vk-data-goods-sku-popup";
 import { ref, onMounted, computed } from "vue";
+import { useProfileStore } from "../../store/profile/index";
+
+// 获取会员Store
+const profileStore = useProfileStore();
 
 // 接收页面参数
 const query = defineProps<{
@@ -362,9 +366,16 @@ const selectArrText = computed(() => {
 
 // 加入购物车
 const onAddCart = async (ev: SkuPopupEvent) => {
-  await postMemberCartAPI({ skuId: ev._id, count: ev.buy_num });
-  uni.showToast({ title: "添加成功" });
-  skuKey.value = false;
+  if (profileStore.profile) {
+    await postMemberCartAPI({ skuId: ev._id, count: ev.buy_num });
+    uni.showToast({ title: "添加成功" });
+    skuKey.value = false;
+  } else {
+    uni.showModal({ title: "你还没有登录嗷" });
+    setTimeout(() => {
+      uni.navigateTo({ url: "/pages/login/login" });
+    });
+  }
 };
 
 //跳转到订单结算页面

@@ -1,5 +1,8 @@
 <template>
-  <view v-if="profileStore.profile" class="bg-primary h-container">
+  <view
+    v-if="profileStore.profile"
+    class="flex flex-col bg-primary h-container"
+  >
     <!-- 选择所有商品 -->
     <view
       class="box-border flex items-center bg-secondary mb-3 border-radius-primary px-3 w-full h-8"
@@ -8,80 +11,94 @@
       <text class="font-primary-smaller">选择所有商品</text>
     </view>
     <!-- 商品数量 -->
-    <view class="my-3 font-secondary text-center"
+    <view class="h-8 my-3 font-secondary text-center"
       >商品数量:
-      <text class="font-primary-smaller">x{{ cartList.length }}</text></view
+      <text class="font-primary-smaller">{{
+        cartList.length === 0 ? "你还没有添加商品呢" : "x" + cartList.length
+      }}</text></view
     >
     <!-- 购物车列表 -->
     <!-- 购物车 -->
-    <scroll-view scroll-y class="h-[320px]">
-      <uni-swipe-action class="h-[320px]">
-        <uni-swipe-action-item
-          v-for="item in cartList"
-          :key="item.id"
-          class="my-3 w-full h-36"
-        >
-          <view class="flex items-center w-full h-36">
-            <!-- 商品 -->
-            <view
-              class="bg-secondary flex justify-between items-center relative border-radius-primary mr-3 pl-3 w-[300px] grow h-36"
-            >
-              <view class="flex items-center">
-                <!-- checkbox -->
-                <checkbox
-                  value=""
-                  :checked="item.selected"
-                  class="mr-3"
-                  @tap="checkChange(item)"
-                />
-                <!-- 图片和desc -->
-                <view class="flex flex-col mr-3">
-                  <image
-                    :src="item.picture"
-                    mode="aspectFill"
-                    class="border-radius-primary mb-3 w-20 h-20"
+    <template v-if="cartList.length">
+      <scroll-view scroll-y class="h-[250px] grow">
+        <uni-swipe-action class="h-[320px]">
+          <uni-swipe-action-item
+            v-for="item in cartList"
+            :key="item.id"
+            class="my-3 w-full h-36"
+          >
+            <view class="flex items-center w-full h-36">
+              <!-- 商品 -->
+              <view
+                class="bg-secondary flex justify-between items-center relative border-radius-primary mr-3 pl-3 w-[300px] grow h-36"
+              >
+                <view class="flex items-center">
+                  <!-- checkbox -->
+                  <checkbox
+                    value=""
+                    :checked="item.selected"
+                    class="mr-3"
+                    @tap="checkChange(item)"
                   />
-                  <text class="font-secondary">{{ item.attrsText }}</text>
+                  <!-- 图片和desc -->
+                  <view class="flex flex-col mr-3">
+                    <image
+                      :src="item.picture"
+                      mode="aspectFill"
+                      class="border-radius-primary mb-3 w-20 h-20"
+                    />
+                    <text class="font-secondary">{{ item.attrsText }}</text>
+                  </view>
+                </view>
+                <!-- 名称，价格 -->
+                <view class="flex flex-col mr-3">
+                  <text class="font-primary-smaller">{{ item.name }}</text>
+                  <text class="font-secondary font-yellow"
+                    >{{ item.price }} / {{ item.nowPrice }}</text
+                  >
+                </view>
+                <!-- threeDots -->
+                <view class="absolute right-3 top-3 flex">
+                  <threeDots></threeDots>
                 </view>
               </view>
-              <!-- 名称，价格 -->
-              <view class="flex flex-col mr-3">
-                <text class="font-primary-smaller">{{ item.name }}</text>
-                <text class="font-secondary font-yellow"
-                  >{{ item.price }} / {{ item.nowPrice }}</text
+              <!-- 数量 -->
+              <view
+                class="flex flex-col justify-around items-center bg-secondary border-radius-primary px-3 w-[50px] h-36"
+              >
+                <text class="font-primary" @tap="changeGoodsNum('cut', item)"
+                  >-</text
+                >
+                <text class="font-secondary font-yellow">{{ item.count }}</text>
+                <text class="font-primary" @tap="changeGoodsNum('add', item)"
+                  >+</text
                 >
               </view>
-              <!-- threeDots -->
-              <view class="absolute right-3 top-3 flex">
-                <threeDots></threeDots>
-              </view>
             </view>
-            <!-- 数量 -->
-            <view
-              class="flex flex-col justify-around items-center bg-secondary border-radius-primary px-3 w-[50px] h-36"
-            >
-              <text class="font-primary" @tap="changeGoodsNum('cut', item)"
-                >-</text
+            <!-- 插槽 -->
+            <template #right>
+              <view
+                class="bg-[#9A3412] w-[50px] h-36 leading-[144px] text-white text-center"
+                @tap="onDeleteCart(item.skuId)"
+                ><text>删除</text></view
               >
-              <text class="font-secondary font-yellow">{{ item.count }}</text>
-              <text class="font-primary" @tap="changeGoodsNum('add', item)"
-                >+</text
-              >
-            </view>
-          </view>
-          <!-- 插槽 -->
-          <template #right>
-            <view
-              class="bg-orange-300 w-[50px] h-36 leading-[144px] text-white text-center"
-              @tap="onDeleteCart(item.skuId)"
-              ><text>删除</text></view
-            >
-          </template>
-        </uni-swipe-action-item>
-      </uni-swipe-action>
-    </scroll-view>
+            </template>
+          </uni-swipe-action-item>
+        </uni-swipe-action>
+      </scroll-view>
+    </template>
+    <template v-else>
+      <view class="flex-1 mx-auto text-center">
+        <image
+          src="../../static/lotties/cart.gif"
+          alt=""
+          mode="aspectFill"
+          class="h-[320px]"
+        />
+      </view>
+    </template>
     <!-- 总计 -->
-    <view class="flex justify-around px-1.5 w-full">
+    <view class="flex justify-around px-1.5 w-full h-8">
       <view
         ><text class="font-secondary">总共：</text>
         <text class="font-primary-smaller"
@@ -90,20 +107,22 @@
       >
       <view
         ><text class="font-secondary">购买数量：</text
-        ><text class="font-primary-smaller"
-          >x{{ selectedCartListCount }}</text
-        ></view
+        ><text class="font-primary-smaller">{{
+          selectedCartListCount === 0
+            ? "你还没有选择商品嗷"
+            : "x" + selectedCartListCount
+        }}</text></view
       >
     </view>
     <!-- 结算 -->
-    <view class="flex justify-between items-center px-1.5 mt-3">
+    <view class="flex justify-between items-center px-1.5 mt-3 h-8">
       <view class="flex items-center">
         <uni-icons type="left" size="20"></uni-icons>
         <navigator
           class="font-primary-smaller"
           url="/pages/categoryPage/categoryPage"
           open-type="switchTab"
-          >继续购物</navigator
+          >看看商品</navigator
         >
       </view>
       <button
@@ -115,14 +134,20 @@
     </view>
   </view>
   <template v-else>
-    <text>登录后可查看您的购物车</text>
-    <navigator
-      url="/pages/loginPage/loginPage"
-      open-type="navigate"
-      hover-class="navigator-hover"
-    >
-      <button>去登录</button>
-    </navigator>
+    <view class="w-full text-center">
+      <text class="font-primary">登录后即可查看您的购物车</text>
+      <navigator
+        url="/pages/loginPage/loginPage"
+        open-type="navigate"
+        hover-class="navigator-hover"
+      >
+        <button
+          class="bg-[#9A3412] border-radius-primary mx-auto my-3 px-6 py-3 w-fit font-primary-smaller text-white font-semibold"
+        >
+          这就去登录
+        </button>
+      </navigator>
+    </view>
   </template>
 </template>
 

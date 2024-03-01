@@ -1,5 +1,5 @@
 <template>
-  <view v-if="false" class="bg-primary px-1.5 w-full h-container">
+  <view v-if="!isLoading" class="bg-primary px-1.5 w-full h-container">
     <!-- 数据列表 -->
     <scroll-view
       scroll-y

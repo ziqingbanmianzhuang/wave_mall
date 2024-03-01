@@ -63,7 +63,7 @@ const onGetphonenumberSimple = async () => {
   uni.showToast({ icon: "success", title: "登录成功" });
   setTimeout(() => {
     // 页面跳转
-    uni.switchTab({ url: "/pages/indexPage/indexPage" });
+    uni.navigateBack();
   }, 500);
 };
 </script>
