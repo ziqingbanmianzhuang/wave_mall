@@ -3,6 +3,8 @@
     scroll-y
     class="bg-primary h-screen w-screen mb-1.5"
     refresher-enabled
+    refresher-background="#ffffff"
+    refresher-default-style="black"
     :refresher-triggered="isTriggered"
     @refresherrefresh="onRefresherrefresh"
     @scrolltolower="onScrolltolower"
