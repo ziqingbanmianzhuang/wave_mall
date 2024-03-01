@@ -171,7 +171,6 @@ const change: UniHelper.SwiperOnChange = (e) => {
 const getHomeSwiperData = async () => {
   let res = await getHomeSwiperAPI();
   swiperList.value = res.result;
-  console.log("首页", swiperList.value);
 };
 
 //首页分类数据

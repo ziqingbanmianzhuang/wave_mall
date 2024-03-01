@@ -53,13 +53,11 @@ const phone = ref<string>("");
 
 // 模拟手机号码快捷登录（开发练习）
 const onGetphonenumberSimple = async () => {
-  console.log("登录", profile.value, phone.value);
   const res = await postLoginWxMinSimpleAPI(phone.value);
   profile.value = res.result;
 
   const profileStore = useProfileStore();
   profileStore.setProfile(profile.value);
-  console.log("profilelogin", profileStore.profile);
   isLogin.value = true;
   uni.showToast({ icon: "success", title: "登录成功" });
   setTimeout(() => {

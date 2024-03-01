@@ -235,7 +235,6 @@ const changeGoodsNum = (type: string, good: CartItem) => {
 // 全选修改
 const checkChangeAll = () => {
   const _isSelectedAll = !selectedAll.value;
-  console.log("change-------");
 
   cartList.value.forEach((item) => {
     item.selected = _isSelectedAll;

@@ -152,7 +152,6 @@ const getMemberOrderPreData = async () => {
     orderData.value = res.result;
   } else {
     const res = await getMemberOrderPreAPI();
-    console.log("getMemberOrderPreAPI", res);
 
     orderData.value = res.result;
   }

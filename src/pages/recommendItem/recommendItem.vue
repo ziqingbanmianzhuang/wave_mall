@@ -133,7 +133,6 @@ const getHomeSwiperData = async () => {
   let res = await getHomeSwiperAPI();
   swiperList.value = res.result;
   isLoading.value = false;
-  console.log("首页", swiperList.value);
 };
 
 const recommentMap = [
@@ -195,7 +194,6 @@ const onScrolltolower = async () => {
 
   const newSubType = res.result.subTypes[activeIndex.value];
   currentSubType.goodsItems.items.push(...newSubType.goodsItems.items);
-  console.log("subtypes", subTypes.value);
 };
 
 onMounted(() => {
