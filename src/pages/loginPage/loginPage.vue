@@ -24,13 +24,20 @@
         />
       </view>
       <view class="flex flex-col p-3" @tap="onGetphonenumberSimple">
-        <text class="font-primary-smaller">登录</text>
+        <button class="font-primary-smaller" :disabled="isLogin">登录</button>
       </view>
       <threeDots></threeDots>
     </view>
     <!-- 登录成功的动画 -->
-    <view v-if="isLogin" class="absolute right-0 top-1/2 -translate-y-1/2">
-      <image src="../../static/lotties/successLogin.gif" mode="aspectFill" />
+    <view
+      v-if="isLogin"
+      class="w-full h-container-half absolute right-0 top-1/2 -translate-y-1/2"
+    >
+      <image
+        src="../../static/lotties/successLogin.gif"
+        mode="aspectFill"
+        class="w-full h-full"
+      />
     </view>
   </view>
 </template>
@@ -64,7 +71,7 @@ const onGetphonenumberSimple = async () => {
     // 页面跳转
     isLogin.value = false;
     uni.navigateBack();
-  }, 500);
+  }, 1300);
 };
 </script>
 
@@ -81,6 +88,18 @@ const onGetphonenumberSimple = async () => {
 // #ifdef MP-WEIXIN
 .h-container {
   height: calc(100vh);
+}
+// #endif
+
+// #ifdef H5
+.h-container-half {
+  height: calc(100vh - 94px);
+}
+// #endif
+
+// #ifdef MP-WEIXIN
+.h-container-half {
+  height: calc(50vh);
 }
 // #endif
 </style>
