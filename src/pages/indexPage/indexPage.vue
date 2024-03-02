@@ -9,7 +9,7 @@
     @refresherrefresh="onRefresherrefresh"
     @scrolltolower="onScrolltolower"
   >
-    <view v-if="!isLoading" class="h-screen"
+    <view v-show="!isLoading" class="h-screen"
       ><!-- 轮播图组件 -->
       <swiper
         circular
@@ -101,7 +101,6 @@
       <!-- 推荐喜欢组件 -->
       <view class="font-secondary text-center">---你可能喜欢---</view>
       <!-- 商品页面 -->
-
       <navigator
         v-for="item in likeList"
         :key="item.id"
@@ -126,11 +125,12 @@
             lazy-load
           ></image>
           <!-- #endif -->
-          <!-- #ifdef H5-->
+          <!-- #ifdef H5 -->
           <img
+            ref="likeImgRef"
             class="border-radius-primary w-full h-32 min-[960px]:h-[30rem]"
             loading="lazy"
-            src="https://yanxuan-item.nosdn.127.net/31a81e6c7e4c173d1cf19d5abeb97550.png"
+            :src="item.picture"
           />
           <!-- #endif -->
         </view>
@@ -142,13 +142,16 @@
         <text class="font-secondary">已经到底啦</text>
       </view>
     </view>
-    <skeletonPage v-else></skeletonPage>
-    <doubleCircleLoading ref="likeImgRef"></doubleCircleLoading>
+    <skeletonPage v-show="isLoading"></skeletonPage>
   </scroll-view>
+  <!-- <div ref="divRef"></div> -->
+  <!-- <div v-for="i in likeList" :key="i">
+		<view><img ref="likeImgRef" /></view>
+	</div> -->
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { nextTick, ref } from "vue";
 import skeletonPage from "./skeletonPage.vue";
 import type {
   CategoryItem,
@@ -165,7 +168,12 @@ import {
 } from "./indexPageApi";
 import { onMounted } from "vue";
 import doubleCircleLoading from "../../components/doubleCirlcleLoading/doubleCircleLoading.vue";
+const likeImgRef = ref();
 
+// onReady(() => {
+// 	console.log("divRef", divRef.value);
+// 	console.log("likeImgRef", likeImgRef.value);
+// });
 //是否展开category
 let isShowCategory = ref(false);
 
@@ -305,6 +313,11 @@ const getHomeLikeData = async () => {
   setTimeout(() => {
     isLikeLoading.value = false;
   }, 3000);
+  // await nextTick();
+  // console.log("likeImgRef111", likeImgRef.value);
+  // for (let i in likeImgRef.value) {
+  // 	likeImgRef.value[i].src = likeList.value[i].picture;
+  // }
 };
 
 // 滚动触底事件
@@ -356,11 +369,6 @@ onMounted(async () => {
   //获取推荐喜欢组件数据
   // getHomeLikeData();
   await Promise.all([getHomeData(), getHomeLikeData()]);
-  // #ifdef H5
-  //推荐喜欢的图片
-  const likeImgRef = ref();
-  console.log("likeImgRef", likeImgRef);
-  // #endif
 });
 </script>
 
