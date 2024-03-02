@@ -4,7 +4,7 @@
     class="bg-primary h-screen w-screen mb-1.5"
     refresher-enabled
     refresher-background="#ffffff"
-    refresher-default-style="black"
+    refresher-default-style="none"
     :refresher-triggered="isTriggered"
     @refresherrefresh="onRefresherrefresh"
     @scrolltolower="onScrolltolower"
@@ -101,29 +101,35 @@
       <!-- 推荐喜欢组件 -->
       <view class="font-secondary text-center">---你可能喜欢---</view>
       <!-- 商品页面 -->
-      <navigator
-        v-for="item in likeList"
-        :key="item.id"
-        :url="`/pages/goodsDetailPage/goodsDetailPage?id=${item.id}`"
-        open-type="navigate"
-        hover-class="navigator-hover"
-        class="grid grid-cols-7 items-center bg-secondary border-radius-primary mt-3 px-1.5 margin-x-primary"
-      >
-        <text
-          class="col-span-1 h-2 w-2 bg-orange-800 rounded justify-self-start"
-        ></text>
-        <text class="col-span-5 font-primary-smaller">{{ item.name }}</text>
-        <text class="col-span-1 justify-self-end font-secondary font-yellow">{{
-          item.price
-        }}</text>
-        <view class="col-start-1 col-end-8 flex justify-center my-1.5">
-          <image
-            class="border-radius-primary w-full h-32 min-[960px]:h-[30rem]"
-            :src="item.picture"
-            mode="aspectFill"
-          ></image>
-        </view>
-      </navigator>
+      <template v-if="!isLikeLoading">
+        <navigator
+          v-for="item in likeList"
+          :key="item.id"
+          :url="`/pages/goodsDetailPage/goodsDetailPage?id=${item.id}`"
+          open-type="navigate"
+          hover-class="navigator-hover"
+          class="grid grid-cols-7 items-center bg-secondary border-radius-primary mt-3 px-1.5 margin-x-primary"
+        >
+          <text
+            class="col-span-1 h-2 w-2 bg-orange-800 rounded justify-self-start"
+          ></text>
+          <text class="col-span-5 font-primary-smaller">{{ item.name }}</text>
+          <text
+            class="col-span-1 justify-self-end font-secondary font-yellow"
+            >{{ item.price }}</text
+          >
+          <view class="col-start-1 col-end-8 flex justify-center my-1.5">
+            <image
+              class="border-radius-primary w-full h-32 min-[960px]:h-[30rem]"
+              :src="item.picture"
+              mode="aspectFill"
+            ></image>
+          </view>
+        </navigator>
+      </template>
+      <template v-else>
+        <doubleCircleLoading></doubleCircleLoading>
+      </template>
     </view>
     <skeletonPage v-else></skeletonPage>
   </scroll-view>
@@ -146,6 +152,7 @@ import {
   getHomeLikeAPI,
 } from "./indexPageApi";
 import { onMounted } from "vue";
+import doubleCircleLoading from "../../components/doubleCirlcleLoading/doubleCircleLoading.vue";
 
 //是否展开category
 let isShowCategory = ref(false);
@@ -155,7 +162,11 @@ const showCategory = () => {
   isShowCategory.value = !isShowCategory.value;
 };
 
+//首页轮播图,分类,推荐数据是否加载玩成
 const isLoading = ref(true);
+
+//首页推荐喜欢数据是否加载玩成
+const isLikeLoading = ref(true);
 
 //轮播图当前序号
 let current = ref(0);
@@ -278,6 +289,9 @@ const getHomeLikeData = async () => {
   } else {
     finish.value = true;
   }
+  setTimeout(() => {
+    isLikeLoading.value = false;
+  }, 3000);
 };
 
 // 滚动触底事件
@@ -289,6 +303,7 @@ const onScrolltolower = () => {
 const isTriggered = ref(false);
 
 const onRefresherrefresh = async () => {
+  isLikeLoading.value = true;
   isTriggered.value = true;
   resetData();
   await Promise.all([
@@ -298,6 +313,7 @@ const onRefresherrefresh = async () => {
     getHomeLikeData(),
   ]);
   isTriggered.value = false;
+  isLikeLoading.value = false;
 };
 
 //重置数据
@@ -305,6 +321,16 @@ const resetData = () => {
   pageParams.page = 1;
   likeList.value = [];
   finish.value = false;
+};
+
+//获取首页轮播图,首页分类,首页推荐
+const getHomeData = async () => {
+  await Promise.all([
+    getHomeCategoryData(),
+    getHomeRecommendData(),
+    getHomeSwiperData(),
+  ]);
+  isLoading.value = false;
 };
 
 onMounted(async () => {
@@ -318,13 +344,7 @@ onMounted(async () => {
 
   //获取推荐喜欢组件数据
   // getHomeLikeData();
-  await Promise.all([
-    getHomeCategoryData(),
-    getHomeRecommendData(),
-    getHomeSwiperData(),
-    getHomeLikeData(),
-  ]);
-  isLoading.value = false;
+  await Promise.all([getHomeData(), getHomeLikeData()]);
 });
 </script>
 

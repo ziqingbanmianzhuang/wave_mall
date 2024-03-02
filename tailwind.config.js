@@ -14,6 +14,16 @@ export default {
         fontGray: "#b4b5c5",
         backgroundGreen: "#22c55e",
       },
+      keyframes: {
+        transformLoad: {
+          "0%, 100%": { transform: "translateX(-50%)" },
+          "50%": { transform: "translateX(50%)" },
+        },
+      },
+      animation: {
+        transformLoad: "transformLoad 1s ease-in-out infinite",
+        transformLoadDelay: "transformLoad 1s ease-in-out 0.5s infinite",
+      },
     },
     plugins: [],
   },
