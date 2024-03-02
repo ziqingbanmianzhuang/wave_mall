@@ -9,7 +9,7 @@
     @refresherrefresh="onRefresherrefresh"
     @scrolltolower="onScrolltolower"
   >
-    <view v-if="!isLoading"
+    <view v-if="!isLoading" class="h-screen"
       ><!-- 轮播图组件 -->
       <swiper
         circular
@@ -118,11 +118,21 @@
           item.price
         }}</text>
         <view class="col-start-1 col-end-8 flex justify-center my-1.5">
+          <!-- #ifdef MP-WEIXIN-->
           <image
             class="border-radius-primary w-full h-32 min-[960px]:h-[30rem]"
             :src="item.picture"
             mode="aspectFill"
+            lazy-load
           ></image>
+          <!-- #endif -->
+          <!-- #ifdef H5-->
+          <img
+            class="border-radius-primary w-full h-32 min-[960px]:h-[30rem]"
+            loading="lazy"
+            src="https://yanxuan-item.nosdn.127.net/31a81e6c7e4c173d1cf19d5abeb97550.png"
+          />
+          <!-- #endif -->
         </view>
       </navigator>
       <doubleCircleLoading
@@ -133,6 +143,7 @@
       </view>
     </view>
     <skeletonPage v-else></skeletonPage>
+    <doubleCircleLoading ref="likeImgRef"></doubleCircleLoading>
   </scroll-view>
 </template>
 
@@ -263,7 +274,7 @@ const getHomeRecommendData = async () => {
 
 //分页参数
 const pageParams: Required<PageParams> = {
-  page: 32,
+  page: 1,
   pageSize: 10,
 };
 
@@ -345,6 +356,11 @@ onMounted(async () => {
   //获取推荐喜欢组件数据
   // getHomeLikeData();
   await Promise.all([getHomeData(), getHomeLikeData()]);
+  // #ifdef H5
+  //推荐喜欢的图片
+  const likeImgRef = ref();
+  console.log("likeImgRef", likeImgRef);
+  // #endif
 });
 </script>
 
