@@ -101,35 +101,36 @@
       <!-- 推荐喜欢组件 -->
       <view class="font-secondary text-center">---你可能喜欢---</view>
       <!-- 商品页面 -->
-      <template v-if="!isLikeLoading">
-        <navigator
-          v-for="item in likeList"
-          :key="item.id"
-          :url="`/pages/goodsDetailPage/goodsDetailPage?id=${item.id}`"
-          open-type="navigate"
-          hover-class="navigator-hover"
-          class="grid grid-cols-7 items-center bg-secondary border-radius-primary mt-3 px-1.5 margin-x-primary"
-        >
-          <text
-            class="col-span-1 h-2 w-2 bg-orange-800 rounded justify-self-start"
-          ></text>
-          <text class="col-span-5 font-primary-smaller">{{ item.name }}</text>
-          <text
-            class="col-span-1 justify-self-end font-secondary font-yellow"
-            >{{ item.price }}</text
-          >
-          <view class="col-start-1 col-end-8 flex justify-center my-1.5">
-            <image
-              class="border-radius-primary w-full h-32 min-[960px]:h-[30rem]"
-              :src="item.picture"
-              mode="aspectFill"
-            ></image>
-          </view>
-        </navigator>
-      </template>
-      <template v-else>
-        <doubleCircleLoading></doubleCircleLoading>
-      </template>
+
+      <navigator
+        v-for="item in likeList"
+        :key="item.id"
+        :url="`/pages/goodsDetailPage/goodsDetailPage?id=${item.id}`"
+        open-type="navigate"
+        hover-class="navigator-hover"
+        class="grid grid-cols-7 items-center bg-secondary border-radius-primary mt-3 px-1.5 margin-x-primary"
+      >
+        <text
+          class="col-span-1 h-2 w-2 bg-orange-800 rounded justify-self-start"
+        ></text>
+        <text class="col-span-5 font-primary-smaller">{{ item.name }}</text>
+        <text class="col-span-1 justify-self-end font-secondary font-yellow">{{
+          item.price
+        }}</text>
+        <view class="col-start-1 col-end-8 flex justify-center my-1.5">
+          <image
+            class="border-radius-primary w-full h-32 min-[960px]:h-[30rem]"
+            :src="item.picture"
+            mode="aspectFill"
+          ></image>
+        </view>
+      </navigator>
+      <doubleCircleLoading
+        v-if="isLikeLoading && !finish"
+      ></doubleCircleLoading>
+      <view v-if="finish" class="text-center">
+        <text class="font-secondary">已经到底啦</text>
+      </view>
     </view>
     <skeletonPage v-else></skeletonPage>
   </scroll-view>
@@ -262,7 +263,7 @@ const getHomeRecommendData = async () => {
 
 //分页参数
 const pageParams: Required<PageParams> = {
-  page: 1,
+  page: 32,
   pageSize: 10,
 };
 
@@ -274,6 +275,7 @@ const finish = ref(false);
 
 //获取推荐喜欢的数据
 const getHomeLikeData = async () => {
+  isLikeLoading.value = true;
   if (finish.value === true) {
     return uni.showToast({ title: "没有更多数据" });
   }
@@ -303,7 +305,6 @@ const onScrolltolower = () => {
 const isTriggered = ref(false);
 
 const onRefresherrefresh = async () => {
-  isLikeLoading.value = true;
   isTriggered.value = true;
   resetData();
   await Promise.all([
@@ -313,7 +314,6 @@ const onRefresherrefresh = async () => {
     getHomeLikeData(),
   ]);
   isTriggered.value = false;
-  isLikeLoading.value = false;
 };
 
 //重置数据
