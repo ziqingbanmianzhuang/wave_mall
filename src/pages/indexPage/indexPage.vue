@@ -116,10 +116,7 @@
         <text class="col-span-1 justify-self-end font-secondary font-yellow">{{
           item.price
         }}</text>
-        <div
-          ref="goodRef"
-          class="col-start-1 col-end-8 flex justify-center my-1.5"
-        >
+        <div class="col-start-1 col-end-8 flex justify-center my-1.5">
           <!-- #ifdef MP-WEIXIN-->
           <image
             class="border-radius-primary w-full h-32 min-[960px]:h-[30rem]"
@@ -129,18 +126,12 @@
           ></image>
           <!-- #endif -->
           <!-- #ifdef H5 -->
-          <!-- <img
-						ref="likeImgRef"
-						class="border-radius-primary w-full h-32 min-[960px]:h-[30rem]"
-						loading="lazy"
-						src="../../static/images/imgback.png"
-					/> -->
-          <LazyLoaded
-            :src="item.picture"
-            alt=""
+          <img
+            ref="likeImgRef"
             class="border-radius-primary w-full h-32 min-[960px]:h-[30rem]"
-          ></LazyLoaded>
-          <imgCom></imgCom>
+            src="../../static/images/imgback.png"
+            :data-src="item.picture"
+          />
           <!-- #endif -->
         </div>
       </navigator>
@@ -160,7 +151,7 @@
 </template>
 
 <script setup lang="ts">
-import { nextTick, ref } from "vue";
+import { ref, nextTick } from "vue";
 import skeletonPage from "./skeletonPage.vue";
 import type {
   CategoryItem,
@@ -177,10 +168,6 @@ import {
 } from "./indexPageApi";
 import { onMounted } from "vue";
 import doubleCircleLoading from "../../components/doubleCirlcleLoading/doubleCircleLoading.vue";
-
-import LoadingPage from "./loadingPage.vue";
-import { lazyLoadComponentIfVisible } from "./imgLoad";
-import imgCom from "./imgCom.vue";
 
 const likeImgRef = ref();
 
@@ -306,8 +293,22 @@ const likeList = ref<LikeItem[]>([]);
 //数据分页加载结束的标志
 const finish = ref(false);
 
-const goodRef = ref();
-let LazyLoaded;
+//创建懒加载监听
+// #ifdef H5
+const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      console.log("entry", entry);
+      if (entry.isIntersecting) {
+        const src = entry.target.dataset.src;
+        entry.target.src = src;
+        observer.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.1 },
+);
+// #endif
 
 //获取推荐喜欢的数据
 const getHomeLikeData = async () => {
@@ -321,27 +322,32 @@ const getHomeLikeData = async () => {
   //追加数据
   likeList.value.push(...res.result.items);
 
+  setTimeout(() => {
+    isLikeLoading.value = false;
+  }, 3000);
+  await nextTick();
+  // 监听数据
+  // #ifdef H5
+  obsrverImg();
+  //#endif
   //分页条件
   if (pageParams.page < res.result.pages) {
     pageParams.page++;
   } else {
     finish.value = true;
   }
-  setTimeout(() => {
-    isLikeLoading.value = false;
-  }, 3000);
-  await nextTick();
-  // console.log("likeImgRef111", likeImgRef.value);
-  // for (let i in likeImgRef.value) {
-  // 	likeImgRef.value[i].src = likeList.value[i].picture;
-  // }
+};
 
-  console.log("goodref", goodRef.value);
-  LazyLoaded = lazyLoadComponentIfVisible({
-    componentLoader: () => import("./imgCom.vue"),
-    loadingComponent: LoadingPage,
-    goodRef: goodRef,
-  });
+//监听图片懒加载的函数
+const obsrverImg = () => {
+  let startIndex = (pageParams.page - 1) * pageParams.pageSize;
+  let endIndex = pageParams.pageSize * pageParams.page;
+  console.log(startIndex, endIndex);
+
+  for (let i = startIndex; i < endIndex; i++) {
+    console.log(likeImgRef.value[i]);
+    observer.observe(likeImgRef.value[i]);
+  }
 };
 
 // 滚动触底事件
