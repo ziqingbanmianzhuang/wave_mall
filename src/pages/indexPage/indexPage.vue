@@ -116,24 +116,33 @@
         <text class="col-span-1 justify-self-end font-secondary font-yellow">{{
           item.price
         }}</text>
-        <view class="col-start-1 col-end-8 flex justify-center my-1.5">
+        <div
+          ref="goodRef"
+          class="col-start-1 col-end-8 flex justify-center my-1.5"
+        >
           <!-- #ifdef MP-WEIXIN-->
           <image
             class="border-radius-primary w-full h-32 min-[960px]:h-[30rem]"
-            :src="item.picture"
             mode="aspectFill"
+            :src="item.picture"
             lazy-load
           ></image>
           <!-- #endif -->
           <!-- #ifdef H5 -->
-          <img
-            ref="likeImgRef"
-            class="border-radius-primary w-full h-32 min-[960px]:h-[30rem]"
-            loading="lazy"
+          <!-- <img
+						ref="likeImgRef"
+						class="border-radius-primary w-full h-32 min-[960px]:h-[30rem]"
+						loading="lazy"
+						src="../../static/images/imgback.png"
+					/> -->
+          <LazyLoaded
             :src="item.picture"
-          />
+            alt=""
+            class="border-radius-primary w-full h-32 min-[960px]:h-[30rem]"
+          ></LazyLoaded>
+          <imgCom></imgCom>
           <!-- #endif -->
-        </view>
+        </div>
       </navigator>
       <doubleCircleLoading
         v-if="isLikeLoading && !finish"
@@ -168,6 +177,11 @@ import {
 } from "./indexPageApi";
 import { onMounted } from "vue";
 import doubleCircleLoading from "../../components/doubleCirlcleLoading/doubleCircleLoading.vue";
+
+import LoadingPage from "./loadingPage.vue";
+import { lazyLoadComponentIfVisible } from "./imgLoad";
+import imgCom from "./imgCom.vue";
+
 const likeImgRef = ref();
 
 // onReady(() => {
@@ -292,6 +306,9 @@ const likeList = ref<LikeItem[]>([]);
 //数据分页加载结束的标志
 const finish = ref(false);
 
+const goodRef = ref();
+let LazyLoaded;
+
 //获取推荐喜欢的数据
 const getHomeLikeData = async () => {
   isLikeLoading.value = true;
@@ -313,11 +330,18 @@ const getHomeLikeData = async () => {
   setTimeout(() => {
     isLikeLoading.value = false;
   }, 3000);
-  // await nextTick();
+  await nextTick();
   // console.log("likeImgRef111", likeImgRef.value);
   // for (let i in likeImgRef.value) {
   // 	likeImgRef.value[i].src = likeList.value[i].picture;
   // }
+
+  console.log("goodref", goodRef.value);
+  LazyLoaded = lazyLoadComponentIfVisible({
+    componentLoader: () => import("./imgCom.vue"),
+    loadingComponent: LoadingPage,
+    goodRef: goodRef,
+  });
 };
 
 // 滚动触底事件
