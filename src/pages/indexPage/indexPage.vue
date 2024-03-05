@@ -160,7 +160,6 @@ import type {
   SwiperItem,
   PageParams,
   LikeItem,
-  ImgElement,
 } from "./indexPageType";
 import {
   getHomeCategoryAPI,
@@ -170,6 +169,7 @@ import {
 } from "./indexPageApi";
 import { onMounted } from "vue";
 import doubleCircleLoading from "../../components/doubleCirlcleLoading/doubleCircleLoading.vue";
+import { observerImgHook } from "../../hooks/lazyLoadImg";
 
 const likeImgRef = ref();
 
@@ -291,42 +291,44 @@ const likeList = ref<LikeItem[]>([]);
 //数据分页加载结束的标志
 const finish = ref(false);
 
-//创建懒加载监听
-// #ifdef H5
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      console.log("entry", entry);
-      if (entry.isIntersecting) {
-        const imgLoadElement = entry.target as ImgElement;
-        const imgLoadElementSibling = imgLoadElement.nextSibling as ImgElement;
-        imgLoadElement.src = imgLoadElement.dataset.src;
-        // imgLoadElement.src = "https://wwww.a.b/img";
-        //等待图片加载完成
-        imgLoadElement.onload = () => {
-          imgLoadElement.style.transition = "opacity 2s ease-in-out";
-          imgLoadElement.style.opacity = "1";
+// //创建懒加载监听
+// // #ifdef H5
+// const observer = new IntersectionObserver(
+// 	(entries) => {
+// 		entries.forEach((entry) => {
+// 			console.log("entry", entry);
+// 			if (entry.isIntersecting) {
+// 				const imgLoadElement = entry.target as ImgElement;
+// 				const imgLoadElementSibling =
+// 					imgLoadElement.nextSibling as ImgElement;
+// 				imgLoadElement.src = imgLoadElement.dataset.src;
+// 				// imgLoadElement.src = "https://wwww.a.b/img";
+// 				//等待图片加载完成
+// 				imgLoadElement.onload = () => {
+// 					imgLoadElement.style.transition = "opacity 2s ease-in-out";
+// 					imgLoadElement.style.opacity = "1";
 
-          imgLoadElementSibling.style.transition = "opacity 1s ease-in-out";
-          imgLoadElementSibling.style.opacity = "0";
+// 					imgLoadElementSibling.style.transition =
+// 						"opacity 1s ease-in-out";
+// 					imgLoadElementSibling.style.opacity = "0";
 
-          setTimeout(() => {
-            imgLoadElementSibling.style.display = "none";
-          }, 1000);
-        };
+// 					setTimeout(() => {
+// 						imgLoadElementSibling.style.display = "none";
+// 					}, 1000);
+// 				};
 
-        //如果图片加载出错
-        imgLoadElement.onerror = () => {
-          imgLoadElement.src = "../../static/images/imgBack.svg";
-        };
+// 				//如果图片加载出错
+// 				imgLoadElement.onerror = () => {
+// 					imgLoadElement.src = "../../static/images/imgBack.svg";
+// 				};
 
-        observer.unobserve(imgLoadElement);
-      }
-    });
-  },
-  { threshold: 0.1 },
-);
-// #endif
+// 				observer.unobserve(imgLoadElement);
+// 			}
+// 		});
+// 	},
+// 	{ threshold: 0.1 },
+// );
+// // #endif
 
 //获取推荐喜欢的数据
 const getHomeLikeData = async () => {
@@ -346,7 +348,8 @@ const getHomeLikeData = async () => {
   await nextTick();
   // 监听数据
   // #ifdef H5
-  obsrverImg();
+  // obsrverImg();
+  observerImgHook(pageParams.page, pageParams.pageSize, likeImgRef);
   //#endif
   //分页条件
   if (pageParams.page < res.result.pages) {
@@ -356,18 +359,18 @@ const getHomeLikeData = async () => {
   }
 };
 
-//
-//监听图片懒加载的函数
-const obsrverImg = () => {
-  let startIndex = (pageParams.page - 1) * pageParams.pageSize;
-  let endIndex = pageParams.pageSize * pageParams.page;
-  console.log(startIndex, endIndex);
+// //
+// //监听图片懒加载的函数
+// const obsrverImg = () => {
+// 	let startIndex = (pageParams.page - 1) * pageParams.pageSize;
+// 	let endIndex = pageParams.pageSize * pageParams.page;
+// 	console.log(startIndex, endIndex);
 
-  for (let i = startIndex; i < endIndex; i++) {
-    console.log(likeImgRef.value[i]);
-    observer.observe(likeImgRef.value[i]);
-  }
-};
+// 	for (let i = startIndex; i < endIndex; i++) {
+// 		console.log(likeImgRef.value[i]);
+// 		observer.observe(likeImgRef.value[i]);
+// 	}
+// };
 
 // 滚动触底事件
 const onScrolltolower = () => {
