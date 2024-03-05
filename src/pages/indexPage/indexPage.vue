@@ -116,7 +116,9 @@
         <text class="col-span-1 justify-self-end font-secondary font-yellow">{{
           item.price
         }}</text>
-        <div class="col-start-1 col-end-8 flex justify-center my-1.5">
+        <div
+          class="relative col-start-1 col-end-8 flex justify-center my-1.5 h-32 min-[960px]:h-[30rem]"
+        >
           <!-- #ifdef MP-WEIXIN-->
           <image
             class="border-radius-primary w-full h-32 min-[960px]:h-[30rem]"
@@ -128,10 +130,13 @@
           <!-- #ifdef H5 -->
           <img
             ref="likeImgRef"
-            class="border-radius-primary w-full h-32 min-[960px]:h-[30rem]"
-            src="../../static/images/imgback.png"
+            class="absolute transition-opacity border-radius-primary w-full h-32 min-[960px]:h-[30rem]"
             :data-src="item.picture"
           />
+          <div
+            class="absolute transition-opacity opacity-100 bg-white border-radius-primary w-full h-32 leading-[128px] min-[960px]:h-[30rem] text-center"
+          ></div>
+
           <!-- #endif -->
         </div>
       </navigator>
@@ -144,10 +149,6 @@
     </view>
     <skeletonPage v-show="isLoading"></skeletonPage>
   </scroll-view>
-  <!-- <div ref="divRef"></div> -->
-  <!-- <div v-for="i in likeList" :key="i">
-		<view><img ref="likeImgRef" /></view>
-	</div> -->
 </template>
 
 <script setup lang="ts">
@@ -171,10 +172,6 @@ import doubleCircleLoading from "../../components/doubleCirlcleLoading/doubleCir
 
 const likeImgRef = ref();
 
-// onReady(() => {
-// 	console.log("divRef", divRef.value);
-// 	console.log("likeImgRef", likeImgRef.value);
-// });
 //是否展开category
 let isShowCategory = ref(false);
 
@@ -302,6 +299,19 @@ const observer = new IntersectionObserver(
       if (entry.isIntersecting) {
         const src = entry.target.dataset.src;
         entry.target.src = src;
+        entry.target.onload = () => {
+          entry.target.style.transition = "opacity 2s ease-in-out";
+          entry.target.style.opacity = "1";
+          entry.target.nextSibling.style.transition = "opacity 1s ease-in-out";
+          entry.target.nextSibling.style.opacity = "0";
+          console.log(
+            entry.target.style.transition,
+            entry.target.nextSibling.style.transition,
+          );
+          setTimeout(() => {
+            entry.target.nextSibling.style.display = "none";
+          }, 1000);
+        };
         observer.unobserve(entry.target);
       }
     });
@@ -338,6 +348,7 @@ const getHomeLikeData = async () => {
   }
 };
 
+//
 //监听图片懒加载的函数
 const obsrverImg = () => {
   let startIndex = (pageParams.page - 1) * pageParams.pageSize;
@@ -416,6 +427,15 @@ onMounted(async () => {
 }
 .show::after {
   background-image: none !important;
+}
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 2s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 a {
   flex: 1;
