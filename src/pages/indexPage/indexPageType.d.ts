@@ -1,3 +1,14 @@
+/** 主页推荐喜欢模块的Img扩展类型 */
+export interface ImgElement extends HTMLElement {
+  dataset: { src: string };
+  src: string;
+  style: {
+    transition: string;
+    opacity: string;
+    display: string;
+  };
+}
+
 /** 首页-前台类目数据类型 */
 export type CategoryItem = {
   /** 图标路径 */

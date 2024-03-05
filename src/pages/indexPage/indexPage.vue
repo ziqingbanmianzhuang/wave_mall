@@ -160,6 +160,7 @@ import type {
   SwiperItem,
   PageParams,
   LikeItem,
+  ImgElement,
 } from "./indexPageType";
 import {
   getHomeCategoryAPI,
@@ -297,22 +298,22 @@ const observer = new IntersectionObserver(
     entries.forEach((entry) => {
       console.log("entry", entry);
       if (entry.isIntersecting) {
-        const src = entry.target.dataset.src;
-        entry.target.src = src;
-        entry.target.onload = () => {
-          entry.target.style.transition = "opacity 2s ease-in-out";
-          entry.target.style.opacity = "1";
-          entry.target.nextSibling.style.transition = "opacity 1s ease-in-out";
-          entry.target.nextSibling.style.opacity = "0";
-          console.log(
-            entry.target.style.transition,
-            entry.target.nextSibling.style.transition,
-          );
+        const imgLoadElement = entry.target as ImgElement;
+        const imgLoadElementSibling = imgLoadElement.nextSibling as ImgElement;
+        imgLoadElement.src = imgLoadElement.dataset.src;
+
+        imgLoadElement.onload = () => {
+          imgLoadElement.style.transition = "opacity 2s ease-in-out";
+          imgLoadElement.style.opacity = "1";
+
+          imgLoadElementSibling.style.transition = "opacity 1s ease-in-out";
+          imgLoadElementSibling.style.opacity = "0";
+
           setTimeout(() => {
-            entry.target.nextSibling.style.display = "none";
+            imgLoadElementSibling.style.display = "none";
           }, 1000);
         };
-        observer.unobserve(entry.target);
+        observer.unobserve(imgLoadElement);
       }
     });
   },
