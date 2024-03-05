@@ -134,7 +134,7 @@
             :data-src="item.picture"
           />
           <div
-            class="absolute transition-opacity opacity-100 bg-white border-radius-primary w-full h-32 leading-[128px] min-[960px]:h-[30rem] text-center"
+            class="absolute transition-opacity opacity-100 bg-[#f5f5f5] border-radius-primary w-full h-32 leading-[128px] min-[960px]:h-[30rem] text-center"
           ></div>
 
           <!-- #endif -->
@@ -301,7 +301,8 @@ const observer = new IntersectionObserver(
         const imgLoadElement = entry.target as ImgElement;
         const imgLoadElementSibling = imgLoadElement.nextSibling as ImgElement;
         imgLoadElement.src = imgLoadElement.dataset.src;
-
+        // imgLoadElement.src = "https://wwww.a.b/img";
+        //等待图片加载完成
         imgLoadElement.onload = () => {
           imgLoadElement.style.transition = "opacity 2s ease-in-out";
           imgLoadElement.style.opacity = "1";
@@ -313,6 +314,12 @@ const observer = new IntersectionObserver(
             imgLoadElementSibling.style.display = "none";
           }, 1000);
         };
+
+        //如果图片加载出错
+        imgLoadElement.onerror = () => {
+          imgLoadElement.src = "../../static/images/imgBack.svg";
+        };
+
         observer.unobserve(imgLoadElement);
       }
     });
