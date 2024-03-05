@@ -25,9 +25,9 @@
           <uni-swipe-action-item
             v-for="item in cartList"
             :key="item.id"
-            class="my-3 w-full h-36"
+            class="w-full h-36"
           >
-            <view class="flex items-center w-full h-36">
+            <view class="flex items-center my-1.5 w-full h-36">
               <!-- 商品 -->
               <view
                 class="bg-secondary flex justify-between items-center relative border-radius-primary mr-3 pl-3 w-[300px] grow h-36"
@@ -78,7 +78,7 @@
             <!-- 插槽 -->
             <template #right>
               <view
-                class="bg-[#9A3412] w-[50px] h-36 leading-[144px] text-white text-center"
+                class="bg-[#9A3412] my-1.5 w-[50px] h-36 leading-[144px] text-white text-center"
                 @tap="onDeleteCart(item.skuId)"
                 ><text>删除</text></view
               >
