@@ -32,26 +32,29 @@
             <view
               v-for="goods in item.goods"
               :key="goods.id"
-              class="relative block border-radius-primary mx-1.5 grow w-[148px] min-[633px]:w-[300px] min-[960px]:h-96 h-48"
+              class="relative block border-radius-primary mx-1.5 mb-3 grow w-[148px] min-[633px]:w-[300px] min-[960px]:h-96 h-48"
             >
               <navigator
                 :url="`/pages/goodsDetailPage/goodsDetailPage?id=${goods.id}`"
                 open-type="navigate"
                 hover-class="navigator-hover"
+                class="bg-[#e0e0e0]"
               >
                 <!-- #ifdef MP-WEIXIN-->
-                <image
-                  :src="goods.picture"
-                  mode="aspectFill"
-                  class="opacity-0 transition-opacity duration-200 border-radius-primary w-full min-[960px]:h-96 h-48"
-                  lazy-load
-                  :class="{
-                    successImage: isShowSucLoadWeixinImage,
-                    errorImage: isShowErrLoadWeixinImage,
-                  }"
-                  @error="errLoadWeinXinImage"
-                  @load="sucLoadWeinXinImage"
-                />
+                <!-- <image
+									mode="aspectFill"
+									class="lazy-load"
+									:class="{
+										successImage: isShowSucLoadWeixinImage,
+										errorImage: isShowErrLoadWeixinImage,
+									}"
+									@error="errLoadWeinXinImage"
+									@load="sucLoadWeinXinImage"
+								/> -->
+                <WeiXinImage
+                  :picture="goods.picture"
+                  :class="`relative`"
+                ></WeiXinImage>
                 <!-- #endif -->
                 <!-- #ifdef H5 -->
                 <view class="relative">
@@ -102,21 +105,22 @@ import { getCategoryTopAPI, getCatgorySwiperAPI } from "./categoryPageApi";
 import type { CategoryTopItem, SwiperItem } from "./categoryPageType";
 import skeletonPage from "./skeletonPage.vue";
 import threeDots from "../../components/threeDots/threeDots.vue";
+import WeiXinImage from "../../components/WeiXinImage/WeiXinImage.vue";
 
-import {
-  sucLoadWeinXinImageHook,
-  errLoadWeinXinImageHook,
-} from "../../hooks/lazyLoadImgWeiXin";
-const { isShowSucLoadWeixinImage, setShowSucLoadWeixinImage } =
-  sucLoadWeinXinImageHook();
-const { isShowErrLoadWeixinImage, setShowErrLoadWeixinImage } =
-  errLoadWeinXinImageHook();
-const sucLoadWeinXinImage = () => {
-  setShowSucLoadWeixinImage();
-};
-const errLoadWeinXinImage = () => {
-  setShowErrLoadWeixinImage();
-};
+// import {
+//   sucLoadWeinXinImageHook,
+//   errLoadWeinXinImageHook,
+// } from "../../hooks/lazyLoadImgWeiXin";
+// const { isShowSucLoadWeixinImage, setShowSucLoadWeixinImage } =
+//   sucLoadWeinXinImageHook();
+// const { isShowErrLoadWeixinImage, setShowErrLoadWeixinImage } =
+//   errLoadWeinXinImageHook();
+// const sucLoadWeinXinImage = () => {
+//   setShowSucLoadWeixinImage();
+// };
+// const errLoadWeinXinImage = () => {
+//   setShowErrLoadWeixinImage();
+// };
 
 import { globalLoadingHook } from "../../hooks/globalLoadingHook";
 const { isLoading, setLoading } = globalLoadingHook();
@@ -186,21 +190,4 @@ onMounted(async () => {
   height: calc(100vh);
 }
 // #endif
-.successImage {
-  opacity: 1;
-  transition: opacity 2s ease-in-out;
-}
-.errorImage {
-  opacity: 1;
-  transition: opacity 2s ease-in-out;
-}
-.errorImage:before {
-  content: "";
-  display: block;
-  width: 100%;
-  height: 100%;
-  background-image: url("../../static/images/imgBack.svg");
-  background-position: center;
-  background-size: cover;
-}
 </style>
