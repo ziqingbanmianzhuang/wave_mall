@@ -3,9 +3,9 @@
     :src="props.picture"
     mode="aspectFill"
     lazy-load
-    class="opacity-0 transition-opacity duration-200 border-radius-primary w-full min-[960px]:h-96 h-48"
+    class="opacity-0 transition-opacity duration-200 border-radius-primary w-full"
     :class="[
-      props.class,
+      imageClass,
       {
         successImage: isShowSucLoadWeixinImage,
         errorImage: isShowErrLoadWeixinImage,
@@ -17,7 +17,9 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{ picture: string; class: string }>();
+import { ref } from "vue";
+const props = defineProps<{ picture: string; imageClass: string }>();
+const imageClass = ref(props.imageClass);
 import {
   sucLoadWeinXinImageHook,
   errLoadWeinXinImageHook,

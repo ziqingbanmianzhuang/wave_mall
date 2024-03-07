@@ -1,90 +1,96 @@
 <template>
-  <view v-show="!isLoading" class="flex justify-between bg-primary">
-    <!-- 二级分类 -->
-    <view class="flex-1 h-container flex flex-col">
-      <!-- 轮播图 -->
-      <swiper circulars class="mb-3 h-24 min-[960px]:h-80">
-        <swiper-item
-          v-for="item in swiperList"
-          :key="item.id"
-          class="box-border px-1.5"
-        >
-          <navigator
-            url="/pages/hotItem/hotItem"
-            open-type="navigate"
-            hover-class="navigator-hover"
+  <view v-show="!isLoading">
+    <view class="flex justify-between bg-primary">
+      <!-- 二级分类 -->
+      <view class="flex-1 h-container flex flex-col">
+        <!-- 轮播图 -->
+        <swiper circulars class="mb-3 h-24 min-[960px]:h-80">
+          <swiper-item
+            v-for="item in swiperList"
+            :key="item.id"
+            class="box-border px-1.5"
           >
-            <image
-              :src="item.imgUrl"
-              mode="aspectFill"
-              class="border-radius-primary w-full h-24 min-[960px]:h-80"
-            />
-          </navigator>
-        </swiper-item>
-      </swiper>
-      <!-- 商品列表 -->
-      <scroll-view scroll-y class="h-[400px] grow">
-        <view v-for="item in subCategoryList" :key="item.id" class="bg-primary">
-          <text class="margin-x-primary my-1.5 font-primary">{{
-            item.name
-          }}</text>
-          <view class="flex flex-wrap justify-between">
-            <view
-              v-for="goods in item.goods"
-              :key="goods.id"
-              class="relative block border-radius-primary mx-1.5 mb-3 grow w-[148px] min-[633px]:w-[300px] min-[960px]:h-96 h-48"
+            <navigator
+              url="/pages/hotItem/hotItem"
+              open-type="navigate"
+              hover-class="navigator-hover"
             >
-              <navigator
-                :url="`/pages/goodsDetailPage/goodsDetailPage?id=${goods.id}`"
-                open-type="navigate"
-                hover-class="navigator-hover"
-                class="bg-[#e0e0e0]"
+              <image
+                :src="item.imgUrl"
+                mode="aspectFill"
+                class="border-radius-primary w-full h-24 min-[960px]:h-80"
+              />
+            </navigator>
+          </swiper-item>
+        </swiper>
+        <!-- 商品列表 -->
+        <scroll-view scroll-y class="h-[400px] grow">
+          <view
+            v-for="item in subCategoryList"
+            :key="item.id"
+            class="bg-primary"
+          >
+            <text class="margin-x-primary my-1.5 font-primary">{{
+              item.name
+            }}</text>
+            <view class="flex flex-wrap justify-between">
+              <view
+                v-for="goods in item.goods"
+                :key="goods.id"
+                class="relative block border-radius-primary mx-1.5 mb-3 grow w-[148px] min-[633px]:w-[300px] min-[960px]:h-96 h-48"
               >
-                <!-- #ifdef MP-WEIXIN-->
-                <WeiXinImage
-                  :picture="goods.picture"
-                  :class="`relative`"
-                ></WeiXinImage>
-                <!-- #endif -->
-                <!-- #ifdef H5 -->
-
-                <view class="relative">
-                  <img
-                    ref="imageRef"
-                    class="absolute transition-opacity border-radius-primary w-full min-[960px]:h-96 h-48"
-                    :data-src="goods.picture"
-                  />
-                  <div
-                    class="absolute transition-opacity opacity-100 bg-[#e0e0e0] border-radius-primary w-full leading-[192px] min-[960px]:h-96 h-48 text-center"
-                  ></div>
-                </view>
-                <!-- #endif -->
-                <view
-                  class="absolute bottom-0 left-0 flex flex-col bg-white shadow-lg border-radius-b-primary p-1.5 w-full"
+                <navigator
+                  :url="`/pages/goodsDetailPage/goodsDetailPage?id=${goods.id}`"
+                  open-type="navigate"
+                  hover-class="navigator-hover"
+                  class="bg-[#e0e0e0] min-[960px]:h-96 h-48"
                 >
-                  <text class="font-primary-smaller">{{ goods.name }}</text>
-                  <text class="font-secondary font-yellow"
-                    >$ {{ goods.price }}
-                  </text>
-                </view>
+                  <!-- #ifdef MP-WEIXIN-->
+                  <WeiXinImage
+                    :picture="goods.picture"
+                    :image-class="`relative min-[960px]:h-96 h-48`"
+                  ></WeiXinImage>
+                  <!-- #endif -->
+                  <!-- #ifdef H5 -->
 
-                <threeDots></threeDots>
-              </navigator>
+                  <view class="relative">
+                    <img
+                      ref="imageRef"
+                      class="absolute transition-opacity border-radius-primary w-full min-[960px]:h-96 h-48"
+                      :data-src="goods.picture"
+                    />
+                    <div
+                      class="absolute transition-opacity opacity-100 bg-[#e0e0e0] border-radius-primary w-full leading-[192px] min-[960px]:h-96 h-48 text-center"
+                    ></div>
+                  </view>
+                  <!-- #endif -->
+                  <view
+                    class="absolute bottom-0 left-0 flex flex-col bg-white shadow-lg border-radius-b-primary p-1.5 w-full"
+                  >
+                    <text class="font-primary-smaller">{{ goods.name }}</text>
+                    <text class="font-secondary font-yellow"
+                      >$ {{ goods.price }}
+                    </text>
+                  </view>
+
+                  <threeDots></threeDots>
+                </navigator>
+              </view>
             </view>
           </view>
-        </view>
-      </scroll-view>
-    </view>
-    <!-- 一级分类 -->
-    <view class="flex flex-col justify-between margin-x-primary w-16">
-      <text
-        v-for="(item, index) in categoryList"
-        :key="item.id"
-        class="flex items-center justify-center font-secondary"
-        @tap="activeIndex = index"
-      >
-        {{ item.name }}</text
-      >
+        </scroll-view>
+      </view>
+      <!-- 一级分类 -->
+      <view class="flex flex-col justify-between margin-x-primary w-16">
+        <text
+          v-for="(item, index) in categoryList"
+          :key="item.id"
+          class="flex items-center justify-center font-secondary"
+          @tap="activeIndex = index"
+        >
+          {{ item.name }}</text
+        >
+      </view>
     </view>
   </view>
   <skeletonPage v-show="isLoading"></skeletonPage>

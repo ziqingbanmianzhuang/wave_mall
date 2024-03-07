@@ -120,22 +120,13 @@
           class="relative col-start-1 col-end-8 flex justify-center my-1.5 h-32 min-[960px]:h-[30rem]"
         >
           <!-- #ifdef MP-WEIXIN-->
-          <!-- <image
-						:src="item.picture"
-						class="opacity-0 transition-opacity duration-200 border-radius-primary w-full h-32 min-[960px]:h-[30rem]"
-						mode="aspectFill"
-						lazy-load
-						:class="{
-							successImage: isShowSucLoadWeixinImage,
-							errorImage: isShowErrLoadWeixinImage,
-						}"
-						@error="errLoadWeinXinImage"
-						@load="sucLoadWeinXinImage"
-					></image> -->
-          <WeiXinImage
-            :picture="item.picture"
-            :class="`h-32 min-[960px]:h-[30rem]`"
-          ></WeiXinImage>
+
+          <view class="absolute bg-[#e0e0e0] w-full h-32 min-[960px]:h-[30rem]">
+            <WeiXinImage
+              :picture="item.picture"
+              :image-class="`h-32 min-[960px]:h-[30rem]`"
+            ></WeiXinImage>
+          </view>
           <!-- #endif -->
           <!-- #ifdef H5 -->
           <img
