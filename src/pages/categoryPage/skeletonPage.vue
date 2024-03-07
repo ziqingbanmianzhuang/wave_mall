@@ -5,7 +5,7 @@
       <!-- 轮播图 -->
       <swiper circulars class="mb-3 h-24 min-[960px]:h-80">
         <swiper-item v-for="item in 10" :key="item" class="box-border px-1.5">
-          <view class="bg-primary">
+          <view class="bg-[#e0e0e0]">
             <image
               src=""
               mode="aspectFill"
@@ -18,7 +18,7 @@
       <scroll-view scroll-y class="h-[400px] grow">
         <view v-for="item in 10" :key="item" class="bg-secondary">
           <text
-            class="bg-primary margin-x-primary my-1.5 font-primary text-transparent"
+            class="bg-[#e0e0e0] margin-x-primary my-1.5 font-primary text-transparent"
             >商品名</text
           >
           <view class="flex flex-wrap justify-between">
@@ -28,7 +28,7 @@
               class="relative block border-radius-primary mx-1.5 my-3 grow w-[148px] min-[633px]:w-[300px] min-[960px]:h-96 h-48"
             >
               <view
-                class="border-radius-primary bg-primary w-full min-[960px]:h-96 h-48"
+                class="border-radius-primary bg-[#e0e0e0] w-full min-[960px]:h-96 h-48"
               >
                 <image src="" mode="aspectFill" class="" />
               </view>
@@ -36,10 +36,10 @@
                 class="absolute bottom-0 left-0 flex flex-col bg-white shadow-lg border-radius-b-primary p-1.5 w-full"
               >
                 <text
-                  class="w-fit bg-primary font-primary-smaller text-transparent mb-0.5"
+                  class="w-fit bg-[#e0e0e0] font-primary-smaller text-transparent mb-0.5"
                   >商品名</text
                 >
-                <text class="w-fit bg-primary font-secondary text-transparent"
+                <text class="w-fit bg-[#e0e0e0] font-secondary text-transparent"
                   >$129
                 </text>
               </view>
@@ -53,7 +53,7 @@
       <view
         v-for="item in 10"
         :key="item"
-        class="flex items-center justify-center bg-primary font-secondary"
+        class="flex items-center justify-center bg-[#e0e0e0] font-secondary"
       >
         <text class="text-transparent"> 分类</text>
       </view>
