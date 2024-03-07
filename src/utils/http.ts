@@ -32,6 +32,7 @@ const httpInterceptor = {
       options.header.Authorization = token;
     }
   },
+  success(args: UniApp.RequestSuccessCallbackResult) {},
 };
 
 // 拦截 request 请求

@@ -1,25 +1,28 @@
 <template>
   <view
     v-if="profileStore.profile"
-    class="flex flex-col bg-primary h-container"
+    class="flex flex-col justify-center bg-primary h-container"
   >
-    <!-- 选择所有商品 -->
-    <view
-      class="box-border flex items-center bg-secondary mb-3 border-radius-primary px-3 w-full h-8"
-    >
-      <checkbox value="全选" :checked="selectedAll" @tap="checkChangeAll" />
-      <text class="font-primary-smaller">选择所有商品</text>
-    </view>
-    <!-- 商品数量 -->
-    <view class="h-8 my-3 font-secondary text-center"
-      >商品数量:
-      <text class="font-primary-smaller">{{
-        cartList.length === 0 ? "你还没有添加商品呢" : "x" + cartList.length
-      }}</text></view
-    >
     <!-- 购物车列表 -->
     <!-- 购物车 -->
-    <template v-if="cartList.length">
+    <template v-if="isLoading"
+      ><view class="font-primary self-center">正在加载...</view></template
+    >
+    <template v-else-if="cartList.length !== 0">
+      <!-- 选择所有商品 -->
+      <view
+        class="box-border flex items-center bg-secondary mb-3 border-radius-primary px-3 w-full h-8"
+      >
+        <checkbox value="全选" :checked="selectedAll" @tap="checkChangeAll" />
+        <text class="font-primary-smaller">选择所有商品</text>
+      </view>
+      <!-- 商品数量 -->
+      <view class="h-8 my-3 font-secondary text-center"
+        >商品数量:
+        <text class="font-primary-smaller">{{
+          cartList.length === 0 ? "你还没有添加商品呢" : "x" + cartList.length
+        }}</text></view
+      >
       <scroll-view scroll-y class="h-[250px] grow">
         <uni-swipe-action class="h-[320px]">
           <uni-swipe-action-item
@@ -86,6 +89,41 @@
           </uni-swipe-action-item>
         </uni-swipe-action>
       </scroll-view>
+      <!-- 总计 -->
+      <view class="flex justify-around px-1.5 w-full h-8">
+        <view
+          ><text class="font-secondary">总共：</text>
+          <text class="font-primary-smaller"
+            >￥{{ selectedCartListMoney }}</text
+          ></view
+        >
+        <view
+          ><text class="font-secondary">购买数量：</text
+          ><text class="font-primary-smaller">{{
+            selectedCartListCount === 0
+              ? "你还没有选择商品嗷"
+              : "x" + selectedCartListCount
+          }}</text></view
+        >
+      </view>
+      <!-- 结算 -->
+      <view class="flex justify-between items-center px-1.5 mt-3 h-8">
+        <view class="flex items-center">
+          <uni-icons type="left" size="20"></uni-icons>
+          <navigator
+            class="font-primary-smaller"
+            url="/pages/categoryPage/categoryPage"
+            open-type="switchTab"
+            >看看商品</navigator
+          >
+        </view>
+        <button
+          class="bg-[#9A3412] border-radius-primary w-36 h-8 leading-8 font-semibold text-center text-sm text-white"
+          @tap="gotoPayment"
+        >
+          去结算
+        </button>
+      </view>
     </template>
     <template v-else>
       <view class="flex-1 mx-auto text-center">
@@ -95,43 +133,9 @@
           mode="aspectFill"
           class="h-[320px]"
         />
+        <text class="font-primary-smaller">您还没有选择商品,快去看看吧</text>
       </view>
     </template>
-    <!-- 总计 -->
-    <view class="flex justify-around px-1.5 w-full h-8">
-      <view
-        ><text class="font-secondary">总共：</text>
-        <text class="font-primary-smaller"
-          >￥{{ selectedCartListMoney }}</text
-        ></view
-      >
-      <view
-        ><text class="font-secondary">购买数量：</text
-        ><text class="font-primary-smaller">{{
-          selectedCartListCount === 0
-            ? "你还没有选择商品嗷"
-            : "x" + selectedCartListCount
-        }}</text></view
-      >
-    </view>
-    <!-- 结算 -->
-    <view class="flex justify-between items-center px-1.5 mt-3 h-8">
-      <view class="flex items-center">
-        <uni-icons type="left" size="20"></uni-icons>
-        <navigator
-          class="font-primary-smaller"
-          url="/pages/categoryPage/categoryPage"
-          open-type="switchTab"
-          >看看商品</navigator
-        >
-      </view>
-      <button
-        class="bg-[#9A3412] border-radius-primary w-36 h-8 leading-8 font-semibold text-center text-sm text-white"
-        @tap="gotoPayment"
-      >
-        去结算
-      </button>
-    </view>
   </view>
   <template v-else>
     <view class="w-full text-center">
@@ -171,10 +175,15 @@ const profileStore = useProfileStore();
 // 购物车数据
 const cartList = ref<CartItem[]>([]);
 
+import { globalLoadingHook } from "../../hooks/globalLoadingHook";
+const { isLoading, setLoading } = globalLoadingHook();
+
 //获取购物车列表
 const getMemberCartData = async () => {
+  setLoading(true);
   const res = await getMemberCartAPI();
   cartList.value = res.result;
+  setLoading(false);
 };
 
 // 初始化调用: 页面显示触发
