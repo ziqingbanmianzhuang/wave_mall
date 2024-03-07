@@ -82,7 +82,8 @@ import type { CategoryTopItem, SwiperItem } from "./categoryPageType";
 import skeletonPage from "./skeletonPage.vue";
 import threeDots from "../../components/threeDots/threeDots.vue";
 
-let isLoading = ref(true);
+import { globalLoadingHook } from "../../hooks/globalLoadingHook";
+const { isLoading, setLoading } = globalLoadingHook();
 
 //一级分类数据
 const categoryList = ref<CategoryTopItem[]>([]);
@@ -112,7 +113,7 @@ const getCatgorySwiperData = async () => {
 onMounted(async () => {
   await getCatgorySwiperData();
   await getCategoryTopData();
-  isLoading.value = false;
+  setLoading(false);
 });
 </script>
 
