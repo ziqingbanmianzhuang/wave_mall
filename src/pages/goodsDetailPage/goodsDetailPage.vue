@@ -1,5 +1,6 @@
 <template>
-  <view class="bg-primary w-full">
+  <doubleCircleLoading v-show="isLoading"></doubleCircleLoading>
+  <view v-show="!isLoading" class="bg-primary w-full">
     <!-- 商品轮播 -->
     <swiper circular class="h-32 min-[960px]:h-96" @change="onChange">
       <swiper-item v-for="item in goods!.mainPictures" :key="item">
@@ -192,6 +193,12 @@
 </template>
 
 <script lang="ts" setup>
+import doubleCircleLoading from "../../components/doubleCirlcleLoading/doubleCircleLoading.vue";
+import { globalLoadingHook } from "../../hooks/globalLoadingHook";
+const { isLoading, setLoading } = globalLoadingHook();
+
+import { onShow } from "@dcloudio/uni-app";
+
 import {
   getGoodsByIdAPI,
   postMemberCartAPI,
@@ -317,8 +324,11 @@ const getGoodsByIdData = async () => {
 };
 
 // 页面加载
-onMounted(() => {
+onShow(async () => {
+  setLoading(true);
   getGoodsByIdData();
+  console.log("show");
+  setLoading(false);
 });
 
 // popup元素
