@@ -1,5 +1,5 @@
 <template>
-  <view class="bg-primary w-full px-1.5">
+  <view v-show="!isLoading" class="bg-primary w-full px-1.5">
     <!-- 买家信息 -->
     <view class="bg-secondary border-radius-primary px-3 mb-3 w-full h-32">
       <view
@@ -143,12 +143,7 @@
       </button>
     </view>
   </view>
-  <navigator
-    :url="`/pages/orderListPage/orderListPage?orderState=${orderDetail?.orderState}`"
-    open-type="navigate"
-    hover-class="navigator-hover"
-    >查看订单
-  </navigator>
+  <doubleCircleLoading v-show="isLoading"></doubleCircleLoading>
 </template>
 
 <script lang="ts" setup>
@@ -164,6 +159,10 @@ import {
 import { ref, onMounted } from "vue";
 import threeDots from "../../components/threeDots/threeDots.vue";
 
+import doubleCircleLoading from "../../components/doubleCirlcleLoading/doubleCircleLoading.vue";
+import { globalLoadingHook } from "../../hooks/globalLoadingHook";
+const { isLoading, setLoading } = globalLoadingHook();
+
 // 获取页面参数
 const query = defineProps<{
   id: string;
@@ -174,8 +173,10 @@ const orderDetail = ref<OrderResult>();
 
 //获取订单详情
 const getMemberOrderByIdData = async () => {
+  setLoading(true);
   const res = await getMemberOrderByIdAPI(query.id);
   orderDetail.value = res.result;
+  setLoading(false);
 };
 
 onMounted(() => {

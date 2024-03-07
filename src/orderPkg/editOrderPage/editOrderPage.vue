@@ -1,5 +1,5 @@
 <template>
-  <view class="bg-primary w-full px-1.5">
+  <view v-show="!isLoading" class="bg-primary w-full px-1.5">
     <!-- 选择收货地址 -->
     <view
       class="box-border flex items-center bg-[#E0E0E0] border-radius-primary mb-3 px-3 w-full h-12"
@@ -113,6 +113,7 @@
       </button>
     </view>
   </view>
+  <doubleCircleLoading v-show="isLoading"></doubleCircleLoading>
 </template>
 
 <script setup lang="ts">
@@ -126,6 +127,10 @@ import type { OrderPreResult } from "./editOrderPageType";
 import { onMounted, ref, computed } from "vue";
 import { useAddressStore } from "../../store/address/index";
 
+import doubleCircleLoading from "../../components/doubleCirlcleLoading/doubleCircleLoading.vue";
+import { globalLoadingHook } from "../../hooks/globalLoadingHook";
+const { isLoading, setLoading } = globalLoadingHook();
+
 // 页面参数
 const query = defineProps<{
   skuId?: string;
@@ -138,6 +143,7 @@ let orderData = ref<OrderPreResult>();
 
 // 获取订单预付数据
 const getMemberOrderPreData = async () => {
+  setLoading(true);
   // 是否有立即购买参数
   if (query.count && query.skuId) {
     // 调用立即购买 API
@@ -155,6 +161,7 @@ const getMemberOrderPreData = async () => {
 
     orderData.value = res.result;
   }
+  setLoading(false);
 };
 
 //pinia中的地址
