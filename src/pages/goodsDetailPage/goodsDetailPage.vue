@@ -301,6 +301,7 @@ const goods = ref<GoodsResult>({
   userAddresses: [],
 });
 const getGoodsByIdData = async () => {
+  setLoading(true);
   const res = await getGoodsByIdAPI(query.id);
   goods.value = res.result;
   goodsInfo.value = {
@@ -321,14 +322,12 @@ const getGoodsByIdData = async () => {
       sku_name_arr: v.specs.map((vv) => vv.valueName),
     })),
   };
+  setLoading(false);
 };
 
 // 页面加载
 onShow(async () => {
-  setLoading(true);
   getGoodsByIdData();
-  console.log("show");
-  setLoading(false);
 });
 
 // popup元素
