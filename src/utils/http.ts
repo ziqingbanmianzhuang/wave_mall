@@ -32,7 +32,12 @@ const httpInterceptor = {
       options.header.Authorization = token;
     }
   },
-  success(args: UniApp.RequestSuccessCallbackResult) {},
+  success(
+    args: UniApp.RequestSuccessCallbackResult,
+    request: UniApp.RequestOptions,
+  ) {
+    console.log(request);
+  },
 };
 
 // 拦截 request 请求
