@@ -38,7 +38,6 @@
                 :url="`/pages/goodsDetailPage/goodsDetailPage?id=${goods.id}`"
                 open-type="navigate"
                 hover-class="navigator-hover"
-                class="relative"
               >
                 <!-- #ifdef MP-WEIXIN-->
                 <image
@@ -48,14 +47,16 @@
                 />
                 <!-- #endif -->
                 <!-- #ifdef H5 -->
-                <img
-                  ref="imageRef"
-                  class="absolute transition-opacity border-radius-primary w-full min-[960px]:h-96 h-48"
-                  :data-src="goods.picture"
-                />
-                <div
-                  class="absolute transition-opacity opacity-100 bg-[#f5f5f5] border-radius-primary w-full leading-[192px] min-[960px]:h-96 h-48 text-center"
-                ></div>
+                <view class="relative">
+                  <img
+                    ref="imageRef"
+                    class="absolute transition-opacity border-radius-primary w-full min-[960px]:h-96 h-48"
+                    :data-src="goods.picture"
+                  />
+                  <div
+                    class="absolute transition-opacity opacity-100 bg-[#e0e0e0] border-radius-primary w-full leading-[192px] min-[960px]:h-96 h-48 text-center"
+                  ></div>
+                </view>
                 <!-- #endif -->
                 <view
                   class="absolute bottom-0 left-0 flex flex-col bg-white shadow-lg border-radius-b-primary p-1.5 w-full"
