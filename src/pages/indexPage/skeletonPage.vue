@@ -1,7 +1,7 @@
 <template>
   <scroll-view
     scroll-y
-    class="bg-primary h-screen w-screen mb-1.5"
+    class="bg-secondary h-screen w-screen mb-1.5"
     refresher-enabled
   >
     <!-- 轮播图组件 -->
@@ -12,12 +12,12 @@
             class="grid grid-cols-7 bg-secondary font-secondary border-radius-primary"
           >
             <view
-              class="col-start-1 col-end-3 place-self-center bg-[#e0e0e0] text-transparent"
+              class="col-start-1 col-end-3 place-self-center bg-primary text-transparent"
             >
               click here -></view
             >
             <view
-              class="col-start-3 col-end-8 h-20 min-[710px]:h-28 min-[970px]:h-80 bg-[#e0e0e0]"
+              class="col-start-3 col-end-8 h-20 min-[710px]:h-28 min-[970px]:h-80 bg-primary"
             >
               <image
                 src=""
@@ -40,7 +40,7 @@
         url=""
         open-type="switchTab"
         hover-class="none"
-        :class="`flex justify-start items-center box-border margin-x-primary my-1.5 p-3 flex-1 h-12  min-[470px]:h-8 font-primary min-[470px]:text-sm min-[470px]:p-1.5 min-[960px]:text-base min-[960px]:h-12 bg-[#e0e0e0] border-radius-primary`"
+        :class="`flex justify-start items-center box-border margin-x-primary my-1.5 p-3 flex-1 h-12  min-[470px]:h-8 font-primary min-[470px]:text-sm min-[470px]:p-1.5 min-[960px]:text-base min-[960px]:h-12 bg-primary border-radius-primary`"
       >
         <view
           class="flex justify-center items-center mx-3 w-6 h-6 bg-white border-radius-primary"
@@ -62,7 +62,7 @@
     </view>
     <!-- 推荐组件 -->
     <view
-      class="block bg-[#e0e0e0] margin-x-primary mb-1.5 w-fit font-primary-bige"
+      class="block bg-primary margin-x-primary mb-1.5 w-fit font-primary-bige"
     >
       <text class="text-transparent">推荐</text>
     </view>
@@ -77,18 +77,18 @@
           class="flex flex-col justify-start items-center"
         >
           <view
-            :class="`flex justify-center items-center mb-1.5 w-6 h-6 bg-[#e0e0e0] border-radius-primary`"
+            :class="`flex justify-center items-center mb-1.5 w-6 h-6 bg-primary border-radius-primary`"
           >
             <uni-icons color="" size="20" />
           </view>
-          <view class="bg-[#e0e0e0] w-fit font-primary-smaller"
+          <view class="bg-primary w-fit font-primary-smaller"
             ><text class="text-transparent">精品优选</text></view
           >
         </navigator>
       </view>
     </view>
     <!-- 推荐喜欢组件 -->
-    <view class="bg-[#e0e0e0] mx-auto w-fit font-secondary text-center"
+    <view class="bg-primary mx-auto w-fit font-secondary text-center"
       ><text class="text-transparent">---你可能喜欢---</text></view
     >
     <!-- 商品页面 -->
@@ -101,19 +101,15 @@
       class="grid grid-cols-7 items-center bg-secondary border-radius-primary mt-3 px-1.5 margin-x-primary"
     >
       <text
-        class="col-span-1 h-2 w-2 bg-[#e0e0e0] rounded justify-self-start"
+        class="col-span-1 h-2 w-2 bg-primary rounded justify-self-start"
       ></text>
-      <view class="bg-[#e0e0e0] col-span-5 font-primary-smaller w-fit">
+      <view class="bg-primary col-span-5 font-primary-smaller w-fit">
         <text class="text-transparent">商品名字</text>
       </view>
-      <view
-        class="col-span-1 justify-self-end bg-[#e0e0e0] w-fit font-secondary"
-      >
+      <view class="col-span-1 justify-self-end bg-primary w-fit font-secondary">
         <text class="text-transparent">$198</text>
       </view>
-      <view
-        class="col-start-1 col-end-8 flex justify-center bg-[#e0e0e0] my-1.5"
-      >
+      <view class="col-start-1 col-end-8 flex justify-center bg-primary my-1.5">
         <image
           class="border-radius-primary w-full h-32 min-[960px]:h-[30rem]"
           src=""
