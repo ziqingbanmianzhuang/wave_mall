@@ -43,7 +43,14 @@
                 <image
                   :src="goods.picture"
                   mode="aspectFill"
-                  class="border-radius-primary w-full min-[960px]:h-96 h-48"
+                  class="opacity-0 transition-opacity duration-200 border-radius-primary w-full min-[960px]:h-96 h-48"
+                  lazy-load
+                  :class="{
+                    successImage: isShowSucLoadWeixinImage,
+                    errorImage: isShowErrLoadWeixinImage,
+                  }"
+                  @error="errLoadWeinXinImage"
+                  @load="sucLoadWeinXinImage"
                 />
                 <!-- #endif -->
                 <!-- #ifdef H5 -->
@@ -96,11 +103,26 @@ import type { CategoryTopItem, SwiperItem } from "./categoryPageType";
 import skeletonPage from "./skeletonPage.vue";
 import threeDots from "../../components/threeDots/threeDots.vue";
 
+import {
+  sucLoadWeinXinImageHook,
+  errLoadWeinXinImageHook,
+} from "../../hooks/lazyLoadImgWeiXin";
+const { isShowSucLoadWeixinImage, setShowSucLoadWeixinImage } =
+  sucLoadWeinXinImageHook();
+const { isShowErrLoadWeixinImage, setShowErrLoadWeixinImage } =
+  errLoadWeinXinImageHook();
+const sucLoadWeinXinImage = () => {
+  setShowSucLoadWeixinImage();
+};
+const errLoadWeinXinImage = () => {
+  setShowErrLoadWeixinImage();
+};
+
 import { globalLoadingHook } from "../../hooks/globalLoadingHook";
 const { isLoading, setLoading } = globalLoadingHook();
-
+// #ifdef H5
 import { observerImgHook } from "../../hooks/lazyLoadImg";
-
+// #endif
 //一级分类数据
 const categoryList = ref<CategoryTopItem[]>([]);
 
@@ -113,7 +135,7 @@ const imageRef = ref();
 const subCategoryList = computed(() => {
   return categoryList.value[activeIndex.value]?.children || [];
 });
-
+// #ifdef H5
 watch(
   subCategoryList,
   async () => {
@@ -125,6 +147,7 @@ watch(
     flush: "post",
   },
 );
+// #endif
 
 //获取一级分类数据
 const getCategoryTopData = async () => {
@@ -163,4 +186,21 @@ onMounted(async () => {
   height: calc(100vh);
 }
 // #endif
+.successImage {
+  opacity: 1;
+  transition: opacity 2s ease-in-out;
+}
+.errorImage {
+  opacity: 1;
+  transition: opacity 2s ease-in-out;
+}
+.errorImage:before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-image: url("../../static/images/imgBack.svg");
+  background-position: center;
+  background-size: cover;
+}
 </style>
