@@ -6,8 +6,9 @@
     <!-- 购物车列表 -->
     <!-- 购物车 -->
     <template v-if="isLoading"
-      ><view class="font-primary self-center">正在加载...</view></template
-    >
+      ><view class="self-center"
+        ><doubleCircleLoading></doubleCircleLoading></view
+    ></template>
     <template v-else-if="cartList.length !== 0">
       <!-- 选择所有商品 -->
       <view
@@ -168,6 +169,7 @@ import {
 } from "./cartPageApi";
 import type { CartItem } from "./cartPage";
 import threeDots from "../../components/threeDots/threeDots.vue";
+import doubleCircleLoading from "../../components/doubleCirlcleLoading/doubleCircleLoading.vue";
 
 // 获取会员Store
 const profileStore = useProfileStore();
