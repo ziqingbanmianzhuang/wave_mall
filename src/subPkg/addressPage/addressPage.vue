@@ -1,5 +1,5 @@
 <template>
-  <view class="bg-primary w-full px-1.5">
+  <view v-show="!isLoading" class="bg-primary w-full px-1.5">
     <!-- 新建地址 -->
     <view
       class="box-border flex items-center bg-[#e0e0e0] border-radius-primary mb-3 px-1.5 w-full h-10"
@@ -75,6 +75,7 @@
     </view>
     <view v-else>暂无收货地址</view>
   </view>
+  <doubleCircleLoading v-show="isLoading"></doubleCircleLoading>
 </template>
 
 <script lang="ts" setup>
@@ -84,6 +85,10 @@ import type { AddressItem } from "./addressPageType";
 import { useAddressStore } from "../../store/address";
 import { ref, computed } from "vue";
 import threeDots from "../../components/threeDots/threeDots.vue";
+
+import doubleCircleLoading from "../../components/doubleCirlcleLoading/doubleCircleLoading.vue";
+import { globalLoadingHook } from "../../hooks/globalLoadingHook";
+const { isLoading, setLoading } = globalLoadingHook();
 
 // 收货地址列表数据
 const addressList = ref<AddressItem[]>([]);
@@ -95,8 +100,10 @@ const defaultAddress = computed(() => {
 
 // 获取收货地址列表数据
 const getMemberAddressData = async () => {
+  setLoading(true);
   const res = await getMemberAddressAPI();
   addressList.value = res.result;
+  setLoading(false);
 };
 
 // 修改收货地址
