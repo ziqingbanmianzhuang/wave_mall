@@ -1,5 +1,5 @@
 <template>
-  <view v-if="!isLoading" class="flex justify-between bg-primary">
+  <view v-show="!isLoading" class="flex justify-between bg-primary">
     <!-- 二级分类 -->
     <view class="flex-1 h-container flex flex-col">
       <!-- 轮播图 -->
@@ -32,18 +32,31 @@
             <view
               v-for="goods in item.goods"
               :key="goods.id"
-              class="relative block border-radius-primary mx-1.5 my-3 grow w-[148px] min-[633px]:w-[300px] min-[960px]:h-96 h-48"
+              class="relative block border-radius-primary mx-1.5 grow w-[148px] min-[633px]:w-[300px] min-[960px]:h-96 h-48"
             >
               <navigator
                 :url="`/pages/goodsDetailPage/goodsDetailPage?id=${goods.id}`"
                 open-type="navigate"
                 hover-class="navigator-hover"
+                class="relative"
               >
+                <!-- #ifdef MP-WEIXIN-->
                 <image
                   :src="goods.picture"
                   mode="aspectFill"
                   class="border-radius-primary w-full min-[960px]:h-96 h-48"
                 />
+                <!-- #endif -->
+                <!-- #ifdef H5 -->
+                <img
+                  ref="imageRef"
+                  class="absolute transition-opacity border-radius-primary w-full min-[960px]:h-96 h-48"
+                  :data-src="goods.picture"
+                />
+                <div
+                  class="absolute transition-opacity opacity-100 bg-[#f5f5f5] border-radius-primary w-full leading-[192px] min-[960px]:h-96 h-48 text-center"
+                ></div>
+                <!-- #endif -->
                 <view
                   class="absolute bottom-0 left-0 flex flex-col bg-white shadow-lg border-radius-b-primary p-1.5 w-full"
                 >
@@ -72,11 +85,11 @@
       >
     </view>
   </view>
-  <skeletonPage v-else></skeletonPage>
+  <skeletonPage v-show="isLoading"></skeletonPage>
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref, computed } from "vue";
+import { onMounted, ref, computed, watch } from "vue";
 import { getCategoryTopAPI, getCatgorySwiperAPI } from "./categoryPageApi";
 import type { CategoryTopItem, SwiperItem } from "./categoryPageType";
 import skeletonPage from "./skeletonPage.vue";
@@ -85,16 +98,32 @@ import threeDots from "../../components/threeDots/threeDots.vue";
 import { globalLoadingHook } from "../../hooks/globalLoadingHook";
 const { isLoading, setLoading } = globalLoadingHook();
 
+import { observerImgHook } from "../../hooks/lazyLoadImg";
+
 //一级分类数据
 const categoryList = ref<CategoryTopItem[]>([]);
+
+// 高亮下标
+const activeIndex = ref(0);
+
+const imageRef = ref();
 
 // 提取当前二级分类数据
 const subCategoryList = computed(() => {
   return categoryList.value[activeIndex.value]?.children || [];
 });
 
-// 高亮下标
-const activeIndex = ref(0);
+watch(
+  subCategoryList,
+  async () => {
+    console.log("change");
+    console.log("imageref", imageRef.value);
+    observerImgHook(imageRef);
+  },
+  {
+    flush: "post",
+  },
+);
 
 //获取一级分类数据
 const getCategoryTopData = async () => {

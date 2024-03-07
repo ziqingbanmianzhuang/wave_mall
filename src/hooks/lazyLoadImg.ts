@@ -35,17 +35,23 @@ const observer = new IntersectionObserver(
   { threshold: 0.1 },
 );
 export const observerImgHook = (
-  pageParamsPage: number,
-  pageParamsPageSize: number,
   lazyImage: any,
+  pageParamsPage?: number,
+  pageParamsPageSize?: number,
 ) => {
-  const startIndex = (pageParamsPage - 1) * pageParamsPageSize;
-  const endIndex = pageParamsPageSize * pageParamsPage;
-  console.log(startIndex, endIndex);
+  if (pageParamsPage && pageParamsPageSize) {
+    const startIndex = (pageParamsPage - 1) * pageParamsPageSize;
+    const endIndex = pageParamsPageSize * pageParamsPage;
+    console.log(startIndex, endIndex);
 
-  for (let i = startIndex; i < endIndex; i++) {
-    console.log(lazyImage.value[i]);
-    observer.observe(lazyImage.value[i]);
+    for (let i = startIndex; i < endIndex; i++) {
+      observer.observe(lazyImage.value[i]);
+    }
+  } else {
+    const len = lazyImage.value.length;
+    for (let i = 0; i < len; i++) {
+      observer.observe(lazyImage.value[i]);
+    }
   }
 };
 // #endif

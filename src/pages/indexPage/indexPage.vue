@@ -331,7 +331,7 @@ const getHomeLikeData = async () => {
   await nextTick();
   // 监听数据
   // #ifdef H5
-  observerImgHook(pageParams.page, pageParams.pageSize, likeImgRef);
+  observerImgHook(likeImgRef, pageParams.page, pageParams.pageSize);
   //#endif
   //分页条件
   if (pageParams.page < res.result.pages) {
