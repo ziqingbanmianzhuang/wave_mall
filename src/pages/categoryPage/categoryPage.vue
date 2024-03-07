@@ -41,22 +41,13 @@
                 class="bg-[#e0e0e0]"
               >
                 <!-- #ifdef MP-WEIXIN-->
-                <!-- <image
-									mode="aspectFill"
-									class="lazy-load"
-									:class="{
-										successImage: isShowSucLoadWeixinImage,
-										errorImage: isShowErrLoadWeixinImage,
-									}"
-									@error="errLoadWeinXinImage"
-									@load="sucLoadWeinXinImage"
-								/> -->
                 <WeiXinImage
                   :picture="goods.picture"
                   :class="`relative`"
                 ></WeiXinImage>
                 <!-- #endif -->
                 <!-- #ifdef H5 -->
+
                 <view class="relative">
                   <img
                     ref="imageRef"
@@ -106,21 +97,6 @@ import type { CategoryTopItem, SwiperItem } from "./categoryPageType";
 import skeletonPage from "./skeletonPage.vue";
 import threeDots from "../../components/threeDots/threeDots.vue";
 import WeiXinImage from "../../components/WeiXinImage/WeiXinImage.vue";
-
-// import {
-//   sucLoadWeinXinImageHook,
-//   errLoadWeinXinImageHook,
-// } from "../../hooks/lazyLoadImgWeiXin";
-// const { isShowSucLoadWeixinImage, setShowSucLoadWeixinImage } =
-//   sucLoadWeinXinImageHook();
-// const { isShowErrLoadWeixinImage, setShowErrLoadWeixinImage } =
-//   errLoadWeinXinImageHook();
-// const sucLoadWeinXinImage = () => {
-//   setShowSucLoadWeixinImage();
-// };
-// const errLoadWeinXinImage = () => {
-//   setShowErrLoadWeixinImage();
-// };
 
 import { globalLoadingHook } from "../../hooks/globalLoadingHook";
 const { isLoading, setLoading } = globalLoadingHook();

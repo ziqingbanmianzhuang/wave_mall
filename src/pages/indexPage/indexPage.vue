@@ -120,18 +120,22 @@
           class="relative col-start-1 col-end-8 flex justify-center my-1.5 h-32 min-[960px]:h-[30rem]"
         >
           <!-- #ifdef MP-WEIXIN-->
-          <image
-            :src="item.picture"
-            class="opacity-0 transition-opacity duration-200 border-radius-primary w-full h-32 min-[960px]:h-[30rem]"
-            mode="aspectFill"
-            lazy-load
-            :class="{
-              successImage: isShowSucLoadWeixinImage,
-              errorImage: isShowErrLoadWeixinImage,
-            }"
-            @error="errLoadWeinXinImage"
-            @load="sucLoadWeinXinImage"
-          ></image>
+          <!-- <image
+						:src="item.picture"
+						class="opacity-0 transition-opacity duration-200 border-radius-primary w-full h-32 min-[960px]:h-[30rem]"
+						mode="aspectFill"
+						lazy-load
+						:class="{
+							successImage: isShowSucLoadWeixinImage,
+							errorImage: isShowErrLoadWeixinImage,
+						}"
+						@error="errLoadWeinXinImage"
+						@load="sucLoadWeinXinImage"
+					></image> -->
+          <WeiXinImage
+            :picture="item.picture"
+            :class="`h-32 min-[960px]:h-[30rem]`"
+          ></WeiXinImage>
           <!-- #endif -->
           <!-- #ifdef H5 -->
           <img
@@ -160,6 +164,7 @@
 <script setup lang="ts">
 import { ref, nextTick } from "vue";
 import skeletonPage from "./skeletonPage.vue";
+import WeiXinImage from "../../components/WeiXinImage/WeiXinImage.vue";
 import type {
   CategoryItem,
   RecommendItem,
@@ -176,22 +181,6 @@ import {
 import { onMounted } from "vue";
 import doubleCircleLoading from "../../components/doubleCirlcleLoading/doubleCircleLoading.vue";
 import { observerImgHook } from "../../hooks/lazyLoadImg";
-import {
-  errLoadWeinXinImageHook,
-  sucLoadWeinXinImageHook,
-} from "../../hooks/lazyLoadImgWeiXin";
-
-const { isShowSucLoadWeixinImage, setShowSucLoadWeixinImage } =
-  sucLoadWeinXinImageHook();
-const { isShowErrLoadWeixinImage, setShowErrLoadWeixinImage } =
-  errLoadWeinXinImageHook();
-
-const sucLoadWeinXinImage = () => {
-  setShowSucLoadWeixinImage();
-};
-const errLoadWeinXinImage = () => {
-  setShowErrLoadWeixinImage();
-};
 
 const likeImgRef = ref();
 
@@ -425,22 +414,4 @@ a {
 	flex: 1;
 } */
 /* #endif */
-
-.successImage {
-  opacity: 1;
-  transition: opacity 2s ease-in-out;
-}
-.errorImage {
-  opacity: 1;
-  transition: opacity 2s ease-in-out;
-}
-.errorImage:before {
-  content: "";
-  display: block;
-  width: 100%;
-  height: 100%;
-  background-image: url("../../static/images/imgBack.svg");
-  background-position: center;
-  background-size: cover;
-}
 </style>
