@@ -12,71 +12,84 @@
       <view class="font-primary">{{ item.title }}</view>
     </view>
   </view>
-  <swiper :current="activeIndex" @change="activeIndex = $event.detail.current">
-    <swiper-item v-for="tab in orderTabs" :key="tab?.state" class="h-96">
-      <!-- 订单列表 -->
-      <scroll-view scroll-y class="h-96">
-        <tempalte v-if="orderList.length"
-          ><view v-for="order in orderList" :key="order.id" class="mx-1.5 mb-3">
-            <!-- 日期和订单状态 -->
-            <view class="flex justify-between w-[363px]">
-              <text class="text-xs text-slate-300">{{ order.createTime }}</text>
-              <text class="font-semibold text-sm">{{
-                orderStateList[order.orderState].text
-              }}</text>
-            </view>
-            <!-- 商品图片和信息 -->
-            <navigator
-              v-for="item in order.skus"
-              :key="item.id"
-              class="goods"
-              :url="`/pagesOrder/detail/detail?id=${order.id}`"
-              hover-class="none"
+  <view v-show="!isLoading">
+    <swiper
+      :current="activeIndex"
+      @change="activeIndex = $event.detail.current"
+    >
+      <swiper-item v-for="tab in orderTabs" :key="tab?.state" class="h-96">
+        <!-- 订单列表 -->
+        <scroll-view scroll-y class="h-96">
+          <tempalte v-if="orderList.length"
+            ><view
+              v-for="order in orderList"
+              :key="order.id"
+              class="mx-1.5 mb-3"
             >
-              <view class="flex justify-start">
-                <image
-                  src=""
-                  mode="scaleToFill"
-                  class="rounded-xl mr-3 h-16 w-16"
-                />
-                <view class="flex flex-col">
-                  <text class="font-semibold">{{ item.name }}</text>
-                  <text class="text-xs text-slate-300">商品规格</text>
-                  <text class="text-xs text-slate-300"
-                    >共{{ order.totalNum }}件商品,实付:<text
-                      class="text-red-300"
+              <!-- 日期和订单状态 -->
+              <view class="flex justify-between w-[363px]">
+                <text class="text-xs text-slate-300">{{
+                  order.createTime
+                }}</text>
+                <text class="font-semibold text-sm">{{
+                  orderStateList[order.orderState].text
+                }}</text>
+              </view>
+              <!-- 商品图片和信息 -->
+              <navigator
+                v-for="item in order.skus"
+                :key="item.id"
+                class="goods"
+                :url="`/pagesOrder/detail/detail?id=${order.id}`"
+                hover-class="none"
+              >
+                <view class="flex justify-start">
+                  <image
+                    src=""
+                    mode="scaleToFill"
+                    class="rounded-xl mr-3 h-16 w-16"
+                  />
+                  <view class="flex flex-col">
+                    <text class="font-semibold">{{ item.name }}</text>
+                    <text class="text-xs text-slate-300">商品规格</text>
+                    <text class="text-xs text-slate-300"
+                      >共{{ order.totalNum }}件商品,实付:<text
+                        class="text-red-300"
+                      >
+                        ${{ order.payMoney }}</text
+                      ></text
                     >
-                      ${{ order.payMoney }}</text
-                    ></text
+                  </view>
+                </view>
+                <!-- 按钮 -->
+                <view class="flex justify-end">
+                  <button
+                    class="border border-slate-300 border-solid mr-3 w-20 h-8 leading-8"
+                  >
+                    取消
+                  </button>
+                  <template v-if="order.orderState === OrderState.DaiFuKuan">
+                    <button
+                      class="border border-slate-600 border-solid w-20 h-8 leading-8"
+                    >
+                      去支付
+                    </button>
+                  </template>
+
+                  <template v-else
+                    ><button>再次购买</button>
+                    <button>确认收货</button></template
                   >
                 </view>
-              </view>
-              <!-- 按钮 -->
-              <view class="flex justify-end">
-                <button
-                  class="border border-slate-300 border-solid mr-3 w-20 h-8 leading-8"
-                >
-                  取消
-                </button>
-                <template v-if="order.orderState === OrderState.DaiFuKuan">
-                  <button
-                    class="border border-slate-600 border-solid w-20 h-8 leading-8"
-                  >
-                    去支付
-                  </button>
-                </template>
-
-                <template v-else
-                  ><button>再次购买</button> <button>确认收货</button></template
-                >
-              </view>
-            </navigator>
-          </view></tempalte
-        >
-        <tempalte v-else>暂无订单</tempalte>
-      </scroll-view>
-    </swiper-item>
-  </swiper>
+              </navigator>
+            </view></tempalte
+          >
+          <tempalte v-else>暂无订单</tempalte>
+        </scroll-view>
+      </swiper-item>
+    </swiper>
+  </view>
+  <doubleCircleLoading v-show="isLoading"></doubleCircleLoading>
 </template>
 
 <script lang="ts" setup>
@@ -84,6 +97,10 @@ import { OrderState, orderStateList } from "./detailOrderPageUtils";
 import { getMemberOrderAPI } from "./orderListPageApi";
 import type { OrderItem, OrderListParams } from "./orderListPageType";
 import { onMounted, ref } from "vue";
+
+import doubleCircleLoading from "../../components/doubleCirlcleLoading/doubleCircleLoading.vue";
+import { globalLoadingHook } from "../../hooks/globalLoadingHook";
+const { isLoading, setLoading } = globalLoadingHook();
 
 // 获取页面参数
 const query = defineProps<{
@@ -114,8 +131,10 @@ const queryParams: OrderListParams = {
 // 获取订单列表
 const orderList = ref<OrderItem[]>([]);
 const getMemberOrderData = async () => {
+  setLoading(true);
   const res = await getMemberOrderAPI(queryParams);
   orderList.value = res.result.items;
+  setLoading(false);
 };
 
 onMounted(() => {
