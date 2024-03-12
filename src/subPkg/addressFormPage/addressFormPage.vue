@@ -212,9 +212,6 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
 .input-primary {
   font-size: 16px;
   font-weight: 600;

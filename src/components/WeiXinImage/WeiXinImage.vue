@@ -39,9 +39,6 @@ const errLoadWeinXinImage = () => {
 </script>
 
 <style lang="scss" scoped>
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
 .successImage {
   opacity: 1;
   transition: opacity 2s ease-in-out;

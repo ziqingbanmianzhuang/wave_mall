@@ -121,8 +121,4 @@ onShow(() => {
 });
 </script>
 
-<style lang="scss" scoped>
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
-</style>
+<style lang="scss" scoped></style>

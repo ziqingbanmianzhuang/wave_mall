@@ -76,9 +76,6 @@ const onGetphonenumberSimple = async () => {
 </script>
 
 <style lang="scss" scoped>
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
 // #ifdef H5
 .h-container {
   height: calc(100vh - 94px);

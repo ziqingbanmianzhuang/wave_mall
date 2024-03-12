@@ -270,9 +270,6 @@ onShow(() => {
 </script>
 
 <style lang="scss" scoped>
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
 .input-primary {
   font-size: 14px;
   font-weight: 600;

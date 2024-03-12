@@ -374,9 +374,6 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
 .show {
   max-height: 300px;
 }
