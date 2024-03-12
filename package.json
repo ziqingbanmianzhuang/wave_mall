@@ -64,7 +64,8 @@
 		"*.{vue,ts,js,d.ts,cjs}": [
 			"eslint",
 			"prettier  --write"
-		]
+		],
+		"!**/dist/**": "echo 'skip  linting for dist files'"
 	},
 	"config": {
 		"commitizen": {
