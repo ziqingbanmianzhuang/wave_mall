@@ -24,14 +24,7 @@ export default defineConfig({
   ],
   css: {
     postcss: {
-      plugins: [
-        tailwindcss(),
-        autoprefixer(),
-
-        // postcssModules({
-        // 	generateScopedName: "[name]",
-        // }),
-      ],
+      plugins: [tailwindcss(), autoprefixer()],
     },
   },
   build: {
