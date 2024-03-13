@@ -373,7 +373,7 @@ onMounted(async () => {
 });
 </script>
 
-<style scoped>
+<style>
 .show {
   max-height: 300px;
 }

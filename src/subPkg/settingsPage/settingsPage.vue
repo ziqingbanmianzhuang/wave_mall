@@ -84,4 +84,4 @@ const exitLogin = () => {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style></style>

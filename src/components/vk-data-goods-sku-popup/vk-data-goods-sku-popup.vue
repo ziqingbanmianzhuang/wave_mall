@@ -1176,7 +1176,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 /*  sku弹出层 */
 .vk-data-goods-sku-popup {
   position: fixed;

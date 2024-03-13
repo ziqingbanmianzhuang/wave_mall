@@ -17,4 +17,4 @@ const dots = ref([
 ]);
 </script>
 
-<style lang="scss" scoped></style>
+<style></style>

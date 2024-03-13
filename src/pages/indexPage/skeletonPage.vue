@@ -126,10 +126,7 @@
 
 <script setup lang="ts"></script>
 
-<style lang="scss" scoped>
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+<style>
 .show {
   max-height: 300px;
 }

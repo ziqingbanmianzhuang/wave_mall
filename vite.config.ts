@@ -3,7 +3,7 @@ import VueDevTools from "vite-plugin-vue-devtools";
 import uni from "@dcloudio/vite-plugin-uni";
 import tailwindcss from "tailwindcss";
 import autoprefixer from "autoprefixer";
-import { UnifiedViteWeappTailwindcssPlugin as uvwt } from "weapp-tailwindcss/vite";
+// import postcssModules from "postcss-modules";
 import { UnifiedViteWeappTailwindcssPlugin } from "weapp-tailwindcss/vite";
 
 const isH5 = process.env.UNI_PLATFORM === "h5";
@@ -16,7 +16,6 @@ const WeappTailwindcssDisabled = isH5 || isApp;
 export default defineConfig({
   plugins: [
     uni(),
-    uvwt(),
     UnifiedViteWeappTailwindcssPlugin({
       disabled: WeappTailwindcssDisabled,
       rem2rpx: true,
@@ -25,7 +24,17 @@ export default defineConfig({
   ],
   css: {
     postcss: {
-      plugins: [tailwindcss(), autoprefixer()],
+      plugins: [
+        tailwindcss(),
+        autoprefixer(),
+
+        // postcssModules({
+        // 	generateScopedName: "[name]",
+        // }),
+      ],
     },
+  },
+  build: {
+    cssCodeSplit: false,
   },
 });

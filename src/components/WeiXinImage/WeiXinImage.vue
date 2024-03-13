@@ -38,7 +38,7 @@ const errLoadWeinXinImage = () => {
 };
 </script>
 
-<style lang="scss" scoped>
+<style>
 .successImage {
   opacity: 1;
   transition: opacity 2s ease-in-out;

@@ -269,30 +269,30 @@ onShow(() => {
 });
 </script>
 
-<style lang="scss" scoped>
+<style>
 .input-primary {
-  font-size: 14px;
-  font-weight: 600;
-  font-family: "ui-sans-serif", "system-ui", "sans-serif", "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  color: #2b2d42;
+	font-size: 14px;
+	font-weight: 600;
+	font-family: "ui-sans-serif", "system-ui", "sans-serif", "Apple Color Emoji",
+		"Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	color: #2b2d42;
 }
 .input-secondary {
-  color: #b4b5c5;
-  font-size: 12px;
-  font-family: "ui-sans-serif", "system-ui", "sans-serif", "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  font-weight: 600;
+	color: #b4b5c5;
+	font-size: 12px;
+	font-family: "ui-sans-serif", "system-ui", "sans-serif", "Apple Color Emoji",
+		"Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	font-weight: 600;
 }
 // #ifdef H5
 .h-container {
-  height: calc(100vh - 44px);
+	height: calc(100vh - 44px);
 }
 // #endif
 
 // #ifdef MP-WEIXIN
 .h-container {
-  height: calc(100vh);
+	height: calc(100vh);
 }
 // #endif
 </style>

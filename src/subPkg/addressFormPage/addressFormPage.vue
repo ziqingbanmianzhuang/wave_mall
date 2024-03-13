@@ -211,23 +211,23 @@ onMounted(() => {
 });
 </script>
 
-<style lang="scss" scoped>
+<style>
 .input-primary {
-  font-size: 16px;
-  font-weight: 600;
-  font-family: "ui-sans-serif", "system-ui", "sans-serif", "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  color: #2b2d42;
+	font-size: 16px;
+	font-weight: 600;
+	font-family: "ui-sans-serif", "system-ui", "sans-serif", "Apple Color Emoji",
+		"Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	color: #2b2d42;
 }
 // #ifdef H5
 .h-container {
-  height: calc(100vh - 94px);
+	height: calc(100vh - 94px);
 }
 // #endif
 
 // #ifdef MP-WEIXIN
 .h-container {
-  height: calc(100vh);
+	height: calc(100vh);
 }
 // #endif
 </style>

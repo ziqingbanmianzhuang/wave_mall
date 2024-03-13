@@ -63,20 +63,16 @@
 
 <script setup lang="ts"></script>
 
-<style lang="scss" scoped>
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
-
+<style>
 // #ifdef H5
 .h-container {
-  height: calc(100vh - 94px);
+	height: calc(100vh - 94px);
 }
 // #endif
 
 // #ifdef MP-WEIXIN
 .h-container {
-  height: calc(100vh);
+	height: calc(100vh);
 }
 // #endif
 </style>

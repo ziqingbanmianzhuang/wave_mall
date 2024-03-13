@@ -20,4 +20,4 @@ import { ref } from "vue";
 const imageRef = ref();
 </script>
 
-<style lang="scss" scoped></style>
+<style></style>
