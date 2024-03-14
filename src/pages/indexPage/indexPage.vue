@@ -10,7 +10,7 @@
     @scrolltolower="onScrolltolower"
   >
     <view v-show="!isLoading" class="h-screen"
-      ><!-- 轮播图组件 -->
+      ><!-- 轮播图组件11111111 -->
       <swiper
         circular
         class="h-20 min-[710px]:h-28 min-[976px]:h-80"
@@ -46,7 +46,7 @@
         </swiper-item>
       </swiper>
 
-      <!-- 分类组件 -->
+      <!-- 分类组件11111 -->
       <view
         class="box-border relative flex flex-wrap justify-around w-full border-radius-primary my-3 max-h-32 overflow-hidden transition-all after:bg-gradient-to-b after:from-transparent after:to-white after:absolute after:bottom-0 after:h-16 after:w-full min-[960px]:after:hidden"
         :class="{ show: isShowCategory }"
@@ -67,7 +67,7 @@
           <text class="text-nowrap">{{ item.name }}</text>
         </navigator>
       </view>
-      <!-- 展开 -->
+      <!-- 展开111111 -->
       <view
         class="relative left-1/2 -translate-x-1/2 w-12 h-8 min-[960px]:hidden text-center"
         @tap="showCategory"
@@ -75,7 +75,7 @@
         <i v-if="isShowCategory" class="iconfont text-[#E0E0E0]">&#xe7a4;</i>
         <i v-else class="iconfont text-[#E0E0E0]">&#xe7a2;</i>
       </view>
-      <!-- 推荐组件 -->
+      <!-- 推荐组件11111 -->
       <text class="block margin-x-primary mb-1.5 font-primary-biger">推荐</text>
       <view
         class="bg-secondary border-radius-primary margin-x-primary mb-3 py-3"
@@ -155,7 +155,9 @@
 <script setup lang="ts">
 import { ref, nextTick } from "vue";
 import skeletonPage from "./skeletonPage.vue";
+// #ifdef MP-WEIXIN
 import WeiXinImage from "../../components/WeiXinImage/WeiXinImage.vue";
+// #endif
 import type {
   CategoryItem,
   RecommendItem,
@@ -171,7 +173,9 @@ import {
 } from "./indexPageApi";
 import { onMounted } from "vue";
 import doubleCircleLoading from "../../components/doubleCirlcleLoading/doubleCircleLoading.vue";
+// #ifdef H5
 import { observerImgHook } from "../../hooks/lazyLoadImg";
+// #endif
 
 const likeImgRef = ref();
 

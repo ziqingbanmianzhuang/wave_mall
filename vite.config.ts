@@ -1,10 +1,11 @@
 import { defineConfig } from "vite";
-import VueDevTools from "vite-plugin-vue-devtools";
+// import VueDevTools from "vite-plugin-vue-devtools";
 import uni from "@dcloudio/vite-plugin-uni";
 import tailwindcss from "tailwindcss";
 import autoprefixer from "autoprefixer";
 // import postcssModules from "postcss-modules";
 import { UnifiedViteWeappTailwindcssPlugin } from "weapp-tailwindcss/vite";
+// const purgecss = require("@fullhuman/postcss-purgecss");
 
 const isH5 = process.env.UNI_PLATFORM === "h5";
 // vue2 版本为 app-plus
@@ -20,7 +21,6 @@ export default defineConfig({
       disabled: WeappTailwindcssDisabled,
       rem2rpx: true,
     }),
-    VueDevTools(),
   ],
   css: {
     postcss: {
@@ -29,5 +29,11 @@ export default defineConfig({
   },
   build: {
     cssCodeSplit: false,
+    rollupOptions: {
+      output: {
+        // experimentalMinChunkSize: 204800,
+        inlineDynamicImports: true,
+      },
+    },
   },
 });
