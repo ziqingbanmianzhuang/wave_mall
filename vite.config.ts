@@ -27,12 +27,22 @@ export default defineConfig({
       plugins: [tailwindcss(), autoprefixer()],
     },
   },
+  esbuild: { drop: ["console", "debugger"] },
   build: {
     cssCodeSplit: false,
     rollupOptions: {
       output: {
         // experimentalMinChunkSize: 204800,
         inlineDynamicImports: true,
+      },
+    },
+    terserOptions: {
+      // compress: {
+      // 	drop_console: true,
+      // 	drop_debugger: true,
+      // },
+      format: {
+        comments: false,
       },
     },
   },
