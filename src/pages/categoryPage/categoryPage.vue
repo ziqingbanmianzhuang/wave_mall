@@ -157,15 +157,15 @@ onMounted(async () => {
 </script>
 
 <style>
-// #ifdef H5
+/* #ifdef H5 */
 .h-container {
-	height: calc(100vh - 94px);
+  height: calc(100vh - 94px);
 }
-// #endif
+/* #endif */
 
-// #ifdef MP-WEIXIN
+/* #ifdef MP-WEIXIN */
 .h-container {
-	height: calc(100vh);
+  height: calc(100vh);
 }
-// #endif
+/* #endif */
 </style>

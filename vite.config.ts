@@ -1,4 +1,4 @@
-import { defineConfig } from "vite";
+import { Terser, defineConfig } from "vite";
 // import VueDevTools from "vite-plugin-vue-devtools";
 import uni from "@dcloudio/vite-plugin-uni";
 import tailwindcss from "tailwindcss";
@@ -27,8 +27,10 @@ export default defineConfig({
       plugins: [tailwindcss(), autoprefixer()],
     },
   },
-  esbuild: { drop: ["console", "debugger"] },
+  // esbuild: { drop: ["console", "debugger"] },
   build: {
+    minify: "false",
+    // minify: "terser",
     cssCodeSplit: false,
     rollupOptions: {
       output: {
@@ -37,10 +39,10 @@ export default defineConfig({
       },
     },
     terserOptions: {
-      // compress: {
-      // 	drop_console: true,
-      // 	drop_debugger: true,
-      // },
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+      },
       format: {
         comments: false,
       },
